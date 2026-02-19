@@ -10,8 +10,8 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MentorshipDashboard.fxml"));
-        primaryStage.setTitle("StartupFlow Tunisia — Mentorship");
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
+        primaryStage.setTitle("StartupFlow Tunisia — Login");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.setResizable(true);
         primaryStage.show();

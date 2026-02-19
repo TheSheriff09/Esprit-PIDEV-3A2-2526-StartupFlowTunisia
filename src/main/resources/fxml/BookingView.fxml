@@ -15,73 +15,77 @@
         <Label styleClass="section-title" text="📋  Booking Requests"/>
         <Region HBox.hgrow="ALWAYS"/>
         <TextField fx:id="searchField" styleClass="search-field"
-                   promptText="🔍  Search topic or status…"
+                   promptText="🔍  Search by topic or status…"
                    onKeyReleased="#onSearch"/>
     </HBox>
 
-    <!-- Form card -->
-    <VBox styleClass="glass-card" spacing="12">
+    <!-- ═══════════════════════════════════════════════════════
+         EVALUATOR FORM  (hidden for mentors by controller)
+         ══════════════════════════════════════════════════════ -->
+    <VBox fx:id="evaluatorFormBox" styleClass="glass-card" spacing="12">
         <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
-        <Label styleClass="section-sub" text="CREATE / EDIT BOOKING REQUEST"/>
+        <Label styleClass="section-sub" text="REQUEST A BOOKING  (Entrepreneur)"/>
 
         <GridPane hgap="16" vgap="10">
-            <Label text="Entrepreneur ID *" styleClass="field-label"
-                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <TextField fx:id="entrepreneurIDField" promptText="e.g. 2" prefWidth="150"
-                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <!-- Mentor Selection -->
+            <Label text="Step 1: Choose Mentor *" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="mentorCombo" prefWidth="260" promptText="Choose a mentor…"
+                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-            <Label text="Mentor ID *" styleClass="field-label"
-                   GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <TextField fx:id="mentorIDField" promptText="e.g. 1" prefWidth="150"
-                       GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+            <!-- Slot Selection -->
+            <Label text="Step 2: Choose Slot *" styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="slotCombo" prefWidth="260" promptText="Available slots will appear…"
+                      GridPane.columnIndex="3" GridPane.rowIndex="0"/>
 
-            <Label text="Startup ID *" styleClass="field-label"
-                   GridPane.columnIndex="4" GridPane.rowIndex="0"/>
-            <TextField fx:id="startupIDField" promptText="e.g. 1" prefWidth="120"
-                       GridPane.columnIndex="5" GridPane.rowIndex="0"/>
-
-            <Label text="Date *" styleClass="field-label"
-                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <DatePicker fx:id="requestedDatePicker" prefWidth="150"
+            <!-- Auto-filled Info -->
+            <Label text="Date *"      styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <DatePicker fx:id="requestedDatePicker" prefWidth="260"
                         GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-            <Label text="Time *" styleClass="field-label"
-                   GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-            <TextField fx:id="requestedTimeField" promptText="HH:mm  e.g. 14:00" prefWidth="150"
+            <Label text="Time *"      styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <TextField fx:id="requestedTimeField" promptText="Auto-filled from slot" prefWidth="260"
                        GridPane.columnIndex="3" GridPane.rowIndex="1"/>
 
-            <Label text="Topic *" styleClass="field-label"
-                   GridPane.columnIndex="4" GridPane.rowIndex="1"/>
-            <TextField fx:id="topicField" promptText="e.g. Business model review" prefWidth="240"
-                       GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+            <Label text="Topic *"     styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="topicField" promptText="What to discuss…" prefWidth="536"
+                       GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3"/>
         </GridPane>
 
         <Label fx:id="msgLabel" text=""/>
 
         <HBox spacing="10">
-            <Button text="➕ Create"   onAction="#onAdd"     styleClass="btn-primary"/>
-            <Button text="✏️ Update"   onAction="#onUpdate"  styleClass="btn-secondary"/>
-            <Button text="🗑 Delete"   onAction="#onDelete"  styleClass="btn-danger"/>
-            <Button text="✖ Clear"    onAction="#onClear"   styleClass="btn-secondary"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button text="✅ Approve"  onAction="#onApprove" styleClass="btn-approve"/>
-            <Button text="❌ Reject"   onAction="#onReject"  styleClass="btn-reject"/>
+            <Button text="➕ Request"  onAction="#onAdd"    styleClass="btn-primary"/>
+            <Button text="✏️ Update"  onAction="#onUpdate" styleClass="btn-secondary"/>
+            <Button text="🗑 Delete"  onAction="#onDelete" styleClass="btn-danger"/>
+            <Button text="✖ Clear"   onAction="#onClear"  styleClass="btn-secondary"/>
         </HBox>
     </VBox>
 
-    <!-- Table -->
+    <!-- ═══════════════════════════════════════════════════════
+         MENTOR ACTION BAR  (hidden for evaluators by controller)
+         ══════════════════════════════════════════════════════ -->
+    <HBox fx:id="mentorActionBox" styleClass="glass-card" spacing="12" alignment="CENTER_LEFT">
+        <padding><Insets bottom="14" left="22" right="22" top="14"/></padding>
+        <Label styleClass="section-sub" text="MENTOR ACTIONS  — Select a booking row then:"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="✅ Approve" onAction="#onApprove" styleClass="btn-approve"/>
+        <Button text="❌ Reject"  onAction="#onReject"  styleClass="btn-reject"/>
+        <Button text="🗑 Delete"  onAction="#onDelete"  styleClass="btn-danger"/>
+    </HBox>
+
+    <!-- Shared table -->
     <TableView fx:id="bookingTable" VBox.vgrow="ALWAYS"
                onMouseClicked="#onRowSelected" styleClass="table-view">
         <columns>
-            <TableColumn fx:id="colID"           text="ID"           prefWidth="55"/>
-            <TableColumn fx:id="colEntrepreneur" text="Entrepreneur" prefWidth="110"/>
-            <TableColumn fx:id="colMentor"       text="Mentor"       prefWidth="80"/>
-            <TableColumn fx:id="colStartup"      text="Startup"      prefWidth="80"/>
-            <TableColumn fx:id="colDate"         text="Date"         prefWidth="110"/>
-            <TableColumn fx:id="colTime"         text="Time"         prefWidth="80"/>
-            <TableColumn fx:id="colTopic"        text="Topic"        prefWidth="200"/>
-            <TableColumn fx:id="colStatus"       text="Status"       prefWidth="100"/>
-            <TableColumn fx:id="colCreated"      text="Created"      prefWidth="140"/>
+            <TableColumn fx:id="colID"           text="ID"         prefWidth="50"/>
+            <TableColumn fx:id="colEntrepreneur" text="Entrepreneur"  prefWidth="90"/>
+            <TableColumn fx:id="colMentor"       text="Mentor"     prefWidth="90"/>
+            <TableColumn fx:id="colStartup"      text="Startup"    prefWidth="80"/>
+            <TableColumn fx:id="colDate"         text="Date"       prefWidth="120"/>
+            <TableColumn fx:id="colTime"         text="Time"       prefWidth="80"/>
+            <TableColumn fx:id="colTopic"        text="Topic"      prefWidth="200"/>
+            <TableColumn fx:id="colStatus"       text="Status"     prefWidth="100"/>
+            <TableColumn fx:id="colCreated"      text="Created"    prefWidth="140"/>
         </columns>
         <placeholder><Label text="No bookings found." style="-fx-text-fill:#9b8acc;"/></placeholder>
     </TableView>

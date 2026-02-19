@@ -212,3 +212,55 @@
 /* ── Slider ── */
 .slider .track    { -fx-background-color: #ede8ff; }
 .slider .thumb    { -fx-background-color: #7357ff; }
+
+/* ══════════════════════════════════════════════════════════
+   Role & login extras
+   ══════════════════════════════════════════════════════════ */
+
+/* Logout button in sidebar */
+.btn-logout {
+    -fx-background-color: rgba(224,19,74,0.09);
+    -fx-text-fill: #c00040;
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-padding: 10 14;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+.btn-logout:hover { -fx-background-color: rgba(224,19,74,0.18); }
+
+/* Approve */
+.btn-approve {
+    -fx-background-color: #e8faf2;
+    -fx-text-fill: #12a059;
+    -fx-font-weight: 700;
+    -fx-padding: 8 18;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(18,160,89,0.25);
+    -fx-border-radius: 10;
+}
+.btn-approve:hover { -fx-background-color: #cef5e3; }
+
+/* Reject */
+.btn-reject {
+    -fx-background-color: #fff0f4;
+    -fx-text-fill: #e0134a;
+    -fx-font-weight: 700;
+    -fx-padding: 8 18;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(224,19,74,0.25);
+    -fx-border-radius: 10;
+}
+.btn-reject:hover { -fx-background-color: #ffe0ea; }
+
+/* Login screen ComboBox override */
+.combo-box {
+    -fx-background-color: #f7f5ff;
+    -fx-border-color: rgba(115,87,255,0.3);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+.combo-box:focused { -fx-border-color: #7357ff; }

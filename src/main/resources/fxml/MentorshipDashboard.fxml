@@ -27,8 +27,10 @@
                    style="-fx-font-size:11px;-fx-font-weight:800;-fx-text-fill:#9b8acc;-fx-padding:4 0 0 2;"/>
 
             <VBox spacing="8">
+                <Button fx:id="btnHome" onAction="#showHome"
+                        styleClass="nav-btn,active" text="🏠  Overview"/>
                 <Button fx:id="btnSchedule" onAction="#showSchedule"
-                        styleClass="nav-btn,active" text="📅  Schedule"/>
+                        styleClass="nav-btn" text="📅  Schedule"/>
                 <Button fx:id="btnBookings" onAction="#showBookings"
                         styleClass="nav-btn" text="📋  Bookings"/>
                 <Button fx:id="btnSessions" onAction="#showSessions"
@@ -38,6 +40,9 @@
             </VBox>
 
             <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Logout -->
+            <Button text="⬅  Logout" onAction="#onLogout" styleClass="btn-logout" prefWidth="224"/>
         </VBox>
     </left>
 
@@ -45,9 +50,10 @@
     <top>
         <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar" BorderPane.alignment="CENTER">
             <padding><Insets bottom="14" left="22" right="22" top="14"/></padding>
-            <Label fx:id="topTitle" styleClass="top-title" text="Mentorship — Schedule"/>
+            <Label fx:id="topTitle" styleClass="top-title" text="Mentorship — Overview"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button styleClass="user-pill" text="Sarah"/>
+            <Label fx:id="roleBadge" text="" style="-fx-font-size:12px;-fx-font-weight:700;-fx-background-radius:999;-fx-padding:4 14;"/>
+            <Label fx:id="userPill" styleClass="user-pill" text="—"/>
         </HBox>
     </top>
 

@@ -42,7 +42,8 @@ public class BookingService implements ICRUD<Booking> {
             ps.setString(6, b.getTopic().trim());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) b.setBookingID(rs.getInt(1));
+            if (rs.next())
+                b.setBookingID(rs.getInt(1));
             return b;
         } catch (SQLException e) {
             throw new RuntimeException("Error adding booking: " + e.getMessage());
@@ -54,7 +55,8 @@ public class BookingService implements ICRUD<Booking> {
         List<Booking> list = new ArrayList<>();
         String sql = "SELECT * FROM booking ORDER BY creationDate DESC";
         try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) list.add(mapRow(rs));
+            while (rs.next())
+                list.add(mapRow(rs));
         } catch (SQLException e) {
             throw new RuntimeException("Error listing bookings: " + e.getMessage());
         }
@@ -101,6 +103,7 @@ public class BookingService implements ICRUD<Booking> {
         if (!"pending".equalsIgnoreCase(b.getStatus()))
             throw new IllegalStateException("Only pending bookings can be approved.");
 
+        // 1. Mark booking approved
         String sql = "UPDATE booking SET status='approved' WHERE bookingID=?";
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
             ps.setInt(1, b.getBookingID());
@@ -110,11 +113,24 @@ public class BookingService implements ICRUD<Booking> {
             throw new RuntimeException("Error approving booking: " + e.getMessage());
         }
 
+        // 2. Mark the linked schedule slot as booked (bug-fix)
+        // We match by mentorID + date + time in case scheduleID was not stored on
+        // booking.
+        String markSlot = "UPDATE schedule SET isBooked=true WHERE mentorID=? AND availableDate=? AND startTime=?";
+        try (PreparedStatement ps = cnx.prepareStatement(markSlot)) {
+            ps.setInt(1, b.getMentorID());
+            ps.setDate(2, Date.valueOf(b.getRequestedDate()));
+            ps.setTime(3, b.getRequestedTime() != null ? Time.valueOf(b.getRequestedTime()) : null);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Warning: could not mark schedule slot as booked: " + e.getMessage());
+        }
+
+        // 3. Auto-create the Session
         Session session = new Session(
                 b.getMentorID(), b.getEntrepreneurID(), b.getStartupID(),
                 b.getRequestedDate(), "online",
-                "Auto-created from booking #" + b.getBookingID()
-        );
+                "Auto-created from booking #" + b.getBookingID());
         SessionService sessionService = new SessionService();
         return sessionService.add(session);
     }
@@ -132,6 +148,29 @@ public class BookingService implements ICRUD<Booking> {
         }
     }
 
+    /** All bookings (pending + approved) where this mentor is involved. */
+    public List<Booking> listByMentor(int mentorID) {
+        return filterQuery("SELECT * FROM booking WHERE mentorID=? ORDER BY creationDate DESC", mentorID);
+    }
+
+    /** All bookings created by this evaluator/entrepreneur. */
+    public List<Booking> listByEvaluator(int entrepreneurID) {
+        return filterQuery("SELECT * FROM booking WHERE entrepreneurID=? ORDER BY creationDate DESC", entrepreneurID);
+    }
+
+    private List<Booking> filterQuery(String sql, int id) {
+        List<Booking> list = new ArrayList<>();
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                list.add(mapRow(rs));
+        } catch (SQLException e) {
+            throw new RuntimeException("Error filtering bookings: " + e.getMessage());
+        }
+        return list;
+    }
+
     private Booking mapRow(ResultSet rs) throws SQLException {
         return new Booking(
                 rs.getInt("bookingID"),
@@ -142,7 +181,6 @@ public class BookingService implements ICRUD<Booking> {
                 rs.getTime("requestedTime").toLocalTime(),
                 rs.getString("topic"),
                 rs.getString("status"),
-                rs.getTimestamp("creationDate")
-        );
+                rs.getTimestamp("creationDate"));
     }
 }

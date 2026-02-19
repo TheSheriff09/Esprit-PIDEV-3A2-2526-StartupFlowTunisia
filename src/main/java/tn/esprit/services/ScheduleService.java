@@ -40,7 +40,8 @@ public class ScheduleService implements ICRUD<Schedule> {
             ps.setBoolean(5, false);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) s.setScheduleID(rs.getInt(1));
+            if (rs.next())
+                s.setScheduleID(rs.getInt(1));
             return s;
         } catch (SQLException e) {
             throw new RuntimeException("Error adding schedule: " + e.getMessage());
@@ -52,7 +53,8 @@ public class ScheduleService implements ICRUD<Schedule> {
         List<Schedule> list = new ArrayList<>();
         String sql = "SELECT * FROM schedule ORDER BY availableDate, startTime";
         try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) list.add(mapRow(rs));
+            while (rs.next())
+                list.add(mapRow(rs));
         } catch (SQLException e) {
             throw new RuntimeException("Error listing schedules: " + e.getMessage());
         }
@@ -92,6 +94,21 @@ public class ScheduleService implements ICRUD<Schedule> {
         }
     }
 
+    /** All free (non-booked) future slots for one mentor, sorted by date+time. */
+    public List<Schedule> listAvailableByMentor(int mentorID) {
+        List<Schedule> list = new ArrayList<>();
+        String sql = "SELECT * FROM schedule WHERE mentorID=? AND isBooked=false AND availableDate >= CURDATE() ORDER BY availableDate, startTime";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, mentorID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                list.add(mapRow(rs));
+        } catch (SQLException e) {
+            throw new RuntimeException("Error listing available slots: " + e.getMessage());
+        }
+        return list;
+    }
+
     private Schedule mapRow(ResultSet rs) throws SQLException {
         return new Schedule(
                 rs.getInt("scheduleID"),
@@ -99,7 +116,6 @@ public class ScheduleService implements ICRUD<Schedule> {
                 rs.getDate("availableDate").toLocalDate(),
                 rs.getTime("startTime").toLocalTime(),
                 rs.getTime("endTime").toLocalTime(),
-                rs.getBoolean("isBooked")
-        );
+                rs.getBoolean("isBooked"));
     }
 }

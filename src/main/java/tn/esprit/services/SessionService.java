@@ -31,15 +31,18 @@ public class SessionService implements ICRUD<Session> {
             ps.setInt(1, s.getMentorID());
             ps.setInt(2, s.getEntrepreneurID());
             ps.setInt(3, s.getStartupID());
-            if (s.getScheduleID() > 0) ps.setInt(4, s.getScheduleID());
-            else ps.setNull(4, Types.INTEGER);
+            if (s.getScheduleID() > 0)
+                ps.setInt(4, s.getScheduleID());
+            else
+                ps.setNull(4, Types.INTEGER);
             ps.setDate(5, Date.valueOf(s.getSessionDate()));
             ps.setString(6, s.getSessionType());
             ps.setString(7, s.getStatus() != null ? s.getStatus() : "planned");
             ps.setString(8, s.getNotes());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) s.setSessionID(rs.getInt(1));
+            if (rs.next())
+                s.setSessionID(rs.getInt(1));
             return s;
         } catch (SQLException e) {
             throw new RuntimeException("Error adding session: " + e.getMessage());
@@ -51,7 +54,8 @@ public class SessionService implements ICRUD<Session> {
         List<Session> list = new ArrayList<>();
         String sql = "SELECT * FROM session ORDER BY sessionDate DESC";
         try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) list.add(mapRow(rs));
+            while (rs.next())
+                list.add(mapRow(rs));
         } catch (SQLException e) {
             throw new RuntimeException("Error listing sessions: " + e.getMessage());
         }
@@ -70,8 +74,10 @@ public class SessionService implements ICRUD<Session> {
             ps.setInt(1, s.getMentorID());
             ps.setInt(2, s.getEntrepreneurID());
             ps.setInt(3, s.getStartupID());
-            if (s.getScheduleID() > 0) ps.setInt(4, s.getScheduleID());
-            else ps.setNull(4, Types.INTEGER);
+            if (s.getScheduleID() > 0)
+                ps.setInt(4, s.getScheduleID());
+            else
+                ps.setNull(4, Types.INTEGER);
             ps.setDate(5, Date.valueOf(s.getSessionDate()));
             ps.setString(6, s.getSessionType());
             ps.setString(7, s.getStatus());
@@ -94,6 +100,29 @@ public class SessionService implements ICRUD<Session> {
         }
     }
 
+    /** Sessions where this user is the mentor. */
+    public List<Session> listByMentor(int mentorID) {
+        return filterQuery("SELECT * FROM session WHERE mentorID=? ORDER BY sessionDate DESC", mentorID);
+    }
+
+    /** Sessions where this user is the evaluator/entrepreneur. */
+    public List<Session> listByEvaluator(int entrepreneurID) {
+        return filterQuery("SELECT * FROM session WHERE entrepreneurID=? ORDER BY sessionDate DESC", entrepreneurID);
+    }
+
+    private List<Session> filterQuery(String sql, int id) {
+        List<Session> list = new ArrayList<>();
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                list.add(mapRow(rs));
+        } catch (SQLException e) {
+            throw new RuntimeException("Error filtering sessions: " + e.getMessage());
+        }
+        return list;
+    }
+
     private Session mapRow(ResultSet rs) throws SQLException {
         int schID = rs.getInt("scheduleID");
         return new Session(
@@ -105,7 +134,6 @@ public class SessionService implements ICRUD<Session> {
                 rs.getDate("sessionDate").toLocalDate(),
                 rs.getString("sessionType"),
                 rs.getString("status"),
-                rs.getString("notes")
-        );
+                rs.getString("notes"));
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="24" style="-fx-padding:24;" styleClass="main"
+      stylesheets="@../css/mentorship.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.gui.HomeViewController">
+
+    <Label styleClass="section-title" text="🏠  Overview Dashboard"/>
+
+    <!-- Stat Cards -->
+    <HBox spacing="20">
+        <VBox styleClass="glass-card" spacing="8" prefWidth="240" alignment="CENTER">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+            <Label text="Total Sessions" styleClass="section-sub"/>
+            <Label fx:id="totalSessionsLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: #7357ff;"/>
+        </VBox>
+
+        <VBox styleClass="glass-card" spacing="8" prefWidth="240" alignment="CENTER">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+            <Label text="Pending Bookings" styleClass="section-sub"/>
+            <Label fx:id="pendingBookingsLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: #ff8b57;"/>
+        </VBox>
+
+        <VBox styleClass="glass-card" spacing="8" prefWidth="240" alignment="CENTER">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+            <Label fx:id="extraStatTitle" text="Completion Rate" styleClass="section-sub"/>
+            <Label fx:id="extraStatLabel" text="0%" style="-fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: #12a059;"/>
+        </VBox>
+    </HBox>
+
+    <!-- Charts Area -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <VBox styleClass="glass-card" HBox.hgrow="ALWAYS" spacing="10">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+            <Label fx:id="chartTitle" styleClass="section-sub" text="Activity Breakdown"/>
+            
+            <StackPane fx:id="chartContainer" VBox.vgrow="ALWAYS">
+                <!-- Chart injected here by controller -->
+            </StackPane>
+        </VBox>
+    </HBox>
+
+</VBox>

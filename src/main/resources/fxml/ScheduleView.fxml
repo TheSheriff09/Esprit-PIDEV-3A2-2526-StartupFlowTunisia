@@ -19,15 +19,18 @@
                    onKeyReleased="#onSearch"/>
     </HBox>
 
-    <!-- Form card -->
-    <VBox styleClass="glass-card" spacing="12">
+    <!-- ═══════════════════════════════════════════════════
+         MENTOR MODE: Add / Edit slots
+         (hidden for evaluator via ScheduleController)
+         ═══════════════════════════════════════════════════ -->
+    <VBox fx:id="mentorFormBox" styleClass="glass-card" spacing="12">
         <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
-        <Label styleClass="section-sub" text="ADD / EDIT AVAILABILITY SLOT"/>
+        <Label styleClass="section-sub" text="ADD / EDIT AVAILABILITY SLOT  (Mentor only)"/>
 
         <GridPane hgap="16" vgap="10">
             <Label text="Mentor ID *" styleClass="field-label"
                    GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <TextField fx:id="mentorIDField" promptText="e.g. 1"
+            <TextField fx:id="mentorIDField" promptText="auto-filled"
                        prefWidth="160"
                        GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
@@ -59,7 +62,26 @@
         </HBox>
     </VBox>
 
-    <!-- Table -->
+    <!-- ═══════════════════════════════════════════════════
+         EVALUATOR MODE: Pick a mentor → see their free slots
+         (hidden for mentor via ScheduleController)
+         ═══════════════════════════════════════════════════ -->
+    <VBox fx:id="evaluatorPickerBox" styleClass="glass-card" spacing="12">
+        <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
+        <Label styleClass="section-sub" text="PICK A MENTOR TO SEE AVAILABLE SLOTS"/>
+
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <Label styleClass="field-label" text="Mentor *"/>
+            <ComboBox fx:id="mentorPickerCombo" prefWidth="280" promptText="Choose a mentor…"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnBookSlot" text="📅 Book Selected Slot"
+                    onAction="#onBookSlot" styleClass="btn-approve"/>
+        </HBox>
+
+        <Label fx:id="msgLabel" text=""/>
+    </VBox>
+
+    <!-- Table (shared) -->
     <TableView fx:id="scheduleTable" VBox.vgrow="ALWAYS"
                onMouseClicked="#onRowSelected" styleClass="table-view">
         <columns>

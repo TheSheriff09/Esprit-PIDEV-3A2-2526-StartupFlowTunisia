@@ -42,7 +42,8 @@ public class SessionFeedbackService implements ICRUD<SessionFeedback> {
             ps.setDate(8, Date.valueOf(f.getFeedbackDate()));
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) f.setFeedbackID(rs.getInt(1));
+            if (rs.next())
+                f.setFeedbackID(rs.getInt(1));
             return f;
         } catch (SQLException e) {
             throw new RuntimeException("Error adding feedback: " + e.getMessage());
@@ -54,7 +55,8 @@ public class SessionFeedbackService implements ICRUD<SessionFeedback> {
         List<SessionFeedback> list = new ArrayList<>();
         String sql = "SELECT * FROM session_feedback ORDER BY feedbackDate DESC";
         try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) list.add(mapRow(rs));
+            while (rs.next())
+                list.add(mapRow(rs));
         } catch (SQLException e) {
             throw new RuntimeException("Error listing feedback: " + e.getMessage());
         }
@@ -99,9 +101,34 @@ public class SessionFeedbackService implements ICRUD<SessionFeedback> {
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
             ps.setInt(1, sessionID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getInt(1) > 0;
-        } catch (SQLException ignored) {}
+            if (rs.next())
+                return rs.getInt(1) > 0;
+        } catch (SQLException ignored) {
+        }
         return false;
+    }
+
+    /** All feedback written by a specific mentor. */
+    public List<SessionFeedback> listByMentor(int mentorID) {
+        return filterQuery("SELECT * FROM session_feedback WHERE mentorID=? ORDER BY feedbackDate DESC", mentorID);
+    }
+
+    /** Feedback for one specific session. */
+    public List<SessionFeedback> listBySession(int sessionID) {
+        return filterQuery("SELECT * FROM session_feedback WHERE sessionID=? ORDER BY feedbackDate DESC", sessionID);
+    }
+
+    private List<SessionFeedback> filterQuery(String sql, int id) {
+        List<SessionFeedback> list = new ArrayList<>();
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                list.add(mapRow(rs));
+        } catch (SQLException e) {
+            throw new RuntimeException("Error filtering feedback: " + e.getMessage());
+        }
+        return list;
     }
 
     private SessionFeedback mapRow(ResultSet rs) throws SQLException {
@@ -114,7 +141,6 @@ public class SessionFeedbackService implements ICRUD<SessionFeedback> {
                 rs.getString("weaknesses"),
                 rs.getString("recommendations"),
                 rs.getString("nextActions"),
-                rs.getDate("feedbackDate").toLocalDate()
-        );
+                rs.getDate("feedbackDate").toLocalDate());
     }
 }

@@ -15,79 +15,61 @@
         <Label styleClass="section-title" text="💬  Session Feedback"/>
         <Region HBox.hgrow="ALWAYS"/>
         <TextField fx:id="searchField" styleClass="search-field"
-                   promptText="🔍  Search by session or mentor ID…"
+                   promptText="🔍  Search by strengths, weaknesses…"
                    onKeyReleased="#onSearch"/>
     </HBox>
 
-    <!-- Form card -->
+    <!-- Form card (mentor writes feedback; evaluator sees it read-only) -->
     <VBox styleClass="glass-card" spacing="12">
         <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
-        <Label styleClass="section-sub" text="WRITE / EDIT FEEDBACK"/>
+        <Label styleClass="section-sub" text="SUBMIT / EDIT FEEDBACK  (Mentor)"/>
 
         <GridPane hgap="16" vgap="10">
-            <Label text="Session ID *" styleClass="field-label"
-                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <TextField fx:id="sessionIDField" promptText="e.g. 1" prefWidth="140"
-                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-
-            <Label text="Mentor ID *" styleClass="field-label"
-                   GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <TextField fx:id="mentorIDField" promptText="e.g. 1" prefWidth="140"
-                       GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-
-            <Label text="Date *" styleClass="field-label"
-                   GridPane.columnIndex="4" GridPane.rowIndex="0"/>
-            <DatePicker fx:id="feedbackDatePicker" prefWidth="160"
-                        GridPane.columnIndex="5" GridPane.rowIndex="0"/>
-
-            <!-- Score slider -->
-            <Label text="Progress Score *" styleClass="field-label"
-                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <HBox spacing="10" alignment="CENTER_LEFT"
-                  GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="5">
-                <Slider fx:id="scoreSlider" min="0" max="100" value="50"
-                        showTickMarks="true" showTickLabels="true"
-                        majorTickUnit="25" prefWidth="300" styleClass="slider"/>
-                <Label fx:id="scoreLabel" text="50"
-                       style="-fx-font-weight:800;-fx-text-fill:#7357ff;-fx-font-size:18px;"/>
-                <Label text="/ 100" styleClass="section-sub"/>
-            </HBox>
-        </GridPane>
-
-        <!-- Text areas 2x2 -->
-        <GridPane hgap="16" vgap="10">
-            <Label text="Strengths *" styleClass="field-label"
-                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <TextArea fx:id="strengthsArea" promptText="What went well?"
-                      prefRowCount="3" prefWidth="300"
+            <Label text="Session *"  styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="sessionCombo" prefWidth="260" promptText="Pick your session…"
                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-            <Label text="Weaknesses" styleClass="field-label"
-                   GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <TextArea fx:id="weaknessesArea" promptText="Areas to improve…"
-                      prefRowCount="3" prefWidth="300"
-                      GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+            <Label text="Mentor ID *" styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <TextField fx:id="mentorIDField" promptText="auto-filled" prefWidth="120"
+                       GridPane.columnIndex="3" GridPane.rowIndex="0"/>
 
-            <Label text="Recommendations" styleClass="field-label"
-                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextArea fx:id="recommendationsArea" promptText="Specific advice…"
-                      prefRowCount="3" prefWidth="300"
-                      GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <!-- Removed Date Selection for Mentor (auto-set to today) -->
+            <Label fx:id="dateLabel" text="Date: Today" styleClass="field-label" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+            <DatePicker fx:id="feedbackDatePicker" visible="false" managed="false"
+                        GridPane.columnIndex="5" GridPane.rowIndex="0"/>
 
-            <Label text="Next Actions" styleClass="field-label"
-                   GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-            <TextArea fx:id="nextActionsArea" promptText="Action items…"
-                      prefRowCount="3" prefWidth="300"
-                      GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+            <Label text="Score"      styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="5">
+                <Slider fx:id="scoreSlider" min="0" max="100" value="50" prefWidth="280"
+                        style="-fx-accent:#7357ff;"/>
+                <Label fx:id="scoreLabel" text="50" style="-fx-font-weight:700;-fx-font-size:15px;-fx-text-fill:#7357ff;"/>
+            </HBox>
+
+            <Label text="Strengths *" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextArea fx:id="strengthsArea" prefWidth="220" prefHeight="68"
+                      GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label text="Weaknesses"  styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <TextArea fx:id="weaknessesArea" prefWidth="220" prefHeight="68"
+                      GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+            <Label text="Recommendations" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextArea fx:id="recommendationsArea" prefWidth="220" prefHeight="68"
+                      GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+            <Label text="Next Actions"    styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+            <TextArea fx:id="nextActionsArea" prefWidth="220" prefHeight="68"
+                      GridPane.columnIndex="3" GridPane.rowIndex="3"/>
         </GridPane>
 
         <Label fx:id="msgLabel" text=""/>
 
-        <HBox spacing="10">
-            <Button text="➕ Submit"  onAction="#onAdd"    styleClass="btn-primary"/>
-            <Button text="✏️ Update"  onAction="#onUpdate" styleClass="btn-secondary"/>
-            <Button text="🗑 Delete"  onAction="#onDelete" styleClass="btn-danger"/>
-            <Button text="✖ Clear"   onAction="#onClear"  styleClass="btn-secondary"/>
+        <HBox fx:id="actionBox" spacing="10">
+            <Button text="✏️ Submit"  onAction="#onSubmit" styleClass="btn-primary"/>
+            <Button text="🔄 Update" onAction="#onUpdate" styleClass="btn-secondary"/>
+            <Button text="🗑 Delete" onAction="#onDelete" styleClass="btn-danger"/>
+            <Button text="✖ Clear"  onAction="#onClear"  styleClass="btn-secondary"/>
         </HBox>
     </VBox>
 
@@ -95,17 +77,14 @@
     <TableView fx:id="feedbackTable" VBox.vgrow="ALWAYS"
                onMouseClicked="#onRowSelected" styleClass="table-view">
         <columns>
-            <TableColumn fx:id="colID"              text="ID"              prefWidth="55"/>
-            <TableColumn fx:id="colSession"         text="Session"         prefWidth="80"/>
-            <TableColumn fx:id="colMentor"          text="Mentor"          prefWidth="80"/>
-            <TableColumn fx:id="colScore"           text="Score"           prefWidth="75"/>
-            <TableColumn fx:id="colStrengths"       text="Strengths"       prefWidth="150"/>
-            <TableColumn fx:id="colWeaknesses"      text="Weaknesses"      prefWidth="150"/>
-            <TableColumn fx:id="colRecommendations" text="Recommendations" prefWidth="150"/>
-            <TableColumn fx:id="colNextActions"     text="Next Actions"    prefWidth="150"/>
-            <TableColumn fx:id="colDate"            text="Date"            prefWidth="110"/>
+            <TableColumn fx:id="colID"       text="ID"       prefWidth="55"/>
+            <TableColumn fx:id="colSession"  text="Session"  prefWidth="80"/>
+            <TableColumn fx:id="colMentor"   text="Mentor"   prefWidth="80"/>
+            <TableColumn fx:id="colScore"    text="Score"    prefWidth="80"/>
+            <TableColumn fx:id="colDate"     text="Date"     prefWidth="130"/>
+            <TableColumn fx:id="colStrengths" text="Strengths" prefWidth="300"/>
         </columns>
-        <placeholder><Label text="No feedback found." style="-fx-text-fill:#9b8acc;"/></placeholder>
+        <placeholder><Label text="No feedback yet." style="-fx-text-fill:#9b8acc;"/></placeholder>
     </TableView>
 
 </VBox>

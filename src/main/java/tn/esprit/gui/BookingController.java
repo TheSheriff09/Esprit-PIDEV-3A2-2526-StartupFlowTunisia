@@ -7,170 +7,357 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import tn.esprit.entities.Booking;
+import tn.esprit.entities.Schedule;
+import tn.esprit.entities.User;
 import tn.esprit.services.BookingService;
+import tn.esprit.services.ScheduleService;
+import tn.esprit.services.UserService;
+import tn.esprit.utils.SessionContext;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class BookingController implements Initializable {
 
-    @FXML private TextField  entrepreneurIDField;
-    @FXML private TextField  mentorIDField;
-    @FXML private TextField  startupIDField;
-    @FXML private DatePicker requestedDatePicker;
-    @FXML private TextField  requestedTimeField;
-    @FXML private TextField  topicField;
-    @FXML private Label      msgLabel;
-    @FXML private TextField  searchField;
+    @FXML
+    private VBox evaluatorFormBox;
+    @FXML
+    private HBox mentorActionBox;
 
-    @FXML private TableView<Booking>                   bookingTable;
-    @FXML private TableColumn<Booking, Integer>        colID;
-    @FXML private TableColumn<Booking, Integer>        colEntrepreneur;
-    @FXML private TableColumn<Booking, Integer>        colMentor;
-    @FXML private TableColumn<Booking, Integer>        colStartup;
-    @FXML private TableColumn<Booking, String>         colDate;
-    @FXML private TableColumn<Booking, String>         colTime;
-    @FXML private TableColumn<Booking, String>         colTopic;
-    @FXML private TableColumn<Booking, String>         colStatus;
-    @FXML private TableColumn<Booking, String>         colCreated;
+    @FXML
+    private ComboBox<User> mentorCombo;
+    @FXML
+    private ComboBox<Schedule> slotCombo; // Refined: Slot selector
+    @FXML
+    private DatePicker requestedDatePicker;
+    @FXML
+    private TextField requestedTimeField;
+    @FXML
+    private TextField topicField;
+    @FXML
+    private Label msgLabel;
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private TableView<Booking> bookingTable;
+    @FXML
+    private TableColumn<Booking, Integer> colID;
+    @FXML
+    private TableColumn<Booking, Integer> colEntrepreneur;
+    @FXML
+    private TableColumn<Booking, Integer> colMentor;
+    @FXML
+    private TableColumn<Booking, Integer> colStartup;
+    @FXML
+    private TableColumn<Booking, String> colDate;
+    @FXML
+    private TableColumn<Booking, String> colTime;
+    @FXML
+    private TableColumn<Booking, String> colTopic;
+    @FXML
+    private TableColumn<Booking, String> colStatus;
+    @FXML
+    private TableColumn<Booking, String> colCreated;
 
     private final BookingService service = new BookingService();
+    private final UserService userService = new UserService();
+    private final ScheduleService scheduleService = new ScheduleService();
+
     private ObservableList<Booking> allData;
     private Booking selected;
-    private static final DateTimeFormatter TF = DateTimeFormatter.ofPattern("HH:mm");
+
+    // Static bridge for pre-filling from ScheduleView if needed
+    private static Schedule pendingSlotPrefill;
+
+    public static void prefillSlot(Schedule slot) {
+        pendingSlotPrefill = slot;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setupTableColumns();
+
+        boolean isMentor = SessionContext.isMentor();
+        evaluatorFormBox.setVisible(!isMentor);
+        evaluatorFormBox.setManaged(!isMentor);
+        mentorActionBox.setVisible(isMentor);
+        mentorActionBox.setManaged(isMentor);
+
+        if (!isMentor) {
+            setupEvaluatorForm();
+        }
+
+        loadTable();
+
+        // Handle prefill if any
+        if (pendingSlotPrefill != null && !isMentor) {
+            handlePrefill();
+        }
+    }
+
+    private void setupTableColumns() {
         colID.setCellValueFactory(new PropertyValueFactory<>("bookingID"));
         colEntrepreneur.setCellValueFactory(new PropertyValueFactory<>("entrepreneurID"));
         colMentor.setCellValueFactory(new PropertyValueFactory<>("mentorID"));
         colStartup.setCellValueFactory(new PropertyValueFactory<>("startupID"));
+        colDate.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().getRequestedDate().toString()));
+        colTime.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().getRequestedTime().toString()));
         colTopic.setCellValueFactory(new PropertyValueFactory<>("topic"));
-        colDate.setCellValueFactory(cd -> new SimpleStringProperty(
-                cd.getValue().getRequestedDate() != null ? cd.getValue().getRequestedDate().toString() : ""));
-        colTime.setCellValueFactory(cd -> new SimpleStringProperty(
-                cd.getValue().getRequestedTime() != null ? cd.getValue().getRequestedTime().format(TF) : ""));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         colCreated.setCellValueFactory(cd -> new SimpleStringProperty(
                 cd.getValue().getCreationDate() != null ? cd.getValue().getCreationDate().toString() : ""));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
 
-        colStatus.setCellFactory(col -> new TableCell<>() {
-            @Override protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) { setText(null); setStyle(""); return; }
-                setText(item);
-                switch (item.toLowerCase()) {
-                    case "pending"  -> setStyle("-fx-text-fill:#c77a00;-fx-font-weight:700;");
-                    case "approved" -> setStyle("-fx-text-fill:#12a059;-fx-font-weight:700;");
-                    case "rejected" -> setStyle("-fx-text-fill:#e0134a;-fx-font-weight:700;");
-                    default -> setStyle("");
+    private void setupEvaluatorForm() {
+        mentorCombo.setItems(FXCollections.observableArrayList(userService.listMentors()));
+
+        // Listener: When Mentor is selected, load their available slots
+        mentorCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                loadAvailableSlots(newVal.getId());
+            } else {
+                slotCombo.setItems(FXCollections.observableArrayList());
+            }
+        });
+
+        // Listener: When Slot is selected, auto-fill date and time
+        slotCombo.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                requestedDatePicker.setValue(newVal.getAvailableDate());
+                requestedTimeField.setText(newVal.getStartTime().toString());
+            }
+        });
+
+        // Disable date/time manual entry to enforce slot selection
+        requestedDatePicker.setEditable(false);
+        requestedTimeField.setEditable(false);
+    }
+
+    private void loadAvailableSlots(int mentorId) {
+        List<Schedule> slots = scheduleService.listAvailableByMentor(mentorId);
+        slotCombo.setItems(FXCollections.observableArrayList(slots));
+        if (slots.isEmpty()) {
+            slotCombo.setPromptText("No available slots for this mentor.");
+        } else {
+            slotCombo.setPromptText("Select a slot...");
+        }
+    }
+
+    private void handlePrefill() {
+        User m = userService.findById(pendingSlotPrefill.getMentorID());
+        if (m != null) {
+            mentorCombo.setValue(m);
+            loadAvailableSlots(m.getId());
+            // find the slot in the combo to select it
+            slotCombo.getItems().stream()
+                    .filter(s -> s.getScheduleID() == pendingSlotPrefill.getScheduleID())
+                    .findFirst()
+                    .ifPresent(s -> slotCombo.setValue(s));
+        }
+        pendingSlotPrefill = null;
+    }
+
+    @FXML
+    private void onAdd() {
+        clearMsg();
+        Booking b = buildFromForm();
+        if (b == null)
+            return;
+        try {
+            service.add(b);
+            showSuccess("Booking requested! Waiting for mentor approval.");
+            onClear();
+            loadTable();
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void onUpdate() {
+        if (selected == null) {
+            showError("Select a booking to update.");
+            return;
+        }
+        if (!"pending".equalsIgnoreCase(selected.getStatus())) {
+            showError("Only pending bookings can be edited.");
+            return;
+        }
+
+        Booking b = buildFromForm();
+        if (b == null)
+            return;
+        b.setBookingID(selected.getBookingID());
+        try {
+            service.update(b);
+            showSuccess("Booking updated!");
+            onClear();
+            loadTable();
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void onDelete() {
+        if (selected == null) {
+            showError("Select a booking to delete.");
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete this booking?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait().ifPresent(type -> {
+            if (type == ButtonType.YES) {
+                try {
+                    service.delete(selected);
+                    showSuccess("Booking deleted.");
+                    onClear();
+                    loadTable();
+                } catch (Exception e) {
+                    showError(e.getMessage());
                 }
             }
         });
-        loadTable();
     }
 
-    @FXML private void onAdd() {
-        clearMsg();
-        Booking b = buildFromForm();
-        if (b == null) return;
-        try { service.add(b); showSuccess("Booking created!"); onClear(); loadTable(); }
-        catch (Exception e) { showError(e.getMessage()); }
+    @FXML
+    private void onApprove() {
+        if (selected == null) {
+            showError("Select a pending booking to approve.");
+            return;
+        }
+        try {
+            service.approveBooking(selected);
+            showSuccess("Booking approved! Session created.");
+            loadTable();
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
 
-    @FXML private void onUpdate() {
-        clearMsg();
-        if (selected == null) { showError("Select a row to update."); return; }
-        if ("approved".equals(selected.getStatus())) { showError("Approved bookings cannot be edited."); return; }
-        Booking b = buildFromForm();
-        if (b == null) return;
-        b.setBookingID(selected.getBookingID());
-        b.setStatus(selected.getStatus());
-        try { service.update(b); showSuccess("Booking updated!"); onClear(); loadTable(); }
-        catch (Exception e) { showError(e.getMessage()); }
+    @FXML
+    private void onReject() {
+        if (selected == null) {
+            showError("Select a pending booking to reject.");
+            return;
+        }
+        try {
+            service.rejectBooking(selected);
+            showSuccess("Booking rejected.");
+            loadTable();
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }
 
-    @FXML private void onDelete() {
-        clearMsg();
-        if (selected == null) { showError("Select a row to delete."); return; }
-        try { service.delete(selected); showSuccess("Booking deleted!"); onClear(); loadTable(); }
-        catch (Exception e) { showError(e.getMessage()); }
-    }
-
-    @FXML private void onApprove() {
-        clearMsg();
-        if (selected == null) { showError("Select a booking to approve."); return; }
-        try { service.approveBooking(selected); showSuccess("Approved! Session created automatically ✅"); onClear(); loadTable(); }
-        catch (Exception e) { showError(e.getMessage()); }
-    }
-
-    @FXML private void onReject() {
-        clearMsg();
-        if (selected == null) { showError("Select a booking to reject."); return; }
-        try { service.rejectBooking(selected); showSuccess("Booking rejected."); onClear(); loadTable(); }
-        catch (Exception e) { showError(e.getMessage()); }
-    }
-
-    @FXML private void onClear() {
-        entrepreneurIDField.clear(); mentorIDField.clear(); startupIDField.clear();
-        requestedDatePicker.setValue(null); requestedTimeField.clear(); topicField.clear();
-        clearMsg(); selected = null;
+    @FXML
+    private void onClear() {
+        mentorCombo.setValue(null);
+        slotCombo.setValue(null);
+        requestedDatePicker.setValue(null);
+        requestedTimeField.clear();
+        topicField.clear();
+        selected = null;
         bookingTable.getSelectionModel().clearSelection();
+        clearMsg();
     }
 
-    @FXML private void onRowSelected() {
+    @FXML
+    private void onRowSelected() {
         Booking b = bookingTable.getSelectionModel().getSelectedItem();
-        if (b == null) return;
+        if (b == null)
+            return;
         selected = b;
-        entrepreneurIDField.setText(String.valueOf(b.getEntrepreneurID()));
-        mentorIDField.setText(String.valueOf(b.getMentorID()));
-        startupIDField.setText(String.valueOf(b.getStartupID()));
-        requestedDatePicker.setValue(b.getRequestedDate());
-        requestedTimeField.setText(b.getRequestedTime() != null ? b.getRequestedTime().format(TF) : "");
-        topicField.setText(b.getTopic());
+
+        if (SessionContext.isEntrepreneur()) {
+            // Fill form if pending
+            if ("pending".equalsIgnoreCase(b.getStatus())) {
+                User m = userService.findById(b.getMentorID());
+                mentorCombo.setValue(m);
+                requestedDatePicker.setValue(b.getRequestedDate());
+                requestedTimeField.setText(b.getRequestedTime().toString());
+                topicField.setText(b.getTopic());
+            }
+        }
     }
 
-    @FXML private void onSearch() {
-        String q = searchField.getText().toLowerCase();
-        if (q.isBlank()) { bookingTable.setItems(allData); return; }
-        List<Booking> f = allData.stream()
-                .filter(b -> (b.getTopic() != null && b.getTopic().toLowerCase().contains(q))
-                        || (b.getStatus() != null && b.getStatus().toLowerCase().contains(q)))
+    @FXML
+    private void onSearch() {
+        String query = searchField.getText().toLowerCase();
+        if (query.isEmpty()) {
+            bookingTable.setItems(allData);
+            return;
+        }
+        List<Booking> filtered = allData.stream()
+                .filter(b -> b.getTopic().toLowerCase().contains(query) || b.getStatus().toLowerCase().contains(query))
                 .collect(Collectors.toList());
-        bookingTable.setItems(FXCollections.observableArrayList(f));
+        bookingTable.setItems(FXCollections.observableArrayList(filtered));
     }
 
     private Booking buildFromForm() {
-        int entID, mentorID, startupID;
-        try { entID = Integer.parseInt(entrepreneurIDField.getText().trim()); }
-        catch (NumberFormatException e) { showError("Entrepreneur ID must be a number."); return null; }
-        try { mentorID = Integer.parseInt(mentorIDField.getText().trim()); }
-        catch (NumberFormatException e) { showError("Mentor ID must be a number."); return null; }
-        try { startupID = Integer.parseInt(startupIDField.getText().trim()); }
-        catch (NumberFormatException e) { showError("Startup ID must be a number (use 1 if unsure)."); return null; }
+        User m = mentorCombo.getValue();
+        if (m == null) {
+            showError("Please select a mentor.");
+            return null;
+        }
+
         LocalDate date = requestedDatePicker.getValue();
-        if (date == null) { showError("Please select a date."); return null; }
-        LocalTime time;
-        try { time = LocalTime.parse(requestedTimeField.getText().trim(), TF); }
-        catch (DateTimeParseException e) { showError("Time must be HH:mm (e.g. 14:00)."); return null; }
+        if (date == null) {
+            showError("Please choose a date (via slot selection).");
+            return null;
+        }
+
+        String timeStr = requestedTimeField.getText().trim();
+        if (timeStr.isEmpty()) {
+            showError("Please choose a slot to fill the time.");
+            return null;
+        }
+
         String topic = topicField.getText().trim();
-        if (topic.isEmpty()) { showError("Topic is required."); return null; }
-        return new Booking(entID, mentorID, startupID, date, time, topic);
+        if (topic.isEmpty()) {
+            showError("Topic is required.");
+            return null;
+        }
+
+        Booking b = new Booking();
+        b.setMentorID(m.getId());
+        b.setEntrepreneurID(SessionContext.getUserId());
+        b.setStartupID(1); // Default for now
+        b.setRequestedDate(date);
+        b.setRequestedTime(LocalTime.parse(timeStr));
+        b.setTopic(topic);
+        return b;
     }
 
     private void loadTable() {
-        allData = FXCollections.observableArrayList(service.list());
+        List<Booking> data;
+        if (SessionContext.isMentor()) {
+            data = service.listByMentor(SessionContext.getUserId());
+        } else {
+            data = service.listByEvaluator(SessionContext.getUserId());
+        }
+        allData = FXCollections.observableArrayList(data);
         bookingTable.setItems(allData);
     }
 
-    private void showError(String msg)   { msgLabel.setText("⚠ " + msg); msgLabel.setStyle("-fx-text-fill:#e0134a;-fx-font-weight:700;"); }
-    private void showSuccess(String msg) { msgLabel.setText("✓ " + msg); msgLabel.setStyle("-fx-text-fill:#12a059;-fx-font-weight:700;"); }
-    private void clearMsg()              { msgLabel.setText(""); }
+    private void showError(String msg) {
+        msgLabel.setText("⚠ " + msg);
+        msgLabel.setStyle("-fx-text-fill:#e0134a;");
+    }
+
+    private void showSuccess(String msg) {
+        msgLabel.setText("✓ " + msg);
+        msgLabel.setStyle("-fx-text-fill:#12a059;");
+    }
+
+    private void clearMsg() {
+        msgLabel.setText("");
+    }
 }
