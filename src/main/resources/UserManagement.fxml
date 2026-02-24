@@ -31,7 +31,8 @@
                 <Button text="Startup Projects" styleClass="nav-btn" onAction="#goProjects"/>
                 <Button text="Mentorship" styleClass="nav-btn" onAction="#goMentorship"/>
                 <Button text="Funding &amp; Evaluation" styleClass="nav-btn" onAction="#goFunding"/>
-                <Button text="Forum Moderation" styleClass="nav-btn" onAction="#goForum"/>
+                <Button text="Dashboard Forum" styleClass="nav-btn" onAction="#goDashboardForum"/>
+                <Button text="Forum" styleClass="nav-btn" onAction="#goForumBackOffice"/>
                 <Button text="Settings" styleClass="nav-btn" onAction="#goSettings"/>
             </VBox>
 

@@ -20,16 +20,23 @@ import java.util.ResourceBundle;
 
 public class DashboardAdminController implements Initializable {
 
-    @FXML private BarChart<String, Number> usersBarChart;
+    @FXML
+    private BarChart<String, Number> usersBarChart;
 
-    @FXML private Label lblMentorsCount;
-    @FXML private Label lblEvaluatorsCount;
-    @FXML private Label lblEntrepreneursCount;
+    @FXML
+    private Label lblMentorsCount;
+    @FXML
+    private Label lblEvaluatorsCount;
+    @FXML
+    private Label lblEntrepreneursCount;
 
-    @FXML private Label lblStatus;
-    @FXML private VBox userDropdown;
+    @FXML
+    private Label lblStatus;
+    @FXML
+    private VBox userDropdown;
 
-    @FXML private Button btnUserMenu;
+    @FXML
+    private Button btnUserMenu;
 
     private final UserService userService = new UserService();
 
@@ -55,32 +62,44 @@ public class DashboardAdminController implements Initializable {
     private void loadAdminHeader() {
         User admin = CurrentUserSession.user;
 
-        if (btnUserMenu != null) btnUserMenu.setText("Admin");
-        if (lblStatus != null) lblStatus.setText("Approved");
+        if (btnUserMenu != null)
+            btnUserMenu.setText("Admin");
+        if (lblStatus != null)
+            lblStatus.setText("Approved");
 
-        if (admin == null) return;
+        if (admin == null)
+            return;
 
         String fullName = (admin.getFullName() == null) ? "Admin" : admin.getFullName().trim();
-        if (btnUserMenu != null) btnUserMenu.setText(fullName);
+        if (btnUserMenu != null)
+            btnUserMenu.setText(fullName);
 
         String dbStatus = (admin.getStatus() == null) ? "PENDING" : admin.getStatus().trim();
 
         if (lblStatus != null) {
-            if (dbStatus.equalsIgnoreCase("ACTIVE")) lblStatus.setText("Approved");
-            else if (dbStatus.equalsIgnoreCase("PENDING")) lblStatus.setText("Pending");
-            else if (dbStatus.equalsIgnoreCase("BLOCKED")) lblStatus.setText("Blocked");
-            else lblStatus.setText(dbStatus);
+            if (dbStatus.equalsIgnoreCase("ACTIVE"))
+                lblStatus.setText("Approved");
+            else if (dbStatus.equalsIgnoreCase("PENDING"))
+                lblStatus.setText("Pending");
+            else if (dbStatus.equalsIgnoreCase("BLOCKED"))
+                lblStatus.setText("Blocked");
+            else
+                lblStatus.setText(dbStatus);
         }
     }
 
     private void setCounts(int mentors, int evaluators, int entrepreneurs) {
-        if (lblMentorsCount != null) lblMentorsCount.setText(String.valueOf(mentors));
-        if (lblEvaluatorsCount != null) lblEvaluatorsCount.setText(String.valueOf(evaluators));
-        if (lblEntrepreneursCount != null) lblEntrepreneursCount.setText(String.valueOf(entrepreneurs));
+        if (lblMentorsCount != null)
+            lblMentorsCount.setText(String.valueOf(mentors));
+        if (lblEvaluatorsCount != null)
+            lblEvaluatorsCount.setText(String.valueOf(evaluators));
+        if (lblEntrepreneursCount != null)
+            lblEntrepreneursCount.setText(String.valueOf(entrepreneurs));
     }
 
     private void loadUsersChart(int mentors, int evaluators, int entrepreneurs) {
-        if (usersBarChart == null) return;
+        if (usersBarChart == null)
+            return;
 
         usersBarChart.getData().clear();
 
@@ -97,10 +116,10 @@ public class DashboardAdminController implements Initializable {
         usersBarChart.setAnimated(true);
     }
 
-
     @FXML
     private void toggleUserMenu() {
-        if (userDropdown == null) return;
+        if (userDropdown == null)
+            return;
 
         boolean show = !userDropdown.isVisible();
         userDropdown.setVisible(show);
@@ -129,16 +148,47 @@ public class DashboardAdminController implements Initializable {
             ex.printStackTrace();
         }
     }
-    @FXML private void goDashboard() {  }
-    @FXML private void goUsers(javafx.event.ActionEvent e) {
+
+    @FXML
+    private void goDashboard() {
+    }
+
+    @FXML
+    private void goUsers(javafx.event.ActionEvent e) {
         goTo(e, "/UserManagement.fxml");
     }
-    @FXML private void goProjects() { System.out.println("Go Startup Projects"); }
-    @FXML private void goMentorship() { System.out.println("Go Mentorship"); }
-    @FXML private void goFunding() { System.out.println("Go Funding & Evaluation"); }
-    @FXML private void goForum() { System.out.println("Go Forum"); }
-    @FXML private void goSettings() { System.out.println("Go Settings"); }
 
+    @FXML
+    private void goProjects() {
+        System.out.println("Go Startup Projects");
+    }
+
+    @FXML
+    private void goMentorship() {
+        System.out.println("Go Mentorship");
+    }
+
+    @FXML
+    private void goFunding() {
+        System.out.println("Go Funding & Evaluation");
+    }
+
+    @FXML
+    private void goDashboardForum(javafx.event.ActionEvent e) {
+        tn.esprit.GUI.ForumAdminController.showAnalyticsOnLoad = true;
+        goTo(e, "/ForumAdmin.fxml");
+    }
+
+    @FXML
+    private void goForumBackOffice(javafx.event.ActionEvent e) {
+        tn.esprit.GUI.ForumAdminController.showAnalyticsOnLoad = false;
+        goTo(e, "/ForumAdmin.fxml");
+    }
+
+    @FXML
+    private void goSettings() {
+        System.out.println("Go Settings");
+    }
 
     @FXML
     private void openAddUser() {
@@ -158,6 +208,6 @@ public class DashboardAdminController implements Initializable {
     @FXML
     private void logout(javafx.event.ActionEvent e) {
         CurrentUserSession.user = null;
-        goTo(e,"/Login.fxml");
+        goTo(e, "/Login.fxml");
     }
 }

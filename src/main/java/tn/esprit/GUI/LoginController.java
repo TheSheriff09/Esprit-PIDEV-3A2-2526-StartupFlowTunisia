@@ -14,16 +14,19 @@ import tn.esprit.utils.CurrentUserSession;
 
 public class LoginController {
 
-    @FXML private TextField emailField;
-    @FXML private PasswordField passwordField;
-    @FXML private Label msgLabel;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label msgLabel;
 
     private final UserService userService = new UserService();
 
     @FXML
     private void onLogin() {
         String email = emailField.getText().trim();
-        String pass  = passwordField.getText();
+        String pass = passwordField.getText();
 
         if (email.isEmpty() || pass.isEmpty()) {
             msgLabel.setText("Please fill email and password");
@@ -73,10 +76,18 @@ public class LoginController {
         }
     }
 
-    @FXML private void onGoSignup() { goTo("/Signup.fxml"); }
+    @FXML
+    private void onGoSignup() {
+        goTo("/Signup.fxml");
+    }
 
-    @FXML private void onLinkedin() {}
-    @FXML private void onGoogle() {  msgLabel.setText("Opening Google login...");
+    @FXML
+    private void onLinkedin() {
+    }
+
+    @FXML
+    private void onGoogle() {
+        msgLabel.setText("Opening Google login...");
 
         new Thread(() -> {
             try {
@@ -89,8 +100,7 @@ public class LoginController {
                 if (existing != null) {
                     String st = (existing.getStatus() == null) ? "PENDING" : existing.getStatus().trim();
                     if (st.equalsIgnoreCase("BLOCKED")) {
-                        javafx.application.Platform.runLater(() ->
-                                msgLabel.setText("Your account is blocked"));
+                        javafx.application.Platform.runLater(() -> msgLabel.setText("Your account is blocked"));
                         return;
                     }
 
@@ -98,11 +108,16 @@ public class LoginController {
 
                     javafx.application.Platform.runLater(() -> {
                         String role = (existing.getRole() == null) ? "" : existing.getRole().trim().toUpperCase();
-                        if (role.equals("ADMIN")) goTo("/DashboardAdmin.fxml");
-                        else if (role.equals("ENTREPRENEUR")) goTo("/EntrepreneurDashboard.fxml");
-                        else if (role.equals("MENTOR")) goTo("/MentorDashboard.fxml");
-                        else if (role.equals("EVALUATOR")) goTo("/EvaluatorDashboard.fxml");
-                        else msgLabel.setText("Unknown role: " + role);
+                        if (role.equals("ADMIN"))
+                            goTo("/DashboardAdmin.fxml");
+                        else if (role.equals("ENTREPRENEUR"))
+                            goTo("/EntrepreneurDashboard.fxml");
+                        else if (role.equals("MENTOR"))
+                            goTo("/MentorDashboard.fxml");
+                        else if (role.equals("EVALUATOR"))
+                            goTo("/EvaluatorDashboard.fxml");
+                        else
+                            msgLabel.setText("Unknown role: " + role);
                     });
 
                     return;
@@ -120,11 +135,16 @@ public class LoginController {
 
             } catch (Exception ex) {
                 ex.printStackTrace();
-                javafx.application.Platform.runLater(() ->
-                        msgLabel.setText("Google login error: " + ex.getMessage()));
+                javafx.application.Platform.runLater(() -> msgLabel.setText("Google login error: " + ex.getMessage()));
             }
-        }).start();}
-    @FXML private void onOther() {}
+        }).start();
+    }
 
-    @FXML private void togglePassword() {}
+    @FXML
+    private void onOther() {
+    }
+
+    @FXML
+    private void togglePassword() {
+    }
 }

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.GUI.ForumAdminController"
+            stylesheets="@css/usermanagement.css"
+            styleClass="root">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="260.0" spacing="14.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="22" right="18" bottom="22" left="18"/>
+            </padding>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
+                    <image>
+                        <Image url="@/assest/Startup_Flow__1_-removebg-preview.png"/>
+                    </image>
+                </ImageView>
+                <VBox spacing="2">
+                    <Label text="StartupFlow" styleClass="brand-title"/>
+                    <Label text="Tunisia" styleClass="brand-sub"/>
+                </VBox>
+            </HBox>
+
+            <Separator styleClass="sep"/>
+
+            <VBox spacing="10" styleClass="nav-box">
+                <Button text="Dashboard" styleClass="nav-btn" onAction="#goDashboard"/>
+                <Button text="User Management" styleClass="nav-btn" onAction="#goUsers"/>
+                <Button text="Startup Projects" styleClass="nav-btn" onAction="#goProjects"/>
+                <Button text="Mentorship" styleClass="nav-btn" onAction="#goMentorship"/>
+                <Button text="Funding &amp; Evaluation" styleClass="nav-btn" onAction="#goFunding"/>
+                <Button fx:id="btnDashboardForum" text="Dashboard Forum" styleClass="nav-btn" onAction="#goDashboardForum"/>
+                <Button fx:id="btnForumBackOffice" text="Forum" styleClass="nav-btn" onAction="#goForumBackOffice"/>
+                <Button text="Settings" styleClass="nav-btn" onAction="#goSettings"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="Logout" styleClass="nav-btn, logout" onAction="#logout"/>
+        </VBox>
+    </left>
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="14" right="18" bottom="14" left="18"/>
+            </padding>
+
+            <Label text="Forum Management (Admin)" styleClass="top-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <TextField fx:id="searchField" promptText="Search by title / content..."
+                       styleClass="search"/>
+
+            <Button text="Toggle Analytics" styleClass="pill" onAction="#toggleAnalytics"/>
+            <Button text="Refresh" styleClass="pill" onAction="#refresh"/>
+        </HBox>
+    </top>
+
+    <!-- MAIN -->
+    <!-- MAIN -->
+    <center>
+        <StackPane styleClass="main" BorderPane.alignment="CENTER">
+            
+            <!-- DASHBOARD PANEL -->
+            <VBox fx:id="pnlDashboard" spacing="20" visible="false" alignment="TOP_CENTER">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                
+                <Label text="Analytics Dashboard" styleClass="section-title" style="-fx-font-size: 22px;"/>
+                
+                <HBox spacing="20" alignment="CENTER">
+                    <!-- Interaction Chart -->
+                    <StackPane styleClass="glass-card" prefWidth="550" prefHeight="400">
+                        <javafx.scene.chart.PieChart fx:id="pieChart" title="User Interactions"/>
+                    </StackPane>
+                    
+                    <!-- Activity Chart -->
+                     <StackPane styleClass="glass-card" prefWidth="550" prefHeight="400">
+                        <javafx.scene.chart.BarChart fx:id="barChart" title="Posts Activity">
+                            <xAxis><javafx.scene.chart.CategoryAxis label="Category"/></xAxis>
+                            <yAxis><javafx.scene.chart.NumberAxis label="Count"/></yAxis>
+                        </javafx.scene.chart.BarChart>
+                    </StackPane>
+                </HBox>
+            </VBox>
+
+            <!-- FORUM PANEL (Existing) -->
+            <AnchorPane fx:id="pnlForum">
+
+                <!-- TABLE CARD -->
+                <StackPane layoutX="26" layoutY="26" prefWidth="930" prefHeight="610" styleClass="glass-card">
+                    <VBox spacing="12" styleClass="card-content">
+                        <padding>
+                            <Insets top="18" right="18" bottom="18" left="18"/>
+                        </padding>
+    
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="Posts" styleClass="section-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblInfo" text="" styleClass="info"/>
+                        </HBox>
+    
+                        <TableView fx:id="postsTable" editable="true" styleClass="table" prefHeight="545">
+                            <columns>
+                                <TableColumn fx:id="colId" text="ID" prefWidth="55"/>
+                                <TableColumn fx:id="colTitle" text="Title" prefWidth="200"/>
+                                <TableColumn fx:id="colContent" text="Content" prefWidth="250"/>
+                                <TableColumn fx:id="colImage" text="Image URL" prefWidth="150"/>
+                                <TableColumn fx:id="colCreatedAt" text="Created At" prefWidth="120"/>
+                                <TableColumn fx:id="colUpdatedAt" text="Updated At" prefWidth="120"/>
+                                <!-- ICON ACTIONS -->
+                                <TableColumn fx:id="colActions" text="Action" prefWidth="85"/>
+                            </columns>
+                        </TableView>
+    
+                    </VBox>
+                </StackPane>
+    
+                <!-- RIGHT FORM CARD -->
+                <StackPane layoutX="980" layoutY="26" prefWidth="274" prefHeight="610" styleClass="side-card">
+                    <VBox spacing="10" styleClass="side-content">
+                        <padding>
+                            <Insets top="16" right="14" bottom="16" left="14"/>
+                        </padding>
+    
+                        <Label text="Add Post" styleClass="side-title"/>
+    
+                        <TextField fx:id="tfTitle" promptText="Title" styleClass="pillField"/>
+                        <TextArea fx:id="taContent" promptText="Content" styleClass="pillField" prefHeight="100" wrapText="true"/>
+                        <TextField fx:id="tfImageUrl" promptText="Image URL" styleClass="pillField"/>
+    
+                        <Button text="Add Post" styleClass="saveBtn" onAction="#addPost"/>
+    
+                        <Separator styleClass="sep"/>
+                        
+                        <Label text="Selected Post" styleClass="side-title"/>
+                        <Button text="View Comments" styleClass="pill2" onAction="#viewComments"/>
+    
+                    </VBox>
+                </StackPane>
+            
+            </AnchorPane> <!-- End of Forum Panel -->
+
+        </StackPane>
+    </center>
+
+</BorderPane>

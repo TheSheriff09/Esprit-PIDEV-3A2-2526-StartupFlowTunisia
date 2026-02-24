@@ -23,41 +23,60 @@ import java.util.Locale;
 
 public class UserManagementController {
 
-    @FXML private TableView<User> usersTable;
+    @FXML
+    private TableView<User> usersTable;
 
-    @FXML private TableColumn<User, String> colId;
-    @FXML private TableColumn<User, String> colFullName;
-    @FXML private TableColumn<User, String> colEmail;
-    @FXML private TableColumn<User, String> colPassword;     // always empty
-    @FXML private TableColumn<User, String> colRole;
-    @FXML private TableColumn<User, String> colStatus;
-    @FXML private TableColumn<User, String> colMentorExp;
-    @FXML private TableColumn<User, String> colEvalLevel;
-    @FXML private TableColumn<User, String> colCreatedAt;
-    @FXML private TableColumn<User, Void> colActions;
+    @FXML
+    private TableColumn<User, String> colId;
+    @FXML
+    private TableColumn<User, String> colFullName;
+    @FXML
+    private TableColumn<User, String> colEmail;
+    @FXML
+    private TableColumn<User, String> colPassword; // always empty
+    @FXML
+    private TableColumn<User, String> colRole;
+    @FXML
+    private TableColumn<User, String> colStatus;
+    @FXML
+    private TableColumn<User, String> colMentorExp;
+    @FXML
+    private TableColumn<User, String> colEvalLevel;
+    @FXML
+    private TableColumn<User, String> colCreatedAt;
+    @FXML
+    private TableColumn<User, Void> colActions;
 
-    @FXML private TextField searchField;
-    @FXML private Label lblInfo;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Label lblInfo;
 
     // Add form
-    @FXML private TextField tfFullName;
-    @FXML private TextField tfEmail;
-    @FXML private PasswordField pfPassword;
-    @FXML private ComboBox<String> cbRole;
-    @FXML private ComboBox<String> cbStatus;
-    @FXML private TextField tfMentorExpertise;
-    @FXML private TextField tfEvaluatorLevel;
+    @FXML
+    private TextField tfFullName;
+    @FXML
+    private TextField tfEmail;
+    @FXML
+    private PasswordField pfPassword;
+    @FXML
+    private ComboBox<String> cbRole;
+    @FXML
+    private ComboBox<String> cbStatus;
+    @FXML
+    private TextField tfMentorExpertise;
+    @FXML
+    private TextField tfEvaluatorLevel;
 
     private final UserService userService = new UserService();
 
     private final ObservableList<User> master = FXCollections.observableArrayList();
     private FilteredList<User> filtered;
 
-    private final ObservableList<String> roles =
-            FXCollections.observableArrayList("ENTREPRENEUR","MENTOR","EVALUATOR","ADMIN");
+    private final ObservableList<String> roles = FXCollections.observableArrayList("ENTREPRENEUR", "MENTOR",
+            "EVALUATOR", "ADMIN");
 
-    private final ObservableList<String> statuses =
-            FXCollections.observableArrayList("PENDING","ACTIVE","BLOCKED");
+    private final ObservableList<String> statuses = FXCollections.observableArrayList("PENDING", "ACTIVE", "BLOCKED");
 
     @FXML
     private void initialize() {
@@ -85,10 +104,12 @@ public class UserManagementController {
         boolean eval = "EVALUATOR".equalsIgnoreCase(role);
 
         tfMentorExpertise.setDisable(!mentor);
-        if (!mentor) tfMentorExpertise.clear();
+        if (!mentor)
+            tfMentorExpertise.clear();
 
         tfEvaluatorLevel.setDisable(!eval);
-        if (!eval) tfEvaluatorLevel.clear();
+        if (!eval)
+            tfEvaluatorLevel.clear();
     }
 
     private void setupTable() {
@@ -114,8 +135,10 @@ public class UserManagementController {
             u.setRole(e.getNewValue());
 
             // If role changed, clean irrelevant columns
-            if (!"MENTOR".equalsIgnoreCase(u.getRole())) u.setMentorExpertise(null);
-            if (!"EVALUATOR".equalsIgnoreCase(u.getRole())) u.setEvaluatorLevel(null);
+            if (!"MENTOR".equalsIgnoreCase(u.getRole()))
+                u.setMentorExpertise(null);
+            if (!"EVALUATOR".equalsIgnoreCase(u.getRole()))
+                u.setEvaluatorLevel(null);
         });
 
         colStatus.setCellValueFactory(cd -> new SimpleStringProperty(ns(cd.getValue().getStatus())));
@@ -127,7 +150,8 @@ public class UserManagementController {
         colMentorExp.setOnEditCommit(e -> {
             User u = e.getRowValue();
             u.setMentorExpertise(emptyToNull(e.getNewValue()));
-            if (!"MENTOR".equalsIgnoreCase(u.getRole())) u.setMentorExpertise(null);
+            if (!"MENTOR".equalsIgnoreCase(u.getRole()))
+                u.setMentorExpertise(null);
         });
 
         colEvalLevel.setCellValueFactory(cd -> new SimpleStringProperty(ns(cd.getValue().getEvaluatorLevel())));
@@ -135,7 +159,8 @@ public class UserManagementController {
         colEvalLevel.setOnEditCommit(e -> {
             User u = e.getRowValue();
             u.setEvaluatorLevel(emptyToNull(e.getNewValue()));
-            if (!"EVALUATOR".equalsIgnoreCase(u.getRole())) u.setEvaluatorLevel(null);
+            if (!"EVALUATOR".equalsIgnoreCase(u.getRole()))
+                u.setEvaluatorLevel(null);
         });
 
         colCreatedAt.setCellValueFactory(cd -> new SimpleStringProperty(formatTs(cd.getValue().getCreatedAt())));
@@ -176,7 +201,8 @@ public class UserManagementController {
     private void loadUsers() {
         master.clear();
         master.addAll(userService.list());
-        if (lblInfo != null) lblInfo.setText("Total: " + master.size());
+        if (lblInfo != null)
+            lblInfo.setText("Total: " + master.size());
         usersTable.refresh();
     }
 
@@ -184,13 +210,15 @@ public class UserManagementController {
         String query = (q == null) ? "" : q.trim().toLowerCase(Locale.ROOT);
 
         filtered.setPredicate(u -> {
-            if (query.isEmpty()) return true;
+            if (query.isEmpty())
+                return true;
             String name = ns(u.getFullName()).toLowerCase(Locale.ROOT);
             String mail = ns(u.getEmail()).toLowerCase(Locale.ROOT);
             return name.contains(query) || mail.contains(query);
         });
 
-        if (lblInfo != null) lblInfo.setText("Showing: " + filtered.size());
+        if (lblInfo != null)
+            lblInfo.setText("Showing: " + filtered.size());
     }
 
     @FXML
@@ -207,13 +235,15 @@ public class UserManagementController {
     }
 
     private void deleteRow(User u) {
-        if (u == null) return;
+        if (u == null)
+            return;
 
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Delete user");
         a.setHeaderText("Delete: " + ns(u.getFullName()));
         a.setContentText("This cannot be undone.");
-        if (a.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK) return;
+        if (a.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK)
+            return;
 
         userService.deleteById(u.getId());
         refresh();
@@ -236,8 +266,10 @@ public class UserManagementController {
             return;
         }
 
-        if (!role.equalsIgnoreCase("MENTOR")) mentorExp = null;
-        if (!role.equalsIgnoreCase("EVALUATOR")) evalLevel = null;
+        if (!role.equalsIgnoreCase("MENTOR"))
+            mentorExp = null;
+        if (!role.equalsIgnoreCase("EVALUATOR"))
+            evalLevel = null;
 
         User u = new User();
         u.setFullName(fullName);
@@ -257,6 +289,7 @@ public class UserManagementController {
         refresh();
         clearForm();
     }
+
     private void showAlert(String title, String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(title);
@@ -276,17 +309,50 @@ public class UserManagementController {
         updateExtraFields(cbRole.getValue());
     }
 
-    @FXML private void goDashboard() { goTo("/DashboardAdmin.fxml"); }
-    @FXML private void goUsers() { /* already here */ }
-    @FXML private void goProjects() { System.out.println("Projects later"); }
-    @FXML private void goMentorship() { System.out.println("Mentorship later"); }
-    @FXML private void goFunding() { System.out.println("Funding later"); }
-    @FXML private void goForum() { System.out.println("Forum later"); }
-    @FXML private void goSettings() { System.out.println("Settings later"); }
+    @FXML
+    private void goDashboard() {
+        goTo("/DashboardAdmin.fxml");
+    }
+
+    @FXML
+    private void goUsers() {
+        /* already here */ }
+
+    @FXML
+    private void goProjects() {
+        System.out.println("Projects later");
+    }
+
+    @FXML
+    private void goMentorship() {
+        System.out.println("Mentorship later");
+    }
+
+    @FXML
+    private void goFunding() {
+        System.out.println("Funding later");
+    }
+
+    @FXML
+    private void goDashboardForum() {
+        ForumAdminController.showAnalyticsOnLoad = true;
+        goTo("/ForumAdmin.fxml");
+    }
+
+    @FXML
+    private void goForumBackOffice() {
+        ForumAdminController.showAnalyticsOnLoad = false;
+        goTo("/ForumAdmin.fxml");
+    }
+
+    @FXML
+    private void goSettings() {
+        System.out.println("Settings later");
+    }
 
     @FXML
     private void goReclamations() {
-         goTo("/ReclamationAdmin.fxml");
+        goTo("/ReclamationAdmin.fxml");
     }
 
     @FXML
@@ -312,21 +378,25 @@ public class UserManagementController {
         }
     }
 
-
-    private String ns(String s) { return (s == null) ? "" : s; }
+    private String ns(String s) {
+        return (s == null) ? "" : s;
+    }
 
     private String emptyToNull(String s) {
-        if (s == null) return null;
+        if (s == null)
+            return null;
         s = s.trim();
         return s.isEmpty() ? null : s;
     }
 
     private String formatTs(Timestamp ts) {
-        if (ts == null) return "";
+        if (ts == null)
+            return "";
         return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(ts);
     }
 
     private void toast(String msg) {
-        if (lblInfo != null) lblInfo.setText(msg);
+        if (lblInfo != null)
+            lblInfo.setText(msg);
     }
 }

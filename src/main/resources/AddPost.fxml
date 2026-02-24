@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.GUI.AddPostController"
+      stylesheets="@css/entrepreneur_dashboard.css"
+      styleClass="root"
+      alignment="CENTER" prefWidth="500" prefHeight="600">
+
+    <VBox spacing="20" styleClass="mainCard" maxWidth="450">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+
+        <Label text="Create New Post" styleClass="brandTitle" style="-fx-font-size: 22px;"/>
+
+        <VBox spacing="5">
+            <Label text="Title" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+            <TextField fx:id="tfTitle" promptText="Enter a descriptive title..." style="-fx-background-radius: 8; -fx-padding: 10;"/>
+        </VBox>
+
+        <VBox spacing="5">
+             <HBox spacing="10" alignment="CENTER_LEFT">
+                 <Label text="Content" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                 <Region HBox.hgrow="ALWAYS"/>
+                 <Button text="🎙️ Dictate" onAction="#onDictate" styleClass="actionBtn" style="-fx-padding: 5 10 5 10; -fx-font-size: 12px; -fx-pref-width: auto;"/>
+                 <Button text="✨ Rephrase" onAction="#onRephrase" styleClass="actionBtn" style="-fx-padding: 5 10 5 10; -fx-font-size: 12px; -fx-pref-width: auto;"/>
+             </HBox>
+            <TextArea fx:id="taContent" promptText="What's on your mind?" prefHeight="150" wrapText="true" style="-fx-background-radius: 8;"/>
+        </VBox>
+
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Button text="📷 Upload Image" onAction="#uploadImage" styleClass="actionBtn" style="-fx-background-color: #f0f2f5; -fx-text-fill: #333;"/>
+            <Label fx:id="lblImageName" text="No image selected" style="-fx-text-fill: gray; -fx-font-size: 12px;"/>
+        </HBox>
+        
+        <ImageView fx:id="imgPreview" fitHeight="150" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);"/>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <HBox spacing="15" alignment="CENTER_RIGHT">
+            <Button text="Cancel" onAction="#cancel" style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-cursor: hand; -fx-font-weight: bold;"/>
+            <Button text="Publish Post" onAction="#submit" styleClass="actionBtn"/>
+        </HBox>
+    </VBox>
+
+</VBox>

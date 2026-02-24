@@ -38,7 +38,8 @@
                 <Button fx:id="btnProjects" onAction="#goProjects" styleClass="nav-btn" text="Startup Projects" />
                 <Button fx:id="btnMentorship" onAction="#goMentorship" styleClass="nav-btn" text="Mentorship" />
                 <Button fx:id="btnFunding" onAction="#goFunding" styleClass="nav-btn" text="Funding &amp; Evaluation" />
-                <Button fx:id="btnForum" onAction="#goForum" styleClass="nav-btn" text="Forum Moderation" />
+                <Button fx:id="btnForum" onAction="#goDashboardForum" styleClass="nav-btn" text="Dashboard Forum" />
+                <Button fx:id="btnForumFeed" onAction="#goForumBackOffice" styleClass="nav-btn" text="Forum" />
                 <Button fx:id="btnSettings" onAction="#goSettings" styleClass="nav-btn" text="Settings" />
             </VBox>
 

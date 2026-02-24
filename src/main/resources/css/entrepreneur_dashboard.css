@@ -9,6 +9,7 @@
     -fx-font-size: 16px;
     -fx-font-weight: 700;
 }
+
 .brandSub {
     -fx-text-fill: #7b61ff;
     -fx-opacity: 0.85;
@@ -18,12 +19,20 @@
 .navLink {
     -fx-text-fill: #7b61ff;
     -fx-font-size: 14px;
-    -fx-opacity: 0.75;
+    -fx-font-weight: 800;
     -fx-cursor: hand;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 16;
 }
+
+.navLink:hover {
+    -fx-background-color: rgba(123, 97, 255, 0.10);
+}
+
 .navActive {
+    -fx-background-color: linear-gradient(to right, #7b61ff, #d7a1ff);
+    -fx-text-fill: white;
     -fx-opacity: 1.0;
-    -fx-underline: true;
 }
 
 /* User button (MenuButton) */
@@ -36,7 +45,10 @@
     -fx-cursor: hand;
     -fx-background-insets: 0;
 }
-.userBtn > .label { -fx-text-fill: white; }
+
+.userBtn>.label {
+    -fx-text-fill: white;
+}
 
 /* Card */
 .mainCard {
@@ -44,13 +56,14 @@
     -fx-background-radius: 18;
     -fx-border-radius: 18;
     -fx-border-color: rgba(123, 97, 255, 0.15);
-    -fx-effect: dropshadow(gaussian, rgba(123,97,255,0.18), 24, 0.25, 0, 10);
+    -fx-effect: dropshadow(gaussian, rgba(123, 97, 255, 0.18), 24, 0.25, 0, 10);
 }
 
 /* ===== FORCE THE CENTER LOOK (HIGH SPECIFICITY) ===== */
 .mainCard .hello {
     -fx-text-fill: #7b61ff;
-    -fx-font-size: 42px;     /* bigger like your design */
+    -fx-font-size: 42px;
+    /* bigger like your design */
     -fx-font-weight: 800;
 }
 
@@ -76,10 +89,12 @@
     -fx-font-size: 14px;
     -fx-opacity: 0.85;
 }
+
 .statusValue {
     -fx-font-size: 14px;
     -fx-font-weight: 800;
 }
+
 .statusUnderline {
     -fx-min-height: 3px;
     -fx-max-height: 3px;
@@ -90,9 +105,17 @@
 }
 
 /* Status colors (controller adds classes) */
-.stApproved { -fx-text-fill: #2bbf6a; }
-.stPending  { -fx-text-fill: #ff9f0a; }
-.stBlocked  { -fx-text-fill: #ff3b30; }
+.stApproved {
+    -fx-text-fill: #2bbf6a;
+}
+
+.stPending {
+    -fx-text-fill: #ff9f0a;
+}
+
+.stBlocked {
+    -fx-text-fill: #ff3b30;
+}
 
 /* ===== FORCE BUTTON LOOK (NO GRAY DEFAULT) ===== */
 .mainCard .actionBtn {
@@ -110,7 +133,7 @@
     -fx-border-insets: 0;
 
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(123,97,255,0.25), 14, 0.2, 0, 6);
+    -fx-effect: dropshadow(gaussian, rgba(123, 97, 255, 0.25), 14, 0.2, 0, 6);
 }
 
 /* Hover */
@@ -123,15 +146,18 @@
     -fx-background-color: white;
     -fx-background-radius: 16;
     -fx-padding: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 22, 0.2, 0, 10);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.10), 22, 0.2, 0, 10);
 }
+
 .menu-item .label {
     -fx-text-fill: #7b61ff;
     -fx-font-size: 13px;
 }
+
 .menu-item:focused {
     -fx-background-color: rgba(123, 97, 255, 0.10);
 }
+
 .logoutItem .label {
     -fx-text-fill: #ff3b30;
     -fx-font-weight: 800;
