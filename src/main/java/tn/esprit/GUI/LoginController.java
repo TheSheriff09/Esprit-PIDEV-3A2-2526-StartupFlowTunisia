@@ -44,10 +44,8 @@ public class LoginController {
             return;
         }
 
-        // Save in session
         CurrentUserSession.user = u;
 
-        // Redirect based on role
         String role = (u.getRole() == null) ? "" : u.getRole().trim().toUpperCase();
 
         if (role.equals("ADMIN")) {
@@ -75,10 +73,57 @@ public class LoginController {
         }
     }
 
-    @FXML private void onGoSignup() { goTo("/signup.fxml"); }
+    @FXML private void onGoSignup() { goTo("/Signup.fxml"); }
 
     @FXML private void onLinkedin() {}
-    @FXML private void onGoogle() {}
+    @FXML private void onGoogle() {  msgLabel.setText("Opening Google login...");
+
+        new Thread(() -> {
+            try {
+                tn.esprit.auth.GoogleOAuthService svc = new tn.esprit.auth.GoogleOAuthService();
+                tn.esprit.auth.GoogleOAuthService.GoogleUserInfo g = svc.loginAndGetUserInfo();
+
+                UserService us = new UserService();
+                User existing = us.getByEmail(g.getEmail());
+
+                if (existing != null) {
+                    String st = (existing.getStatus() == null) ? "PENDING" : existing.getStatus().trim();
+                    if (st.equalsIgnoreCase("BLOCKED")) {
+                        javafx.application.Platform.runLater(() ->
+                                msgLabel.setText("Your account is blocked"));
+                        return;
+                    }
+
+                    CurrentUserSession.user = existing;
+
+                    javafx.application.Platform.runLater(() -> {
+                        String role = (existing.getRole() == null) ? "" : existing.getRole().trim().toUpperCase();
+                        if (role.equals("ADMIN")) goTo("/DashboardAdmin.fxml");
+                        else if (role.equals("ENTREPRENEUR")) goTo("/EntrepreneurDashboard.fxml");
+                        else if (role.equals("MENTOR")) goTo("/MentorDashboard.fxml");
+                        else if (role.equals("EVALUATOR")) goTo("/EvaluatorDashboard.fxml");
+                        else msgLabel.setText("Unknown role: " + role);
+                    });
+
+                    return;
+                }
+
+                // New Google user -> send to RoleChoice to pick role
+                tn.esprit.utils.SignupSession.fullName = g.getName();
+                tn.esprit.utils.SignupSession.email = g.getEmail();
+                tn.esprit.utils.SignupSession.passwordPlain = null; // IMPORTANT: no password
+
+                javafx.application.Platform.runLater(() -> {
+                    msgLabel.setText("Choose your role to complete signup.");
+                    goTo("/RoleChoice.fxml");
+                });
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                javafx.application.Platform.runLater(() ->
+                        msgLabel.setText("Google login error: " + ex.getMessage()));
+            }
+        }).start();}
     @FXML private void onOther() {}
 
     @FXML private void togglePassword() {}

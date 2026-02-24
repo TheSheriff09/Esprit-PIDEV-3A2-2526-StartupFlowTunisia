@@ -45,7 +45,6 @@ public class LandingController {
 
     @FXML
     private void onGetIncorporated() {
-        System.out.println("GET INCORPORATED clicked -> go signup");
         goTo("signup.fxml");
     }
 

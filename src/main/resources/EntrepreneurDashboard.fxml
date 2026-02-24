@@ -33,6 +33,8 @@
             <Label onMouseClicked="#onStartup" styleClass="navLink" text="Startup" />
             <Label onMouseClicked="#onMentorship" styleClass="navLink" text="Mentorship" />
             <Label onMouseClicked="#onFunding" styleClass="navLink" text="Funding" />
+            <Label onMouseClicked="#onFourm" styleClass="navLink" text="Fourm" />
+
         </HBox>
 
         <Region HBox.hgrow="ALWAYS" />

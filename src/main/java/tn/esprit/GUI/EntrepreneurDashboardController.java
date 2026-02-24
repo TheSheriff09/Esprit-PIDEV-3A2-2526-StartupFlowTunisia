@@ -36,12 +36,10 @@ public class EntrepreneurDashboardController {
             return;
         }
 
-        // 1) Full name (with spaces)
         String fullName = (u.getFullName() == null) ? "User" : u.getFullName().trim();
         userMenuBtn.setText(fullName);
         miHeader.setText(fullName);
 
-        // 2) Status mapping + color class
         String dbStatus = (u.getStatus() == null) ? "PENDING" : u.getStatus().trim();
 
         statusValueLabel.getStyleClass().removeAll("stApproved","stPending","stBlocked");
@@ -59,12 +57,10 @@ public class EntrepreneurDashboardController {
             statusValueLabel.getStyleClass().add("stBlocked");
 
         } else {
-            // any other status value in DB
             statusValueLabel.setText(dbStatus);
             statusValueLabel.getStyleClass().add("stPending");
         }
 
-        // 3) Logout red style
         miLogout.getStyleClass().add("logoutItem");
     }
 
@@ -103,8 +99,8 @@ public class EntrepreneurDashboardController {
     @FXML private void onStartups() { System.out.println("Startups"); }
     @FXML private void onSettings() { System.out.println("Settings"); }
 
-    @FXML private void onFindMentor() { System.out.println("Find Mentor"); }
-    @FXML private void onSwot() {         goTo("/swot.fxml");  // adjust path if needed
+    @FXML private void onFindMentor() { goTo("/FindMentor.fxml"); }
+    @FXML private void onSwot() {         goTo("/swot.fxml");
     }
 @FXML private void onFourm(){}
     @FXML private void onSupport() {
@@ -114,7 +110,7 @@ public class EntrepreneurDashboardController {
     @FXML
     private void onLogout() {
         CurrentUserSession.user = null;
-        goTo("/Signup.fxml");  // adjust path if needed
+        goTo("/Signup.fxml");
 }
 
 }

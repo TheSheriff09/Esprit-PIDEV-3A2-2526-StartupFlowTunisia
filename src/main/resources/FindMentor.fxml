@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.GUI.FindMentorController"
+            prefWidth="900" prefHeight="600">
+
+    <VBox spacing="10" AnchorPane.topAnchor="12" AnchorPane.leftAnchor="12"
+          AnchorPane.rightAnchor="12" AnchorPane.bottomAnchor="12">
+
+        <Label text="Find Best Mentors (Expertise Match + Reclamation Risk)" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+
+        <HBox spacing="10">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Describe what you need:"/>
+                <TextArea fx:id="needTextArea" prefRowCount="3" wrapText="true"/>
+            </VBox>
+
+            <VBox spacing="6">
+                <Button fx:id="btnFind" text="Find Mentor" onAction="#findMentors" prefWidth="140"/>
+                <Label fx:id="lblInfo" text=""/>
+            </VBox>
+        </HBox>
+
+        <TableView fx:id="table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colBest" text="Best" prefWidth="90"/>
+                <TableColumn fx:id="colName" text="Mentor" prefWidth="160"/>
+                <TableColumn fx:id="colExpertise" text="Expertise" prefWidth="280"/>
+                <TableColumn fx:id="colMatch" text="Match %" prefWidth="90"/>
+                <TableColumn fx:id="colRecl" text="Reclamations (90d)" prefWidth="140"/>
+                <TableColumn fx:id="colRisk" text="Risk" prefWidth="80"/>
+            </columns>
+        </TableView>
+
+        <Label text="Risk meaning: LOW (0-2), MID (3-6), HIGH (7+). HIGH mentors are not marked BEST even if match is high."/>
+    </VBox>
+</AnchorPane>

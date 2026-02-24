@@ -5,21 +5,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tn.esprit.Services.UserService;
+import tn.esprit.entities.User;
+import tn.esprit.utils.CurrentUserSession;
 import tn.esprit.utils.SignupSession;
+import javafx.scene.control.Label;
 
 public class SignupController {
-
+    @FXML private Label msgLabel;
     @FXML private TextField fullNameField;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
-    @FXML private Label msgLabel; // optional if you add it later
+  //  @FXML private Label msgLabel;
     @FXML private Button togglePassBtn;
     @FXML private TextField visiblePasswordField;
     private boolean showingPassword = false;
+
     @FXML
     private void register() {
         String fullName = fullNameField.getText();
@@ -33,7 +38,6 @@ public class SignupController {
             return;
         }
 
-        // Save temporarily
         SignupSession.fullName = fullName;
         SignupSession.email = email;
         SignupSession.passwordPlain = password;
@@ -57,7 +61,6 @@ public class SignupController {
     }
     @FXML private void togglePassword() {
         if (showingPassword) {
-            // Switch back to hidden mode
             passwordField.setText(visiblePasswordField.getText());
 
             passwordField.setVisible(true);
@@ -71,7 +74,6 @@ public class SignupController {
             showingPassword = false;
 
         } else {
-            // Switch to visible mode
             visiblePasswordField.setText(passwordField.getText());
 
             visiblePasswordField.setVisible(true);
@@ -87,8 +89,56 @@ public class SignupController {
     }
 
     @FXML private void socialFacebook() {}
-    @FXML private void socialGoogle() {}
-    @FXML private void socialGithub() {}
+    @FXML private void onGoogle2() {
+        msgLabel.setText("Opening Google login...");
+
+        new Thread(() -> {
+            try {
+                tn.esprit.auth.GoogleOAuthService svc = new tn.esprit.auth.GoogleOAuthService();
+                tn.esprit.auth.GoogleOAuthService.GoogleUserInfo g = svc.loginAndGetUserInfo();
+
+                UserService us = new UserService();
+                User existing = us.getByEmail(g.getEmail());
+
+                if (existing != null) {
+                    String st = (existing.getStatus() == null) ? "PENDING" : existing.getStatus().trim();
+                    if (st.equalsIgnoreCase("BLOCKED")) {
+                        javafx.application.Platform.runLater(() ->
+                                msgLabel.setText("Your account is blocked"));
+                        return;
+                    }
+
+                    CurrentUserSession.user = existing;
+
+                    javafx.application.Platform.runLater(() -> {
+                        String role = (existing.getRole() == null) ? "" : existing.getRole().trim().toUpperCase();
+                        if (role.equals("ADMIN")) goTo("/DashboardAdmin.fxml");
+                        else if (role.equals("ENTREPRENEUR")) goTo("/EntrepreneurDashboard.fxml");
+                        else if (role.equals("MENTOR")) goTo("/MentorDashboard.fxml");
+                        else if (role.equals("EVALUATOR")) goTo("/EvaluatorDashboard.fxml");
+                        else msgLabel.setText("Unknown role: " + role);
+                    });
+
+                    return;
+                }
+
+                // New Google user -> send to RoleChoice to pick role
+                tn.esprit.utils.SignupSession.fullName = g.getName();
+                tn.esprit.utils.SignupSession.email = g.getEmail();
+                tn.esprit.utils.SignupSession.passwordPlain = null; // IMPORTANT: no password
+
+                javafx.application.Platform.runLater(() -> {
+                    msgLabel.setText("Choose your role to complete signup.");
+                    goTo("RoleChoice.fxml");
+                });
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                javafx.application.Platform.runLater(() ->
+                        msgLabel.setText("Google login error: " + ex.getMessage()));
+            }
+        }).start();}
+  @FXML private void socialGithub() {}
     @FXML private void goLogin() {        goTo("Login.fxml");
     }
 }

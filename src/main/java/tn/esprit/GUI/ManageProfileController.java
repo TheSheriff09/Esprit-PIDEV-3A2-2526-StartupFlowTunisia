@@ -41,21 +41,17 @@ public class ManageProfileController {
         String fullName = (sessionUser.getFullName() == null) ? "User" : sessionUser.getFullName().trim();
         userMenuBtn.setText(fullName);
         miHeader.setText(fullName);
-        // READ fresh from DB (recommended)
         User u = userService.getById(sessionUser.getId());
         if (u == null) {
             msgLabel.setText("User not found.");
             return;
         }
 
-        // Update session with fresh data
         CurrentUserSession.user = u;
 
-        // Fill editable fields
         fullNameField.setText(u.getFullName() == null ? "" : u.getFullName());
         emailField.setText(u.getEmail() == null ? "" : u.getEmail());
 
-        // Keep password fields empty
         oldPasswordField.clear();
         newPasswordField.clear();
 
@@ -64,7 +60,6 @@ public class ManageProfileController {
 
         createdAtField.setText(formatTs(u.getCreatedAt()));
 
-        // Ensure non editable
         roleField.setEditable(false);
         createdAtField.setEditable(false);
         roleField.setDisable(true);
@@ -91,7 +86,6 @@ public class ManageProfileController {
             return;
         }
 
-        // If user typed new password, must type old password too
         boolean wantsPasswordChange = newPass != null && !newPass.trim().isEmpty();
         if (wantsPasswordChange && (oldPass == null || oldPass.trim().isEmpty())) {
             msgLabel.setText("Enter your old password to set a new password.");
@@ -105,13 +99,11 @@ public class ManageProfileController {
             return;
         }
 
-        msgLabel.setText("Updated successfully ✅");
+        msgLabel.setText("Updated successfully ");
 
-        // Refresh session user so dashboards show new name/email
         User refreshed = userService.getById(u.getId());
         if (refreshed != null) CurrentUserSession.user = refreshed;
 
-        // clear password fields after success
         oldPasswordField.clear();
         newPasswordField.clear();
     }
@@ -146,6 +138,6 @@ public class ManageProfileController {
     @FXML
     private void onLogout() {
         CurrentUserSession.user = null;
-        goTo("/Signup.fxml"); // or your real signup path
+        goTo("/Signup.fxml");
     }
 }

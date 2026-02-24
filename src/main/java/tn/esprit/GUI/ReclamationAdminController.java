@@ -194,7 +194,7 @@ public class ReclamationAdminController {
 
         selected.setStatus(st);
         reclamationsTable.refresh();
-        toast("Status updated ✅");
+        toast("Status updated ");
     }
 
     @FXML
@@ -227,7 +227,7 @@ public class ReclamationAdminController {
 
         taResponse.clear();
         loadResponses(selected.getId());
-        toast("Response sent ✅");
+        toast("Response sent");
     }
 
     private void deleteReclamation(Reclamation r) {
@@ -252,7 +252,7 @@ public class ReclamationAdminController {
         }
 
         refresh();
-        toast("Deleted ✅");
+        toast("Deleted ");
     }
 
     @FXML

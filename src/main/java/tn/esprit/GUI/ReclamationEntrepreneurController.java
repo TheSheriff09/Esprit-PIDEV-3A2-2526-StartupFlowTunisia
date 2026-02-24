@@ -86,7 +86,6 @@ public class ReclamationEntrepreneurController {
 
         searchField.textProperty().addListener((obs, ov, nv) -> applyFilter(nv));
 
-        // ✅ load responses whenever row selection changes
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, sel) -> {
             if (sel == null) {
                 respMaster.clear();
@@ -189,7 +188,7 @@ public class ReclamationEntrepreneurController {
     @FXML
     private void submit() {
 
-        String type = cbTitle.getValue(); // this goes to DB column "title"
+        String type = cbTitle.getValue();
         String desc = (taDescription.getText() == null) ? "" : taDescription.getText().trim();
 
         if (type == null || type.trim().isEmpty() || desc.isEmpty()) {
@@ -218,7 +217,6 @@ public class ReclamationEntrepreneurController {
 
         int myId = CurrentUserSession.user.getId();
 
-        // ✅ Correct constructor: title(type), description, requestedId, targetId
         Reclamation r = new Reclamation(type, desc, myId, targetId);
         System.out.println("Reclamation title before add = " + r.getTitle());
         Reclamation added = service.add(r);
@@ -232,7 +230,7 @@ public class ReclamationEntrepreneurController {
         cbTitle.getSelectionModel().select("SYSTEM_PROBLEM");
 
         refresh();
-        toast("Submitted ✅");
+        toast("Submitted ");
     }
 
     private void editDescription(Reclamation r) {
@@ -261,7 +259,7 @@ public class ReclamationEntrepreneurController {
         if (ok) {
             r.setDescription(newDesc);
             table.refresh();
-            toast("Updated ✅");
+            toast("Updated ");
         } else {
             alert("Failed", "Could not update (maybe not yours).");
         }
@@ -284,7 +282,7 @@ public class ReclamationEntrepreneurController {
             respMaster.clear();
             if (lblRespInfo != null) lblRespInfo.setText("Select a reclamation to view replies.");
             refresh();
-            toast("Deleted ✅");
+            toast("Deleted");
         } else {
             alert("Failed", "Could not delete (maybe not yours).");
         }
@@ -300,7 +298,6 @@ public class ReclamationEntrepreneurController {
 
             Parent root = FXMLLoader.load(url);
 
-            // ✅ safer than Stage.getWindows...
             Stage stage = (Stage) ((Button) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

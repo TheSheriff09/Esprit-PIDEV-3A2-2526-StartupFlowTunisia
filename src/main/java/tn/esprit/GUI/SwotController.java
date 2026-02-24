@@ -21,8 +21,8 @@ public class SwotController {
     @FXML private ComboBox<Startup> startupCombo;
     @FXML private TextArea outputArea;
     @FXML private Label statusLabel;
-    @FXML private MenuButton userMenuBtn;
-    @FXML private MenuItem miHeader;
+  //  @FXML private MenuButton userMenuBtn;
+  //  @FXML private MenuItem miHeader;
 
     private final StartupDAO startupDAO = new StartupDAO();
 
@@ -67,7 +67,6 @@ public class SwotController {
                     safeArg(s.getSector())
             );
 
-            // ✅ IMPORTANT: do NOT merge stderr into stdout
             pb.redirectErrorStream(false);
 
             Process p = pb.start();
@@ -75,7 +74,6 @@ public class SwotController {
             StringBuilder stdout = new StringBuilder();
             StringBuilder stderr = new StringBuilder();
 
-            // read stdout
             try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -83,7 +81,6 @@ public class SwotController {
                 }
             }
 
-            // read stderr
             try (BufferedReader brErr = new BufferedReader(new InputStreamReader(p.getErrorStream()))) {
                 String line;
                 while ((line = brErr.readLine()) != null) {
@@ -95,7 +92,7 @@ public class SwotController {
 
             if (code == 0) {
                 statusLabel.setText("SWOT generated.");
-                outputArea.setText(stdout.toString().trim());   // ✅ ONLY JSON (or formatted text if you later format it)
+                outputArea.setText(stdout.toString().trim());
             } else {
                 statusLabel.setText("AI failed (code " + code + ").");
                 outputArea.setText(stderr.length() > 0 ? stderr.toString() : stdout.toString());
@@ -136,7 +133,6 @@ public class SwotController {
 
     @FXML
     private void onLogout() {
-        // TODO: route to login if you have login.fxml
         statusLabel.setText("Logout clicked.");
     }
 }

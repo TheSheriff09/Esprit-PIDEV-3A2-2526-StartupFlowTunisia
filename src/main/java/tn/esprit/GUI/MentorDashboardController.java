@@ -65,7 +65,7 @@ public class MentorDashboardController {
     @FXML private void onMentorship() { System.out.println("Mentorship page later"); }
     @FXML private void onSupport() {
         NavContext.setBack("/MentorDashboard.fxml");
-        goTo("/ReclamationEntrepreneur.fxml"); // or Mentor reclamation page if you create one
+        goTo("/ReclamationEntrepreneur.fxml");
     }
     @FXML private void onForum(){}
     @FXML private void onAssignedStartups() { System.out.println("Assigned startups page later"); }
@@ -90,7 +90,7 @@ public class MentorDashboardController {
                 System.out.println(" NOT FOUND: " + fxmlPath);
                 return;
             }
-            Parent root = FXMLLoader.load(url); // standard loading pattern :contentReference[oaicite:2]{index=2}
+            Parent root = FXMLLoader.load(url);
             Stage stage = (Stage) userMenuBtn.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

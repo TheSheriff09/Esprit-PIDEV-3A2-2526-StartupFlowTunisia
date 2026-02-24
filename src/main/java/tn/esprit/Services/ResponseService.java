@@ -56,7 +56,6 @@ public class ResponseService implements ICRUD<Response> {
         return list;
     }
 
-    // ✅ used by entrepreneur page
     public List<Response> listByReclamationId(int reclamationId) {
         List<Response> list = new ArrayList<>();
         String sql = "SELECT * FROM responses WHERE reclamation_id=? ORDER BY created_at DESC";

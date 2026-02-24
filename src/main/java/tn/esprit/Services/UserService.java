@@ -31,7 +31,6 @@ public class UserService implements ICRUD<User> {
 
             ps.executeUpdate();
 
-            // get generated id
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 u.setId(rs.getInt(1));
@@ -107,7 +106,6 @@ public class UserService implements ICRUD<User> {
     public void delete(User u) {
         deleteById(u.getId());
     }
-    // Helper: delete by id (easier to test)
     public void deleteById(int id) {
         String sql = "DELETE FROM users WHERE id=?";
 
@@ -122,11 +120,10 @@ public class UserService implements ICRUD<User> {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ deleteUser error: " + e.getMessage());
+            System.out.println("deleteUser error: " + e.getMessage());
         }
     }
 
-    // OPTIONAL (very useful later for login)
     public User getByEmail(String email) {
         String sql = "SELECT * FROM users WHERE email=?";
 
@@ -149,7 +146,7 @@ public class UserService implements ICRUD<User> {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ getByEmail error: " + e.getMessage());
+            System.out.println(" getByEmail error: " + e.getMessage());
         }
 
         return null;
@@ -160,7 +157,6 @@ public class UserService implements ICRUD<User> {
 
         String dbPass = (u.getPasswordHash() == null) ? "" : u.getPasswordHash().trim();
 
-        // Otherwise DB has plain text
         if (!passwordPlain.equals(dbPass)) return null;
 
         return u;
@@ -221,7 +217,7 @@ public class UserService implements ICRUD<User> {
                 );
             }
         } catch (SQLException e) {
-            System.out.println("❌ getById error: " + e.getMessage());
+            System.out.println("getById error: " + e.getMessage());
         }
         return null;
     }
@@ -236,22 +232,20 @@ public class UserService implements ICRUD<User> {
 
         if (newFullName.isEmpty() || newEmail.isEmpty()) return false;
 
-        // email duplicate check
         User emailOwner = getByEmail(newEmail);
         if (emailOwner != null && emailOwner.getId() != userId) {
-            System.out.println("❌ email already used");
+            System.out.println(" email already used");
             return false;
         }
 
         boolean wantsPasswordChange = (newPasswordPlain != null && !newPasswordPlain.trim().isEmpty());
 
-        // if wants to change password -> must provide old and it must match db plain password
         if (wantsPasswordChange) {
             if (oldPasswordPlain == null || oldPasswordPlain.trim().isEmpty()) return false;
 
             String dbPass = (dbUser.getPasswordHash() == null) ? "" : dbUser.getPasswordHash().trim();
             if (!oldPasswordPlain.equals(dbPass)) {
-                System.out.println("❌ old password incorrect");
+                System.out.println("old password incorrect");
                 return false;
             }
         }
@@ -268,7 +262,7 @@ public class UserService implements ICRUD<User> {
             ps.setString(2, newEmail);
 
             if (wantsPasswordChange) {
-                ps.setString(3, newPasswordPlain.trim()); // ✅ PLAIN PASSWORD
+                ps.setString(3, newPasswordPlain.trim());
                 ps.setInt(4, userId);
             } else {
                 ps.setInt(3, userId);
@@ -277,7 +271,7 @@ public class UserService implements ICRUD<User> {
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            System.out.println("❌ updateProfile error: " + e.getMessage());
+            System.out.println("updateProfile error: " + e.getMessage());
             return false;
         }
     }
@@ -305,5 +299,33 @@ public class UserService implements ICRUD<User> {
         }
         return 0;
     }
-   
+    public User addGoogleUser(String fullName, String email, String role) {
+        try {
+            // Password is null/empty because Google handles authentication
+            String sql = "INSERT INTO user (fullName, email, passwordHash, role, status, mentorExpertise, evaluatorLevel, createdAt) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+
+            PreparedStatement ps = MyDB.getInstance().getCnx().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, fullName);
+            ps.setString(2, email);
+            ps.setString(3, null);
+            ps.setString(4, role);
+            ps.setString(5, "ACTIVE");
+            ps.setString(6, null);
+            ps.setString(7, null);
+
+            int ok = ps.executeUpdate();
+            if (ok == 0) return null;
+
+            ResultSet keys = ps.getGeneratedKeys();
+            if (keys.next()) {
+                int id = keys.getInt(1);
+                return getByEmail(email); // simplest
+            }
+            return getByEmail(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

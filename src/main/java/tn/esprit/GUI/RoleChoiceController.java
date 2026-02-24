@@ -36,23 +36,24 @@ public class RoleChoiceController {
         User u = new User(
                 SignupSession.fullName,
                 SignupSession.email,
-                SignupSession.passwordPlain,   // later: hash
-                "ENTREPRENEUR",
+                (SignupSession.passwordPlain == null ? null : SignupSession.passwordPlain),                "ENTREPRENEUR",
                 "PENDING",
-                null,                          // mentor_expertise
-                null                           // evaluator_level
+                null,
+                null
         );
 
         User created = us.add(u);
-        new Thread(() -> {
-            tn.esprit.Services.EmailService mail = new tn.esprit.Services.EmailService();
-            mail.sendWelcomeEmail(user.getEmail(), user.getFullName(), "http://localhost:8080/startupflow/login");
-        }).start();
-        System.out.println("ENV CHECK = " + System.getenv("STARTUPFLOW_EMAIL_PASSWORD"));
         if (created != null) {
-            user = created;
+            CurrentUserSession.user = created;
+
+            new Thread(() -> {
+                tn.esprit.Services.EmailService mail = new tn.esprit.Services.EmailService();
+                mail.sendWelcomeEmail(created.getEmail(), created.getFullName(),
+                        "http://localhost:8080/startupflow/login");
+            }).start();
+
             goTo(e, "/Login.fxml");
-        } // create a simple page
+        }
     }
 
     @FXML

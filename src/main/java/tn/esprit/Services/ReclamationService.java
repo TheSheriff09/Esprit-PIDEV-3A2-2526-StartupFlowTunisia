@@ -22,7 +22,7 @@ public class ReclamationService implements ICRUD<Reclamation> {
 
         try (PreparedStatement ps = cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setString(1, r.getTitle());        // ✅ this was NULL because entity mapping is wrong
+            ps.setString(1, r.getTitle());
             ps.setString(2, r.getDescription());
 
             String st = r.getStatus();
@@ -31,7 +31,6 @@ public class ReclamationService implements ICRUD<Reclamation> {
 
             ps.setInt(4, r.getRequestedId());
 
-            // ✅ allow null
             if (r.getTargetId() == null) ps.setNull(5, Types.INTEGER);
             else ps.setInt(5, r.getTargetId());
 

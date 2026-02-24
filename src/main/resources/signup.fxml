@@ -56,30 +56,15 @@
 
             <!-- Social buttons (placeholders, same look) -->
             <HBox alignment="CENTER" spacing="20.0">
-                <Button onAction="#socialFacebook" prefHeight="30.0" prefWidth="49.0" styleClass="social-btn fb">
+                <Button ellipsisString="" onAction="#onGoogle2" prefHeight="29.0" prefWidth="264.0" styleClass="social-btn gg">
                <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assest/Facebook_Logo_2023-removebg-preview.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-                <Button ellipsisString="" onAction="#socialGoogle" prefHeight="29.0" prefWidth="48.0" styleClass="social-btn gg">
-               <graphic>
-                  <ImageView fitHeight="19.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="19.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assest/google-lens-icon-logo-symbol-free-png.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-                <Button onAction="#socialGithub" prefHeight="30.0" prefWidth="45.0" styleClass="social-btn gh">
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assest/github-logo-repository-computer-icons-github-removebg-preview.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
+                <Label fx:id="msgLabel" textFill="red" />
             </HBox>
 
             <HBox alignment="CENTER" spacing="6.0" styleClass="login-row">

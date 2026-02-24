@@ -29,7 +29,7 @@ public class DashboardAdminController implements Initializable {
     @FXML private Label lblStatus;
     @FXML private VBox userDropdown;
 
-    @FXML private Button btnUserMenu; // your top right button fx:id="btnUserMenu"
+    @FXML private Button btnUserMenu;
 
     private final UserService userService = new UserService();
 
@@ -38,7 +38,6 @@ public class DashboardAdminController implements Initializable {
 
         loadAdminHeader();
 
-        // 2) Load counts from DB (real)
         int mentors = userService.countByRole("MENTOR");
         int evaluators = userService.countByRole("EVALUATOR");
         int entrepreneurs = userService.countByRole("ENTREPRENEUR");
@@ -46,7 +45,6 @@ public class DashboardAdminController implements Initializable {
         setCounts(mentors, evaluators, entrepreneurs);
         loadUsersChart(mentors, evaluators, entrepreneurs);
 
-        // 3) Dropdown hidden at start
         if (userDropdown != null) {
             userDropdown.setVisible(false);
             userDropdown.setManaged(false);
@@ -57,17 +55,14 @@ public class DashboardAdminController implements Initializable {
     private void loadAdminHeader() {
         User admin = CurrentUserSession.user;
 
-        // Default
         if (btnUserMenu != null) btnUserMenu.setText("Admin");
         if (lblStatus != null) lblStatus.setText("Approved");
 
         if (admin == null) return;
 
-        // Set full name
         String fullName = (admin.getFullName() == null) ? "Admin" : admin.getFullName().trim();
         if (btnUserMenu != null) btnUserMenu.setText(fullName);
 
-        // Map status to nice text
         String dbStatus = (admin.getStatus() == null) ? "PENDING" : admin.getStatus().trim();
 
         if (lblStatus != null) {
@@ -102,7 +97,6 @@ public class DashboardAdminController implements Initializable {
         usersBarChart.setAnimated(true);
     }
 
-    /* ---------------- TOP RIGHT USER MENU ---------------- */
 
     @FXML
     private void toggleUserMenu() {
@@ -113,14 +107,13 @@ public class DashboardAdminController implements Initializable {
         userDropdown.setManaged(show);
     }
 
-    /* ---------------- SIDEBAR NAVIGATION (PUT YOUR SCENE SWITCHING) ---------------- */
     private void goTo(javafx.event.ActionEvent e, String fxmlPath) {
         try {
             java.net.URL url = getClass().getResource(fxmlPath);
             System.out.println("FXML URL for " + fxmlPath + " => " + url);
 
             if (url == null) {
-                System.out.println("❌ FXML NOT FOUND: " + fxmlPath);
+                System.out.println("FXML NOT FOUND: " + fxmlPath);
                 return;
             }
 
@@ -136,7 +129,7 @@ public class DashboardAdminController implements Initializable {
             ex.printStackTrace();
         }
     }
-    @FXML private void goDashboard() { /* already here */ }
+    @FXML private void goDashboard() {  }
     @FXML private void goUsers(javafx.event.ActionEvent e) {
         goTo(e, "/UserManagement.fxml");
     }
@@ -146,7 +139,6 @@ public class DashboardAdminController implements Initializable {
     @FXML private void goForum() { System.out.println("Go Forum"); }
     @FXML private void goSettings() { System.out.println("Go Settings"); }
 
-    /* ---------------- QUICK ACTIONS ---------------- */
 
     @FXML
     private void openAddUser() {

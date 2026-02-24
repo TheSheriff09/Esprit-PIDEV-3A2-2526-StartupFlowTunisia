@@ -28,14 +28,19 @@ public class EvaluatorExtraController {
         User evaluator = new User(
                 SignupSession.fullName,
                 SignupSession.email,
-                SignupSession.passwordPlain,
-                "EVALUATOR",
+                (SignupSession.passwordPlain == null ? null : SignupSession.passwordPlain),                "EVALUATOR",
                 "ACTIVE",
                 null,
                 level
         );
 
-        us.add(evaluator);
+        User created = us.add(evaluator);
+        if (created == null) {
+            System.out.println("Failed to create evaluator user.");
+            return;
+
+        }
+        tn.esprit.utils.CurrentUserSession.user = created;
         new Thread(() -> {
             tn.esprit.Services.EmailService mail = new tn.esprit.Services.EmailService();
             mail.sendWelcomeEmail(user.getEmail(), user.getFullName(), "http://localhost:8080/startupflow/login");

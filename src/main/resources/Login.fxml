@@ -16,7 +16,7 @@
 <AnchorPane prefHeight="614.0" prefWidth="1128.0" styleClass="root" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.GUI.LoginController">
 
     <!-- Right image side -->
-    <ImageView fitHeight="623.0" fitWidth="549.0" layoutX="579.0" layoutY="-4.0" pickOnBounds="true">
+    <ImageView fitHeight="623.0" fitWidth="576.0" layoutX="579.0" layoutY="-4.0" pickOnBounds="true">
         <image>
             <!-- replace with your image -->
             <Image url="@assest/ChatGPT Image Jan 28, 2026, 08_10_30 PM.png" />
@@ -52,33 +52,6 @@
             </padding>
             <Label styleClass="welcome" text="Welcome Back!" />
 
-            <HBox alignment="CENTER" spacing="18">
-                <Button onAction="#onLinkedin" styleClass="socialBtn">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assest/Facebook_Logo_2023-removebg-preview.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-                <Button onAction="#onGoogle" styleClass="socialBtn">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assest/google-lens-icon-logo-symbol-free-png.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-                <Button onAction="#onOther" styleClass="socialBtn" text=" ">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@assest/github-logo-repository-computer-icons-github-removebg-preview.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            </HBox>
-
             <Label prefHeight="26.0" prefWidth="53.0" styleClass="fieldLabel" text="Email" />
             <TextField fx:id="emailField" promptText="Entrepreneur@startupflow.in" styleClass="pillField" />
 
@@ -88,9 +61,18 @@
                 <Button onAction="#togglePassword" styleClass="eyeBtn" text="👁" />
             </HBox>
 
-            <Label fx:id="msgLabel" styleClass="msg" text="" wrapText="true" />
+            <Label fx:id="msgLabel" prefWidth="90.0" styleClass="msg" text="" wrapText="true" />
 
             <Button onAction="#onLogin" styleClass="signBtn" text="sign in" />
+             <Button onAction="#onGoogle" prefHeight="46.0" prefWidth="196.0" styleClass="socialBtn">
+            <graphic>
+               <ImageView fitHeight="24.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@assest/google-lens-icon-logo-symbol-free-png.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
 
             <HBox alignment="CENTER" spacing="6">
                 <Label styleClass="small" text="don't have an account ?" />

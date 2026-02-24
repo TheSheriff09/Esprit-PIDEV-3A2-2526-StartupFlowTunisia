@@ -35,18 +35,28 @@ public class MentorExtraController {
         User mentor = new User(
                 SignupSession.fullName,
                 SignupSession.email,
-                SignupSession.passwordPlain,
-                "MENTOR",
-                "ACTIVE",
-                expertise,   // mentorExpertise
-                null         // evaluatorLevel
+                (SignupSession.passwordPlain == null ? null : SignupSession.passwordPlain),                "MENTOR",
+                "PENDING",
+                expertise,
+                null
         );
 
-        us.add(mentor);
+        User created = us.add(mentor);
+        if (created == null) {
+            errorLabel.setText("Failed to create mentor user.");
+            return;
+        }
+        tn.esprit.utils.CurrentUserSession.user = created;
+
         new Thread(() -> {
             tn.esprit.Services.EmailService mail = new tn.esprit.Services.EmailService();
-            mail.sendWelcomeEmail(user.getEmail(), user.getFullName(), "http://localhost:8080/startupflow/login");
+            mail.sendWelcomeEmail(
+                    created.getEmail(),
+                    created.getFullName(),
+                    "http://localhost:8080/startupflow/login"
+            );
         }).start();
+
         goTo(e, "Login.fxml");
     }
 

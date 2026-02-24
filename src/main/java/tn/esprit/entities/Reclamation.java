@@ -4,12 +4,12 @@ import java.sql.Timestamp;
 
 public class Reclamation {
     private int id;
-    private String title;        // USER_PROBLEM / SYSTEM_PROBLEM / SELF_PROBLEM / OTHER
+    private String title;
     private String description;
-    private String status;       // OPEN / IN_PROGRESS / RESOLVED / REJECTED
+    private String status;
     private Timestamp createdAt;
     private int requestedId;
-    private Integer targetId;    // nullable
+    private Integer targetId;
 
     public Reclamation(String type, String desc, int requestedId, Integer targetId) {
         this.title = type;

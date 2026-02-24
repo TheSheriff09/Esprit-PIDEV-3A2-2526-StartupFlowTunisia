@@ -10,14 +10,12 @@ public class Response {
     private int reclamationId;
     private int responderUserId;
 
-    // INSERT constructor
     public Response(String content, int reclamationId, int responderUserId) {
         this.content = content;
         this.reclamationId = reclamationId;
         this.responderUserId = responderUserId;
     }
 
-    // FULL constructor
     public Response(int id, String content, Timestamp createdAt, int reclamationId, int responderUserId) {
         this.id = id;
         this.content = content;
@@ -26,7 +24,6 @@ public class Response {
         this.responderUserId = responderUserId;
     }
 
-    // Getters & setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

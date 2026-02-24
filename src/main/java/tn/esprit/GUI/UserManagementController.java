@@ -140,7 +140,6 @@ public class UserManagementController {
 
         colCreatedAt.setCellValueFactory(cd -> new SimpleStringProperty(formatTs(cd.getValue().getCreatedAt())));
 
-        // ACTION ICONS: update + delete
         colActions.setCellFactory(tc -> new TableCell<>() {
 
             private final Button btnUpdate = new Button("✏");
@@ -201,8 +200,7 @@ public class UserManagementController {
     }
 
     private void updateRow(User u) {
-        // This updates ALL columns except created_at (and password is not touched here).
-        // For admin page: password changes should be done by a separate tool, not by editing hash.
+
         userService.update(u);
         usersTable.refresh();
         toast("Updated user id=" + u.getId());
@@ -244,7 +242,7 @@ public class UserManagementController {
         User u = new User();
         u.setFullName(fullName);
         u.setEmail(email);
-        u.setPasswordHash(pass);          // ✅ plain password stored in password_hash
+        u.setPasswordHash(pass);
         u.setRole(role);
         u.setStatus(status);
         u.setMentorExpertise(mentorExp);
@@ -277,7 +275,6 @@ public class UserManagementController {
         tfEvaluatorLevel.clear();
         updateExtraFields(cbRole.getValue());
     }
-    /* ---------------- NAVIGATION ---------------- */
 
     @FXML private void goDashboard() { goTo("/DashboardAdmin.fxml"); }
     @FXML private void goUsers() { /* already here */ }
@@ -303,7 +300,7 @@ public class UserManagementController {
             java.net.URL url = getClass().getResource(fxmlPath);
             System.out.println("FXML URL for " + fxmlPath + " => " + url);
             if (url == null) {
-                System.out.println("❌ FXML not found: " + fxmlPath);
+                System.out.println("FXML not found: " + fxmlPath);
                 return;
             }
             Parent root = FXMLLoader.load(url);
@@ -315,7 +312,6 @@ public class UserManagementController {
         }
     }
 
-    /* ---------------- Helpers ---------------- */
 
     private String ns(String s) { return (s == null) ? "" : s; }
 
