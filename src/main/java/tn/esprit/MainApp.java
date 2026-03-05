@@ -9,9 +9,9 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/application.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/dashboard.fxml"));
         Scene scene = new Scene(loader.load(), 1300, 850);
-        primaryStage.setTitle("Application CRUD");
+        primaryStage.setTitle("Dashboard");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

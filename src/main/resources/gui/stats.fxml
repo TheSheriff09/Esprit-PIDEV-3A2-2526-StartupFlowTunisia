@@ -58,7 +58,7 @@
                         <PieChart fx:id="appStatusChart" prefWidth="410" prefHeight="520"/>
                         <PieChart fx:id="evalDecisionChart" prefWidth="410" prefHeight="520"/>
                     </HBox>
-
+                    <Button text="Go to Dashboard" onAction="#goToDashboard" prefWidth="240"/>
                 </VBox>
 
             </children>

@@ -22,7 +22,22 @@
                     <TextField fx:id="txtFundingApplicationId" promptText="Funding Application ID"/>
                     <TextField fx:id="txtScore" promptText="Score"/>
                     <TextField fx:id="txtDecision" promptText="Decision"/>
+
                     <TextField fx:id="txtEvaluationComments" promptText="Evaluation Comments"/>
+
+                    <!-- Translation -->
+                    <HBox spacing="8">
+                        <ComboBox fx:id="cmbLanguage" promptText="Language" prefWidth="140"/>
+                        <Button text="Translate" onAction="#translateComments" prefWidth="100"/>
+                    </HBox>
+
+                    <!-- OCR attachment -->
+                    <HBox spacing="8">
+                        <TextField fx:id="txtOcrFile" promptText="Attach PDF/Image for OCR" prefWidth="160"/>
+                        <Button text="Browse" onAction="#browseOcrFile" prefWidth="80"/>
+                    </HBox>
+                    <Button text="OCR Extract → Comments" onAction="#ocrExtractToComments" prefWidth="240"/>
+
                     <TextField fx:id="txtEvaluatorId" promptText="Evaluator ID"/>
                     <TextField fx:id="txtRiskLevel" promptText="Risk Level"/>
                     <TextField fx:id="txtFundingCategory" promptText="Funding Category"/>
@@ -31,8 +46,7 @@
                         <Button text="Add Evaluation" onAction="#addEvaluation" prefWidth="200"/>
                         <HBox spacing="10" alignment="CENTER">
                             <Button text="Update" onAction="#updateEvaluation" style="-fx-padding: 8 15;"/>
-                            <Button text="Delete" onAction="#deleteEvaluation"
-                                    styleClass="button-danger"/>
+                            <Button text="Delete" onAction="#deleteEvaluation" styleClass="button-danger"/>
                         </HBox>
                     </VBox>
                 </VBox>
@@ -59,14 +73,11 @@
                     </columns>
                 </TableView>
 
-                <!-- NAV BUTTONS -->
-                <HBox spacing="10" layoutX="910" layoutY="25">
-                    <Button text="Go to Applications"
-                            onAction="#goToApplications"
-                            style="-fx-padding: 8 15;"/>
-                    <Button text="Go to Stats"
-                            onAction="#goToStats"
-                            style="-fx-padding: 8 15;"/>
+                <HBox spacing="10" layoutX="700" layoutY="25">
+                    <Button text="Export PDF" onAction="#exportPdf" style="-fx-padding: 8 15;"/>
+                    <Button text="Dashboard" onAction="#goToDashboard" style="-fx-padding: 8 15;"/>
+                    <Button text="Go to Applications" onAction="#goToApplications" style="-fx-padding: 8 15;"/>
+                    <Button text="Go to Stats" onAction="#goToStats" style="-fx-padding: 8 15;"/>
                 </HBox>
 
             </children>

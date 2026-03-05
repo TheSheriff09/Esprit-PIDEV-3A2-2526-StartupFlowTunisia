@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.controller.DashboardController"
+            prefWidth="1300" prefHeight="850"
+            stylesheets="@/css/styles.css">
+
+    <children>
+        <AnchorPane layoutX="40" layoutY="40"
+                    prefWidth="1220" prefHeight="770"
+                    styleClass="main-card">
+
+            <children>
+                <Label text="Dashboard"
+                       layoutX="30" layoutY="25"
+                       style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #7B61FF;"/>
+
+                <!-- LEFT: navigation -->
+                <VBox spacing="12" layoutX="30" layoutY="80" prefWidth="280">
+                    <Label text="Navigation" styleClass="section-title"/>
+                    <Button text="Open Applications" onAction="#goToApplications" prefWidth="260"/>
+                    <Button text="Open Evaluations" onAction="#goToEvaluations" prefWidth="260"/>
+                    <Button text="Open Statistics" onAction="#goToStats" prefWidth="260"/>
+                    <Separator />
+                    <Button text="Refresh KPIs" onAction="#refresh" prefWidth="260"/>
+                </VBox>
+
+                <!-- RIGHT: KPI cards -->
+                <VBox spacing="14" layoutX="340" layoutY="80" prefWidth="850">
+                    <Label text="Key Numbers" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+                    <HBox spacing="14">
+                        <Label fx:id="lblTotalApps"
+                               style="-fx-background-color: rgba(255,255,255,0.80); -fx-padding: 16; -fx-background-radius: 18;"
+                               prefWidth="410"/>
+                        <Label fx:id="lblTotalEvals"
+                               style="-fx-background-color: rgba(255,255,255,0.80); -fx-padding: 16; -fx-background-radius: 18;"
+                               prefWidth="410"/>
+                    </HBox>
+
+                    <HBox spacing="14">
+                        <Label fx:id="lblAvgScore"
+                               style="-fx-background-color: rgba(255,255,255,0.80); -fx-padding: 16; -fx-background-radius: 18;"
+                               prefWidth="410"/>
+                        <Label fx:id="lblTotalAmount"
+                               style="-fx-background-color: rgba(255,255,255,0.80); -fx-padding: 16; -fx-background-radius: 18;"
+                               prefWidth="410"/>
+                    </HBox>
+
+                    <Label text="Tip: Use Export PDF in Applications/Evaluations to generate reports."
+                           style="-fx-opacity: 0.75; -fx-padding: 10 0 0 0;"/>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

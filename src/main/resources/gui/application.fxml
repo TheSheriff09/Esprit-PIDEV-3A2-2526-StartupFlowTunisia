@@ -20,23 +20,65 @@
                        style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #7B61FF;"/>
 
                 <VBox spacing="12" layoutX="30" layoutY="80" prefWidth="250">
+
                     <TextField fx:id="txtEntrepreneurId" promptText="Entrepreneur ID"/>
                     <TextField fx:id="txtAmount" promptText="Amount"/>
+
+                    <!-- ✅ Currency Conversion UI -->
+                    <VBox spacing="6">
+                        <Label text="Currency conversion" style="-fx-font-weight: bold;"/>
+                        <HBox spacing="8">
+                            <ComboBox fx:id="cmbFromCurrency" prefWidth="80"/>
+                            <Text text="→"/>
+                            <ComboBox fx:id="cmbToCurrency" prefWidth="80"/>
+                            <Button text="Convert" onAction="#convertAmount" prefWidth="70"/>
+                        </HBox>
+                        <TextField fx:id="txtConvertedAmount"
+                                   promptText="Converted amount"
+                                   editable="false"/>
+                        <Label text="Rates by ExchangeRate-API (Open Access)"
+                               style="-fx-font-size: 10; -fx-opacity: 0.7;"/>
+                    </VBox>
+
                     <TextField fx:id="txtStatus" promptText="Status"/>
                     <TextField fx:id="txtSubmissionDate" promptText="Submission Date"/>
-                    <TextField fx:id="txtApplicationReason" promptText="Application Reason"/>
+
+                    <!-- ✅ Application Reason + Improve Button -->
+                    <VBox spacing="5">
+                        <Label text="Application Reason"/>
+                        <HBox spacing="6">
+                            <TextField fx:id="txtApplicationReason"
+                                       promptText="Application Reason"
+                                       prefWidth="160"/>
+                            <Button text="Improve"
+                                    onAction="#improveApplicationReason"
+                                    prefWidth="80"/>
+                        </HBox>
+                    </VBox>
+
                     <TextField fx:id="txtProjectId" promptText="Project ID"/>
                     <TextField fx:id="txtPaymentSchedule" promptText="Payment Schedule"/>
+
                     <HBox spacing="5">
-                        <TextField fx:id="txtAttachment" promptText="Attachment" prefWidth="170"/>
-                        <Button text="Browse" onAction="#browseAttachment" prefWidth="70"/>
+                        <TextField fx:id="txtAttachment"
+                                   promptText="Attachment"
+                                   prefWidth="170"/>
+                        <Button text="Browse"
+                                onAction="#browseAttachment"
+                                prefWidth="70"/>
                     </HBox>
 
                     <VBox spacing="10" alignment="CENTER">
-                        <Button text="Add Application" onAction="#addApplication" prefWidth="200"/>
+                        <Button text="Add Application"
+                                onAction="#addApplication"
+                                prefWidth="200"/>
                         <HBox spacing="10" alignment="CENTER">
-                            <Button text="Update" onAction="#updateApplication" style="-fx-padding: 8 15;"/>
-                            <Button text="Delete" styleClass="button-danger" onAction="#deleteApplication"/>
+                            <Button text="Update"
+                                    onAction="#updateApplication"
+                                    style="-fx-padding: 8 15;"/>
+                            <Button text="Delete"
+                                    styleClass="button-danger"
+                                    onAction="#deleteApplication"/>
                         </HBox>
                     </VBox>
                 </VBox>
@@ -44,11 +86,13 @@
                 <TextField fx:id="searchField"
                            styleClass="search-field"
                            promptText="🔍 Search applications..."
-                           layoutX="310" layoutY="25"
+                           layoutX="310"
+                           layoutY="25"
                            prefWidth="880"/>
 
                 <TableView fx:id="tableApplications"
-                           layoutX="310" layoutY="80"
+                           layoutX="310"
+                           layoutY="80"
                            prefWidth="880"
                            prefHeight="660">
                     <columns>

@@ -12,10 +12,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.esprit.entity.Evaluation;
 import tn.esprit.service.EvaluationService;
 import tn.esprit.service.ICrud;
+import tn.esprit.utils.PdfExporter;
+import tn.esprit.utils.TranslationService;
+import tn.esprit.utils.OcrService;
+
+import java.io.File;
 
 public class EvaluationController {
 
@@ -27,6 +33,7 @@ public class EvaluationController {
     @FXML private TextField txtRiskLevel;
     @FXML private TextField txtFundingCategory;
 
+    @FXML private TextField txtOcrFile; // NEW
     @FXML private TextField searchField;
 
     @FXML private TableView<Evaluation> tableEvaluations;
@@ -39,7 +46,12 @@ public class EvaluationController {
     @FXML private TableColumn<Evaluation, String> colRiskLevel;
     @FXML private TableColumn<Evaluation, String> colFundingCategory;
 
+    @FXML private ComboBox<String> cmbLanguage;
+
     private final ICrud<Evaluation> service = new EvaluationService();
+    private final TranslationService translationService = new TranslationService();
+    private final OcrService ocrService = new OcrService(); // NEW
+
     private ObservableList<Evaluation> masterData;
     private FilteredList<Evaluation> filteredData;
 
@@ -47,7 +59,6 @@ public class EvaluationController {
 
     @FXML
     public void initialize() {
-        System.out.println("✅ EvaluationController Loaded");
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colFundingApplicationId.setCellValueFactory(new PropertyValueFactory<>("fundingApplicationId"));
@@ -62,13 +73,18 @@ public class EvaluationController {
         limitNumericField(txtScore, 8);
         limitNumericField(txtEvaluatorId, 8);
 
-        limitTextField(txtDecision, 8);
-        limitTextField(txtRiskLevel, 8);
-        limitTextField(txtFundingCategory, 8);
+        limitTextField(txtDecision, 50);
+        limitTextField(txtRiskLevel, 50);
+        limitTextField(txtFundingCategory, 50);
 
         loadEvaluations();
         setupSearch();
         setupSelection();
+
+        tableEvaluations.setOnMouseClicked(e -> fillFieldsFromSelection());
+
+        cmbLanguage.getItems().setAll("en", "fr", "ar", "de", "es", "it");
+        cmbLanguage.setValue("fr");
     }
 
     private void loadEvaluations() {
@@ -77,7 +93,6 @@ public class EvaluationController {
 
         SortedList<Evaluation> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableEvaluations.comparatorProperty());
-
         tableEvaluations.setItems(sortedData);
     }
 
@@ -87,7 +102,6 @@ public class EvaluationController {
                 if (newValue == null || newValue.trim().isEmpty()) return true;
 
                 String keyword = newValue.toLowerCase();
-
                 return String.valueOf(e.getId()).contains(keyword)
                         || String.valueOf(e.getFundingApplicationId()).contains(keyword)
                         || String.valueOf(e.getScore()).contains(keyword)
@@ -103,19 +117,101 @@ public class EvaluationController {
     private void setupSelection() {
         tableEvaluations.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
             selectedEvaluation = newSel;
-
-            if (newSel != null) {
-                txtFundingApplicationId.setText(String.valueOf(newSel.getFundingApplicationId()));
-                txtScore.setText(String.valueOf(newSel.getScore()));
-                txtDecision.setText(nullToEmpty(newSel.getDecision()));
-                txtEvaluationComments.setText(nullToEmpty(newSel.getEvaluationComments()));
-                txtEvaluatorId.setText(String.valueOf(newSel.getEvaluatorId()));
-                txtRiskLevel.setText(nullToEmpty(newSel.getRiskLevel()));
-                txtFundingCategory.setText(nullToEmpty(newSel.getFundingCategory()));
-            }
+            fillFieldsFromSelection();
         });
     }
 
+    private void fillFieldsFromSelection() {
+        Evaluation sel = tableEvaluations.getSelectionModel().getSelectedItem();
+        selectedEvaluation = sel;
+        if (sel == null) return;
+
+        txtFundingApplicationId.setText(String.valueOf(sel.getFundingApplicationId()));
+        txtScore.setText(String.valueOf(sel.getScore()));
+        txtDecision.setText(nullToEmpty(sel.getDecision()));
+        txtEvaluationComments.setText(nullToEmpty(sel.getEvaluationComments()));
+        txtEvaluatorId.setText(String.valueOf(sel.getEvaluatorId()));
+        txtRiskLevel.setText(nullToEmpty(sel.getRiskLevel()));
+        txtFundingCategory.setText(nullToEmpty(sel.getFundingCategory()));
+    }
+
+    // -------- OCR: Browse file ----------
+    @FXML
+    private void browseOcrFile() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Select PDF/Image for OCR");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.bmp"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        File file = fc.showOpenDialog(txtOcrFile.getScene().getWindow());
+        if (file != null) {
+            txtOcrFile.setText(file.getAbsolutePath());
+        }
+    }
+
+    // -------- OCR: Extract and put into comments ----------
+    @FXML
+    private void ocrExtractToComments() {
+        try {
+            String path = txtOcrFile.getText();
+            if (path == null || path.isBlank()) {
+                showAlert("Warning", "Please choose a PDF/Image file first.");
+                return;
+            }
+
+            File f = new File(path);
+            if (!f.exists()) {
+                showAlert("Error", "File not found.");
+                return;
+            }
+
+            String text = ocrService.extractText(f);
+
+            if (text.isBlank()) {
+                showAlert("Info", "OCR finished but no text was detected.");
+                return;
+            }
+
+            txtEvaluationComments.setText(text);
+            showAlert("Success", "OCR text extracted into Evaluation Comments.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error", "OCR failed: " + e.getMessage());
+        }
+    }
+
+    // -------- Translation ----------
+    @FXML
+    private void translateComments() {
+        try {
+            String targetLang = (cmbLanguage == null) ? null : cmbLanguage.getValue();
+            if (targetLang == null || targetLang.isBlank()) {
+                showAlert("Warning", "Select a language first.");
+                return;
+            }
+
+            String original = txtEvaluationComments.getText();
+            if (original == null || original.isBlank()) {
+                showAlert("Warning", "Write comments first.");
+                return;
+            }
+
+            String translated = translationService.translate(original, targetLang);
+            txtEvaluationComments.setText(translated);
+
+            showAlert("Success", "Translated to " + targetLang);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error", "Translation failed: " + e.getMessage());
+        }
+    }
+
+    // -------- CRUD ----------
     @FXML
     private void addEvaluation() {
         try {
@@ -134,7 +230,6 @@ public class EvaluationController {
             loadEvaluations();
             clearFields();
             showAlert("Success", "Evaluation added successfully!");
-
         } catch (Exception ex) {
             ex.printStackTrace();
             showAlert("Error", ex.getMessage());
@@ -161,7 +256,6 @@ public class EvaluationController {
             loadEvaluations();
             clearFields();
             showAlert("Success", "Evaluation updated successfully!");
-
         } catch (Exception ex) {
             ex.printStackTrace();
             showAlert("Error", ex.getMessage());
@@ -181,7 +275,32 @@ public class EvaluationController {
         showAlert("Success", "Evaluation deleted successfully!");
     }
 
-    // ================= NAVIGATION =================
+    // -------- PDF ----------
+    @FXML
+    private void exportPdf() {
+        try {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Save Evaluations PDF");
+            fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            fc.setInitialFileName("evaluations.pdf");
+
+            File file = fc.showSaveDialog(tableEvaluations.getScene().getWindow());
+            if (file != null) {
+                PdfExporter.exportTableView(tableEvaluations, file, "Funding Evaluations");
+                showAlert("Success", "PDF exported:\n" + file.getAbsolutePath());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error", "PDF export failed: " + e.getMessage());
+        }
+    }
+
+    // -------- Navigation ----------
+    @FXML
+    private void goToDashboard(ActionEvent event) {
+        switchScene(event, "/gui/dashboard.fxml", "Dashboard");
+    }
+
     @FXML
     private void goToApplications(ActionEvent event) {
         switchScene(event, "/gui/application.fxml", "Application CRUD");
@@ -201,10 +320,11 @@ public class EvaluationController {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("Error", "Cannot open page: " + e.getMessage());
         }
     }
 
-    // ================= VALIDATION =================
+    // -------- Helpers ----------
     private void limitTextField(TextField field, int maxLength) {
         field.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= maxLength ? change : null));
@@ -243,6 +363,7 @@ public class EvaluationController {
         txtEvaluatorId.clear();
         txtRiskLevel.clear();
         txtFundingCategory.clear();
+        if (txtOcrFile != null) txtOcrFile.clear();
         selectedEvaluation = null;
     }
 
