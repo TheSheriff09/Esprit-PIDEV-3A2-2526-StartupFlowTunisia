@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16" style="-fx-padding:24;" styleClass="main"
+      stylesheets="@../css/mentorship.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.GUI.SessionController">
+
+    <!-- Header row: title + search + sort + export -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label styleClass="section-title" text="🤝  Mentorship Sessions"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <!-- Real-time search — listener attached in controller, no button needed -->
+        <TextField fx:id="searchField" styleClass="search-field" prefWidth="240"
+                   promptText="🔍  Search date, type, status, notes…">
+            <tooltip><Tooltip text="Type to instantly filter sessions — searches date, type, status and notes"/></tooltip>
+        </TextField>
+        <ComboBox fx:id="sortCombo" prefWidth="170" promptText="Sort by…">
+            <tooltip><Tooltip text="Multi-criteria sort: Date, Status, Success Probability or Type"/></tooltip>
+        </ComboBox>
+        <Button text="📥 Export CSV" styleClass="btn-secondary" onAction="#onExportCSV"
+                accessibleText="Export visible sessions to CSV">
+            <tooltip><Tooltip text="Export currently visible sessions to a CSV file (opens file chooser)"/></tooltip>
+        </Button>
+    </HBox>
+
+    <!-- Form card -->
+    <VBox styleClass="glass-card" spacing="12">
+        <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
+        <Label styleClass="section-sub" text="SESSION DETAILS"/>
+
+        <GridPane hgap="16" vgap="10">
+            <Label text="Mentor ID *"        styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="mentorIDField" promptText="auto-filled" prefWidth="120"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <tooltip><Tooltip text="Mentor ID — set automatically from login session"/></tooltip>
+            </TextField>
+
+            <Label text="Entrepreneur ID *"  styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <TextField fx:id="entrepreneurIDField" promptText="auto-filled" prefWidth="120"
+                       GridPane.columnIndex="3" GridPane.rowIndex="0">
+                <tooltip><Tooltip text="Entrepreneur ID — set automatically from booking"/></tooltip>
+            </TextField>
+
+            <Label text="Startup ID"         styleClass="field-label" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+            <TextField fx:id="startupIDField" promptText="e.g. 1" prefWidth="90"
+                       GridPane.columnIndex="5" GridPane.rowIndex="0"/>
+
+            <Label text="Session Date *"     styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <DatePicker fx:id="sessionDatePicker" prefWidth="160" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <tooltip><Tooltip text="Date of the mentorship session"/></tooltip>
+            </DatePicker>
+
+            <Label text="Type *"             styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="sessionTypeCombo" prefWidth="160"
+                      GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <tooltip><Tooltip text="Session format: online, in-person, workshop, or review"/></tooltip>
+            </ComboBox>
+
+            <Label text="Status"             styleClass="field-label" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="statusCombo"    prefWidth="140"
+                      GridPane.columnIndex="5" GridPane.rowIndex="1">
+                <tooltip><Tooltip text="Current lifecycle state of the session (Mentors only)"/></tooltip>
+            </ComboBox>
+
+            <Label text="Schedule ID"        styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="scheduleIDField" promptText="optional" prefWidth="120"
+                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label text="Notes"              styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+            <TextArea fx:id="notesArea" prefWidth="340" prefHeight="60"
+                      GridPane.columnIndex="3" GridPane.rowIndex="2"
+                      GridPane.columnSpan="3"/>
+        </GridPane>
+
+        <Label fx:id="msgLabel" text=""/>
+
+        <HBox spacing="10">
+            <Button text="➕ Add"    onAction="#onAdd"    styleClass="btn-primary">
+                <tooltip><Tooltip text="Sessions are created automatically from approved bookings"/></tooltip>
+            </Button>
+            <Button text="✏️ Update" onAction="#onUpdate" styleClass="btn-secondary">
+                <tooltip><Tooltip text="Update session status and notes (Mentors only)"/></tooltip>
+            </Button>
+            <Button text="🗑 Delete" onAction="#onDelete" styleClass="btn-danger">
+                <tooltip><Tooltip text="Permanently delete this session record (Mentors only)"/></tooltip>
+            </Button>
+            <Button text="✖ Clear"  onAction="#onClear"  styleClass="btn-secondary">
+                <tooltip><Tooltip text="Clear the form fields"/></tooltip>
+            </Button>
+        </HBox>
+    </VBox>
+    
+    <!-- ═══════════════════════════════════════════════════
+         TODO CHECKLIST (Visible when session is selected)
+         ═══════════════════════════════════════════════════ -->
+    <VBox fx:id="todoBox" styleClass="glass-card" spacing="12" prefHeight="200" visible="false" managed="false">
+        <padding><Insets bottom="15" left="15" right="15" top="15"/></padding>
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label styleClass="section-sub" text="SESSION TO-DO LIST"/>
+            <Label fx:id="todoProgressLabel" text="0/0 Completed" style="-fx-text-fill: #12a059; -fx-font-weight: bold;"/>
+        </HBox>
+        <ListView fx:id="todoList" VBox.vgrow="ALWAYS" />
+        <HBox spacing="10">
+            <TextField fx:id="newTodoField" HBox.hgrow="ALWAYS" promptText="Add a new task for this session..." onAction="#onAddTodo"/>
+            <Button text="Add Task" onAction="#onAddTodo" styleClass="btn-approve"/>
+        </HBox>
+    </VBox>
+
+    <!-- Table -->
+    <TableView fx:id="sessionTable" VBox.vgrow="ALWAYS"
+               onMouseClicked="#onRowSelected" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colID"           text="ID"          prefWidth="50"/>
+            <TableColumn fx:id="colMentor"       text="Mentor"      prefWidth="75"/>
+            <TableColumn fx:id="colEntrepreneur" text="Entrepreneur" prefWidth="90"/>
+            <TableColumn fx:id="colStartup"      text="Startup"     prefWidth="70"/>
+            <TableColumn fx:id="colDate"         text="Date"        prefWidth="115"/>
+            <TableColumn fx:id="colType"         text="Type"        prefWidth="110"/>
+            <TableColumn fx:id="colStatus"       text="Status"      prefWidth="100"/>
+            <TableColumn fx:id="colSuccess"      text="Success %"   prefWidth="85"/>
+            <TableColumn fx:id="colNotes"        text="Notes"       prefWidth="220"/>
+        </columns>
+        <placeholder><Label text="No sessions found." style="-fx-text-fill:#9b8acc;"/></placeholder>
+    </TableView>
+
+</VBox>

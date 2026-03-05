@@ -1,0 +1,14 @@
+Mar 05, 2026 4:51:03 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: Sarah Mentor | Warning: GrokService: API key not configured.
+Mar 05, 2026 4:51:08 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: Sarah Mentor | Warning: GrokService: API key not configured.
+Mar 05, 2026 4:56:27 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: ali | Warning: GrokService: API key not configured.
+Mar 05, 2026 5:46:25 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: ali | Warning: GrokService: API key not configured.
+Mar 05, 2026 5:52:15 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: mentor | Warning: GrokService: API key not configured.
+Mar 05, 2026 6:32:52 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: mentor | Warning: GrokService: API key not configured.
+Mar 05, 2026 6:33:41 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: ali | Warning: Failed requesting booking: Field 'bookingID' doesn't have a default value

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" style="-fx-padding:30;" styleClass="main"
+      stylesheets="@../css/mentorship.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.GUI.ScheduleController">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="14">
+        <Label styleClass="section-title" text="📅 Mentor Availability Calendar"/>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <HBox spacing="30" VBox.vgrow="ALWAYS">
+        <!-- Left Column: Selection Panel -->
+        <VBox spacing="15" prefWidth="300" styleClass="glass-card">
+            <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
+            <Label styleClass="section-sub" text="SCHEDULE CONTROLS"/>
+
+            <!-- Entrepreneur Only: Pick a Mentor -->
+            <VBox fx:id="evaluatorPickerBox" spacing="8" managed="false" visible="false">
+                <Label styleClass="field-label" text="1. Select Mentor"/>
+                <ComboBox fx:id="mentorPickerCombo" prefWidth="250" promptText="Choose a mentor…"/>
+            </VBox>
+
+            <!-- Both Roles: Pick a Date -->
+            <VBox spacing="8">
+                <Label styleClass="field-label" text="2. Select Date"/>
+                <DatePicker fx:id="datePicker" prefWidth="250" onAction="#onDateSelected"/>
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            <Label fx:id="msgLabel" wrapText="true" style="-fx-font-weight: bold;"/>
+        </VBox>
+
+        <!-- Right Column: Interactive Timeslot Grid -->
+        <VBox styleClass="glass-card" spacing="15" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="gridTitle" styleClass="section-sub" text="AVAILABLE TIMESLOTS (Select a Date)"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <!-- Mentor Only Action -->
+                <Button fx:id="btnSaveMentorSlots" onAction="#onSaveMentorSlots" text="💾 Save Changes" styleClass="btn-primary" visible="false" managed="false"/>
+            </HBox>
+
+            <!-- FlowPane to hold the generated block buttons -->
+            <FlowPane fx:id="timeslotGrid" hgap="12" vgap="12" prefWrapLength="600" VBox.vgrow="ALWAYS" alignment="TOP_LEFT" style="-fx-padding: 10 0 0 0;">
+                <Label text="Please select a date from the left to view and manage times." style="-fx-text-fill: #999; -fx-font-style: italic;"/>
+            </FlowPane>
+        </VBox>
+    </HBox>
+
+</VBox>

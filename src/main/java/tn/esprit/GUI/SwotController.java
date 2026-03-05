@@ -45,7 +45,7 @@ public class SwotController {
     private final StartupService startupService = new StartupService();
     private final Gson gson = new Gson();
 
-    private static final String PYTHON_EXE = "C:\\Users\\linaf\\OneDrive\\Bureau\\3A2PiDEV\\.venv\\Scripts\\python.exe";
+    private static final String PYTHON_EXE = "C:\\Users\\zaiem yousssef\\IdeaProjects\\Project3A2_StartUpFlow\\ai\\WORKSHOP\\venv\\Scripts\\python.exe";
     private static final String PY_SCRIPT = "ai/swot_generator.py";
 
     @FXML

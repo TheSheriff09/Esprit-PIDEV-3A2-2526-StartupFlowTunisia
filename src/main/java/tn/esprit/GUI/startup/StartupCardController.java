@@ -23,16 +23,26 @@ import java.util.function.Consumer;
 public class StartupCardController {
 
     // ── FXML nodes ────────────────────────────────────────────
-    @FXML private VBox   cardRoot;
-    @FXML private Label  lblSector;
-    @FXML private Label  lblName;
-    @FXML private Label  lblDescription;
-    @FXML private Label  lblDate;
-    @FXML private Label  lblStatus;
-    @FXML private Label  lblFunding;
-    @FXML private Label  lblScore;
-    @FXML private Label  lblScoreBand;
-    @FXML private Button btnMore;
+    @FXML
+    private VBox cardRoot;
+    @FXML
+    private Label lblSector;
+    @FXML
+    private Label lblName;
+    @FXML
+    private Label lblDescription;
+    @FXML
+    private Label lblDate;
+    @FXML
+    private Label lblStatus;
+    @FXML
+    private Label lblFunding;
+    @FXML
+    private Label lblScore;
+    @FXML
+    private Label lblScoreBand;
+    @FXML
+    private Button btnMore;
 
     // ── State ─────────────────────────────────────────────
     private Startup startup;
@@ -42,6 +52,7 @@ public class StartupCardController {
     private Consumer<Startup> onSimulate;
     private Consumer<Startup> onQR;
     private Consumer<Startup> onExport;
+    private Consumer<Startup> onFunding;
 
     // ── Context menu built once per card ──────────────────────
     private ContextMenu contextMenu;
@@ -55,19 +66,21 @@ public class StartupCardController {
      * Called by StartupViewController after FXMLLoader.load().
      */
     public void setData(Startup startup,
-                        Consumer<Startup> onEdit,
-                        Consumer<Startup> onDelete,
-                        Consumer<Startup> onViewPlans,
-                        Consumer<Startup> onSimulate,
-                        Consumer<Startup> onQR,
-                        Consumer<Startup> onExport) {
-        this.startup     = startup;
-        this.onEdit      = onEdit;
-        this.onDelete    = onDelete;
+            Consumer<Startup> onEdit,
+            Consumer<Startup> onDelete,
+            Consumer<Startup> onViewPlans,
+            Consumer<Startup> onSimulate,
+            Consumer<Startup> onQR,
+            Consumer<Startup> onExport,
+            Consumer<Startup> onFunding) {
+        this.startup = startup;
+        this.onEdit = onEdit;
+        this.onDelete = onDelete;
         this.onViewPlans = onViewPlans;
-        this.onSimulate  = onSimulate;
-        this.onQR        = onQR;
-        this.onExport    = onExport;
+        this.onSimulate = onSimulate;
+        this.onQR = onQR;
+        this.onExport = onExport;
+        this.onFunding = onFunding;
         buildContextMenu();
         populate();
         loadScore();
@@ -78,17 +91,25 @@ public class StartupCardController {
      * Backward-compatible overload (no QR / export callbacks).
      */
     public void setData(Startup startup,
-                        Consumer<Startup> onEdit,
-                        Consumer<Startup> onDelete,
-                        Consumer<Startup> onViewPlans,
-                        Consumer<Startup> onSimulate) {
-        setData(startup, onEdit, onDelete, onViewPlans, onSimulate, s -> {}, s -> {});
+            Consumer<Startup> onEdit,
+            Consumer<Startup> onDelete,
+            Consumer<Startup> onViewPlans,
+            Consumer<Startup> onSimulate) {
+        setData(startup, onEdit, onDelete, onViewPlans, onSimulate, s -> {
+        }, s -> {
+        }, s -> {
+        });
     }
+
     public void setData(Startup startup,
-                        Consumer<Startup> onEdit,
-                        Consumer<Startup> onDelete,
-                        Consumer<Startup> onViewPlans) {
-        setData(startup, onEdit, onDelete, onViewPlans, s -> {}, s -> {}, s -> {});
+            Consumer<Startup> onEdit,
+            Consumer<Startup> onDelete,
+            Consumer<Startup> onViewPlans) {
+        setData(startup, onEdit, onDelete, onViewPlans, s -> {
+        }, s -> {
+        }, s -> {
+        }, s -> {
+        });
     }
 
     // ── Context menu ──────────────────────────────────────────
@@ -111,11 +132,17 @@ public class StartupCardController {
 
         MenuItem qrItem = new MenuItem("📱  Generate QR");
         qrItem.getStyleClass().add("menu-item-card");
-        qrItem.setOnAction(e -> { if (onQR != null) onQR.accept(startup); });
+        qrItem.setOnAction(e -> {
+            if (onQR != null)
+                onQR.accept(startup);
+        });
 
         MenuItem exportItem = new MenuItem("📄  Export PDF");
         exportItem.getStyleClass().add("menu-item-card");
-        exportItem.setOnAction(e -> { if (onExport != null) onExport.accept(startup); });
+        exportItem.setOnAction(e -> {
+            if (onExport != null)
+                onExport.accept(startup);
+        });
 
         MenuItem deleteItem = new MenuItem("🗑  Delete");
         deleteItem.getStyleClass().add("menu-item-delete");
@@ -138,7 +165,8 @@ public class StartupCardController {
         lblDescription.setText("• Stage: " + stage);
 
         String mentor = (startup.getIncubatorProgram() != null && !startup.getIncubatorProgram().isBlank())
-                ? startup.getIncubatorProgram() : "Not assigned";
+                ? startup.getIncubatorProgram()
+                : "Not assigned";
         lblStatus.setText("• Mentor: " + mentor);
 
         String status = startup.getStatus() != null ? startup.getStatus() : "—";
@@ -171,16 +199,16 @@ public class StartupCardController {
     /** Applies color-coded styling to the score label. */
     private void renderScore(double score) {
         String hexColor = InvestmentScorer.hexColor(score);
-        String band     = InvestmentScorer.band(score);
+        String band = InvestmentScorer.band(score);
 
         lblScore.setText(String.format("%.0f / 100", score));
         lblScore.setStyle(
                 "-fx-font-size:12px; -fx-font-weight:800; -fx-padding: 2 10 2 10;"
-                + "-fx-background-radius:20;"
-                + "-fx-background-color:" + hexColor + "22;"
-                + "-fx-text-fill:" + hexColor + ";"
-                + "-fx-border-color:" + hexColor + "55;"
-                + "-fx-border-radius:20; -fx-border-width:1;");
+                        + "-fx-background-radius:20;"
+                        + "-fx-background-color:" + hexColor + "22;"
+                        + "-fx-text-fill:" + hexColor + ";"
+                        + "-fx-border-color:" + hexColor + "55;"
+                        + "-fx-border-radius:20; -fx-border-width:1;");
 
         lblScoreBand.setText(band);
         lblScoreBand.setStyle("-fx-font-size:10.5px; -fx-opacity:0.8; -fx-text-fill:" + hexColor + ";");
@@ -190,13 +218,14 @@ public class StartupCardController {
 
     private void attachHover() {
         cardRoot.setOnMouseEntered(e -> scale(1.03));
-        cardRoot.setOnMouseExited(e  -> scale(1.00));
+        cardRoot.setOnMouseExited(e -> scale(1.00));
 
         // Clicking the card body (not the "⋯" button) → view plans
         cardRoot.setOnMouseClicked(e -> {
             javafx.scene.Node node = (javafx.scene.Node) e.getTarget();
             while (node != null && node != cardRoot) {
-                if (node == btnMore) return;
+                if (node == btnMore)
+                    return;
                 node = node.getParent();
             }
             onViewPlans.accept(startup);
@@ -216,5 +245,11 @@ public class StartupCardController {
     private void handleMore() {
         contextMenu.show(btnMore, javafx.geometry.Side.BOTTOM, 0, 4);
     }
-}
 
+    @FXML
+    private void handleFunding() {
+        if (onFunding != null && startup != null) {
+            onFunding.accept(startup);
+        }
+    }
+}

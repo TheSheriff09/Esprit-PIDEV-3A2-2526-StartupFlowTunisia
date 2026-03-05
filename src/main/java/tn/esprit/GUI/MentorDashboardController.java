@@ -56,7 +56,7 @@ public class MentorDashboardController {
 
     @FXML
     private void onMentorship() {
-        System.out.println("Mentorship page later");
+        NavigationManager.navigateTo(userMenuBtn, "/fxml/MentorshipDashboard.fxml");
     }
 
     @FXML

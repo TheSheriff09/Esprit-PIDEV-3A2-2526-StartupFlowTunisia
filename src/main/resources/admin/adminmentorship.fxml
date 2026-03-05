@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox prefHeight="720.0" prefWidth="1020.0" spacing="20.0" 
+      stylesheets="@../css/usermanagement.css"
+      xmlns="http://javafx.com/javafx/21" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="tn.esprit.GUI.admin.AdminMentorshipController">
+
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+
+    <!-- Top Action Bar -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0">
+        <!-- Search bar -->
+        <HBox alignment="CENTER_LEFT" styleClass="search-box">
+            <Label style="-fx-text-fill: #9b8acc; -fx-padding: 0 8 0 12;" text="🔍" />
+            <TextField fx:id="searchField" prefWidth="300.0" promptText="Search logs (mentor, entrepreneur...)" styleClass="search-field" />
+        </HBox>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <Button onAction="#onExportCSV" styleClass="btn-secondary" text="📥 Export CSV" />
+    </HBox>
+
+    <!-- Logs Table -->
+    <VBox spacing="10.0" styleClass="table-container" VBox.vgrow="ALWAYS">
+        <Label style="-fx-font-size: 16px; -fx-font-weight: 700; -fx-text-fill: #5a4bd6;" text="Mentorship Session Logs" />
+        
+        <TableView fx:id="logsTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colSessionID" prefWidth="60.0" text="ID" />
+                <TableColumn fx:id="colMentor" prefWidth="180.0" text="Mentor Name" />
+                <TableColumn fx:id="colEntrepreneur" prefWidth="180.0" text="Entrepreneur Name" />
+                <TableColumn fx:id="colStatus" prefWidth="120.0" text="Status" />
+                <TableColumn fx:id="colDate" prefWidth="140.0" text="Date" />
+                <TableColumn fx:id="colTopic" prefWidth="240.0" text="Overview" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+
+    <!-- Action Bar -->
+    <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8;">
+        <Label fx:id="selectedLogLabel" text="No session selected." style="-fx-text-fill: #666; -fx-font-style: italic;" />
+        <Region HBox.hgrow="ALWAYS" />
+        
+        <Button fx:id="btnBanMentor" onAction="#onBanMentor" styleClass="btn-danger" text="🚫 Ban Mentor" disable="true"/>
+        <Button fx:id="btnBanEntrepreneur" onAction="#onBanEntrepreneur" styleClass="btn-danger" text="🚫 Ban Entrepreneur" disable="true"/>
+        <Label fx:id="msgLabel" style="-fx-text-fill: #12a059;" />
+    </HBox>
+
+</VBox>

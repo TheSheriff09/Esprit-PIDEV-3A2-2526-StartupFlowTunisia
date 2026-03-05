@@ -154,4 +154,21 @@ public class EvaluationService implements ICRUD<Evaluation> {
 
         return list;
     }
+    public double getAverageEvaluationScore() {
+        java.util.List<Evaluation> evals = list();
+        if (evals.isEmpty()) return 0;
+        double sum = 0;
+        for (Evaluation e : evals) {
+            sum += e.getScore();
+        }
+        return sum / evals.size();
+    }
+    public java.util.Map<String, Integer> getEvaluationDecisionCounts() {
+        java.util.Map<String, Integer> counts = new java.util.HashMap<>();
+        for (Evaluation e : list()) {
+            counts.put(e.getDecision(), counts.getOrDefault(e.getDecision(), 0) + 1);
+        }
+        return counts;
+    }
 }
+

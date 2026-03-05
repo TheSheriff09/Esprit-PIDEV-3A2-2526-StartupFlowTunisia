@@ -1,0 +1,10 @@
+Mar 04, 2026 12:19:56 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: Demo Mentor | Warning: Error during database backup: Cannot run program "mysqldump": CreateProcess error=2, The system cannot find the file specified
+Mar 04, 2026 12:20:31 AM tn.esprit.utils.AuditLogger log
+INFO: User: Demo Mentor | Action: Updated Session ID: 4 to status: completed
+Mar 04, 2026 6:14:45 AM tn.esprit.utils.AuditLogger log
+INFO: User: Demo Mentor | Action: Updated Feedback ID: 4
+Mar 05, 2026 12:50:54 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: Demo Mentor | Warning: GrokService: API key not configured.
+Mar 05, 2026 1:06:28 AM tn.esprit.utils.AuditLogger logWarning
+WARNING: User: Demo Mentor | Warning: GrokService: API key not configured.

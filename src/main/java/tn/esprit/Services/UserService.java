@@ -327,4 +327,18 @@ public class UserService implements ICRUD<User> {
             return null;
         }
     }
+    public java.util.List<User> listMentors() {
+        java.util.List<User> list = new java.util.ArrayList<>();
+        for (User u : list()) {
+            if ("mentor".equalsIgnoreCase(u.getRole())) list.add(u);
+        }
+        return list;
+    }
+    public java.util.List<User> listEvaluators() {
+        java.util.List<User> list = new java.util.ArrayList<>();
+        for (User u : list()) {
+            if ("evaluator".equalsIgnoreCase(u.getRole()) || "entrepreneur".equalsIgnoreCase(u.getRole())) list.add(u);
+        }
+        return list;
+    }
 }

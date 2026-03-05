@@ -142,7 +142,7 @@ public class DashboardAdminController implements Initializable {
 
     @FXML
     private void goFunding() {
-        System.out.println("Go Funding & Evaluation");
+        NavigationManager.navigateTo(btnDashboard, "/AdminFundingDashboard.fxml");
     }
 
     @FXML

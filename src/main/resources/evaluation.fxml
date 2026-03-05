@@ -5,7 +5,8 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="tn.esprit.GUI.EvaluationController"
-            prefWidth="1300" prefHeight="850">
+            prefWidth="1300" prefHeight="850"
+            stylesheets="@/light.css, @/styles.css">
 
     <children>
         <AnchorPane layoutX="40" layoutY="40"
@@ -15,51 +16,52 @@
             <children>
                 <Label text="Evaluation"
                        layoutX="30" layoutY="25"
-                       style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #7B61FF;"/>
+                       styleClass="page-title"/>
 
                 <VBox spacing="12" layoutX="30" layoutY="80" prefWidth="250">
-                    <TextField fx:id="txtFundingApplicationId" promptText="Funding Application ID"/>
-                    <TextField fx:id="txtScore" promptText="Score"/>
-                    <TextField fx:id="txtDecision" promptText="Decision"/>
+                    <TextField fx:id="txtFundingApplicationId" promptText="Funding Application ID" styleClass="modern-input"/>
+                    <TextField fx:id="txtScore" promptText="Score" styleClass="modern-input"/>
+                    <TextField fx:id="txtDecision" promptText="Decision" styleClass="modern-input"/>
 
-                    <TextField fx:id="txtEvaluationComments" promptText="Evaluation Comments"/>
+                    <TextField fx:id="txtEvaluationComments" promptText="Evaluation Comments" styleClass="modern-input"/>
 
                     <!-- Translation -->
                     <HBox spacing="8">
-                        <ComboBox fx:id="cmbLanguage" promptText="Language" prefWidth="140"/>
-                        <Button text="Translate" onAction="#translateComments" prefWidth="100"/>
+                        <ComboBox fx:id="cmbLanguage" promptText="Language" prefWidth="140" styleClass="modal-combo"/>
+                        <Button text="Translate" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" onAction="#translateComments" prefWidth="100"/>
                     </HBox>
 
                     <!-- OCR attachment -->
                     <HBox spacing="8">
-                        <TextField fx:id="txtOcrFile" promptText="Attach PDF/Image for OCR" prefWidth="160"/>
-                        <Button text="Browse" onAction="#browseOcrFile" prefWidth="80"/>
+                        <TextField fx:id="txtOcrFile" promptText="Attach PDF/Image for OCR" prefWidth="160" styleClass="modern-input"/>
+                        <Button text="Browse" styleClass="primary-button" onAction="#browseOcrFile" prefWidth="80"/>
                     </HBox>
-                    <Button text="OCR Extract → Comments" onAction="#ocrExtractToComments" prefWidth="240"/>
+                    <Button text="OCR Extract → Comments" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" onAction="#ocrExtractToComments" prefWidth="240"/>
 
-                    <TextField fx:id="txtEvaluatorId" promptText="Evaluator ID"/>
-                    <TextField fx:id="txtRiskLevel" promptText="Risk Level"/>
-                    <TextField fx:id="txtFundingCategory" promptText="Funding Category"/>
+                    <TextField fx:id="txtEvaluatorId" promptText="Evaluator ID" styleClass="modern-input"/>
+                    <TextField fx:id="txtRiskLevel" promptText="Risk Level" styleClass="modern-input"/>
+                    <TextField fx:id="txtFundingCategory" promptText="Funding Category" styleClass="modern-input"/>
 
                     <VBox spacing="10" alignment="CENTER">
-                        <Button text="Add Evaluation" onAction="#addEvaluation" prefWidth="200"/>
+                        <Button text="Add Evaluation" styleClass="primary-button" onAction="#addEvaluation" prefWidth="200"/>
                         <HBox spacing="10" alignment="CENTER">
-                            <Button text="Update" onAction="#updateEvaluation" style="-fx-padding: 8 15;"/>
-                            <Button text="Delete" onAction="#deleteEvaluation" styleClass="button-danger"/>
+                            <Button text="Update" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 15;" onAction="#updateEvaluation"/>
+                            <Button text="Delete" onAction="#deleteEvaluation" styleClass="danger-button"/>
                         </HBox>
                     </VBox>
                 </VBox>
 
                 <TextField fx:id="searchField"
-                           styleClass="search-field"
+                           styleClass="modern-input"
                            promptText="🔍 Search evaluations..."
                            layoutX="310" layoutY="25"
-                           prefWidth="880"/>
+                           prefWidth="380"/>
 
                 <TableView fx:id="tableEvaluations"
                            layoutX="310" layoutY="80"
                            prefWidth="880"
-                           prefHeight="660">
+                           prefHeight="660"
+                           styleClass="modern-table">
                     <columns>
                         <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
                         <TableColumn fx:id="colFundingApplicationId" text="FundingApp ID" prefWidth="120"/>
@@ -73,8 +75,8 @@
                 </TableView>
 
                 <HBox spacing="10" layoutX="700" layoutY="25">
-                    <Button text="Export PDF" onAction="#exportPdf" style="-fx-padding: 8 15;"/>
-                    <Button text="Go to Applications" onAction="#backToDashboard" style="-fx-padding: 8 15;"/>
+                    <Button text="Export PDF" onAction="#exportPdf" style="-fx-background-color: #8b5cf6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 15;"/>
+                    <Button text="Go to Applications" onAction="#backToDashboard" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 15;"/>
                 </HBox>
 
             </children>

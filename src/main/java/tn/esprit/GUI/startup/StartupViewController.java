@@ -256,7 +256,8 @@ public class StartupViewController implements Initializable {
                         this::navigateToBusinessPlans,
                         this::openFundingSimulation,
                         this::handleCardQR,
-                        this::handleCardExport);
+                        this::handleCardExport,
+                        this::navigateToFunding);
 
                 animateIn(card, i * 55L);
                 cardsContainer.getChildren().add(card);
@@ -393,6 +394,26 @@ public class StartupViewController implements Initializable {
             stage.setScene(sc);
         } catch (IOException e) {
             showError("Cannot open Startup Detail: " + e.getMessage());
+        }
+    }
+
+    /** Navigates to the funding application view directly for this startup. */
+    private void navigateToFunding(Startup s) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application.fxml"));
+            Parent root = loader.load();
+
+            tn.esprit.GUI.ApplicationController ctrl = loader.getController();
+            int userId = SessionManager.getUser() != null ? SessionManager.getUser().getId() : -1;
+            ctrl.setInitialData(userId, s.getStartupID());
+
+            Stage stage = (Stage) cardsContainer.getScene().getWindow();
+            stage.setTitle("Funding Applications — " + s.getName());
+            Scene sc = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+            ThemeManager.getInstance().applyTo(sc);
+            stage.setScene(sc);
+        } catch (IOException e) {
+            showError("Cannot open Funding Application: " + e.getMessage());
         }
     }
 

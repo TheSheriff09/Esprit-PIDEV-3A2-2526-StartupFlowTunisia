@@ -132,8 +132,13 @@ public class AdminDashboardController implements Initializable {
     }
 
     @FXML
+    private Button btnMentorship;
+
+    @FXML
     private void goMentorship() {
-        System.out.println("Go Mentorship");
+        setActive(btnMentorship);
+        topbarTitle.setText("Mentorship Logs & Management");
+        loadPage("/admin/adminmentorship.fxml");
     }
 
     @FXML

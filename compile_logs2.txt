@@ -1,0 +1,206 @@
+﻿[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.example:MyProject:jar:1.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.systemPath' for net.java.dev.jna:jna:jar should not point at files within the project directory, ${project.basedir}/lib/jna-5.10.0.jar will be unresolvable by dependent projects @ line 60, column 25
+[WARNING] 'dependencies.dependency.systemPath' for net.java.dev.jna:jna-platform:jar should not point at files within the project directory, ${project.basedir}/lib/jna-platform-5.10.0.jar will be unresolvable by dependent projects @ line 67, column 25
+[WARNING] 'dependencies.dependency.systemPath' for com.alphacephei:vosk:jar should not point at files within the project directory, ${project.basedir}/lib/vosk-0.3.32.jar will be unresolvable by dependent projects @ line 74, column 25
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] 
+[INFO] -----------------------< org.example:MyProject >------------------------
+[INFO] Building MyProject 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ MyProject ---
+[INFO] Deleting C:\Users\zaiem yousssef\IdeaProjects\WORKSHOP\WORKSHOP\target
+[INFO] 
+[INFO] --- resources:3.3.0:resources (default-resources) @ MyProject ---
+[INFO] Copying 364 resources
+[INFO] 
+[INFO] --- compiler:3.10.1:compile (default-compile) @ MyProject ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 144 source files to C:\Users\zaiem yousssef\IdeaProjects\WORKSHOP\WORKSHOP\target\classes
+[INFO] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/CurrencyConverterService.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/CurrencyConverterService.java: Recompile with -Xlint:deprecation for details.
+[INFO] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/PdfExporter.java: C:\Users\zaiem yousssef\IdeaProjects\WORKSHOP\WORKSHOP\src\main\java\tn\esprit\utils\PdfExporter.java uses unchecked or unsafe operations.
+[INFO] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/PdfExporter.java: Recompile with -Xlint:unchecked for details.
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[105,31] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[73,31] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/HomeViewController.java:[53,33] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/HomeViewController.java:[79,85] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/HomeViewController.java:[109,85] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/AnalyticsService.java:[87,41] cannot find symbol
+  symbol:   method listMentors()
+  location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/AnalyticsService.java:[118,41] cannot find symbol
+  symbol:   method listMentors()
+  location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/RecommendationService.java:[19,41] cannot find symbol
+  symbol:   method listMentors()
+  location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[117,49] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[126,33] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[231,33] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[455,49] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[91,49] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[129,27] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[129,85] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[131,44] cannot find symbol
+  symbol:   method listMentors()
+  location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[173,29] cannot find symbol
+  symbol:   method findById(int)
+  location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[325,37] cannot find symbol
+  symbol:   method findById(int)
+  location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[374,43] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[385,55] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[387,58] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[45,51] cannot find symbol
+  symbol:   method getTotalFundingRequested()
+  location: variable applicationService of type tn.esprit.Services.ApplicationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[50,44] cannot find symbol
+  symbol:   method getAverageEvaluationScore()
+  location: variable evaluationService of type tn.esprit.Services.EvaluationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[57,56] cannot find symbol
+  symbol:   method getApplicationStatusCounts()
+  location: variable applicationService of type tn.esprit.Services.ApplicationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[76,55] cannot find symbol
+  symbol:   method getEvaluationDecisionCounts()
+  location: variable evaluationService of type tn.esprit.Services.EvaluationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionController.java:[179,54] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionController.java:[181,57] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[110,68] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[117,85] cannot find symbol
+  symbol:   method listMentors()
+  location: variable userSvc of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[192,64] cannot find symbol
+  symbol:   method getUserId()
+  location: class tn.esprit.utils.SessionManager
+[INFO] 30 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.880 s
+[INFO] Finished at: 2026-03-05T04:20:21+01:00
+[INFO] ------------------------------------------------------------------------
+[WARNING] 
+[WARNING] Plugin validation issues were detected in 2 plugin(s)
+[WARNING] 
+[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1
+[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0
+[WARNING] 
+[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]
+[WARNING] 
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project MyProject: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[105,31] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[73,31] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/HomeViewController.java:[53,33] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/HomeViewController.java:[79,85] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/HomeViewController.java:[109,85] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/AnalyticsService.java:[87,41] cannot find symbol
+[ERROR]   symbol:   method listMentors()
+[ERROR]   location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/AnalyticsService.java:[118,41] cannot find symbol
+[ERROR]   symbol:   method listMentors()
+[ERROR]   location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/RecommendationService.java:[19,41] cannot find symbol
+[ERROR]   symbol:   method listMentors()
+[ERROR]   location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[117,49] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[126,33] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[231,33] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionFeedbackController.java:[455,49] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[91,49] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[129,27] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[129,85] package tn.esprit.services does not exist
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[131,44] cannot find symbol
+[ERROR]   symbol:   method listMentors()
+[ERROR]   location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[173,29] cannot find symbol
+[ERROR]   symbol:   method findById(int)
+[ERROR]   location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[325,37] cannot find symbol
+[ERROR]   symbol:   method findById(int)
+[ERROR]   location: variable userService of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[374,43] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[385,55] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[387,58] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[45,51] cannot find symbol
+[ERROR]   symbol:   method getTotalFundingRequested()
+[ERROR]   location: variable applicationService of type tn.esprit.Services.ApplicationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[50,44] cannot find symbol
+[ERROR]   symbol:   method getAverageEvaluationScore()
+[ERROR]   location: variable evaluationService of type tn.esprit.Services.EvaluationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[57,56] cannot find symbol
+[ERROR]   symbol:   method getApplicationStatusCounts()
+[ERROR]   location: variable applicationService of type tn.esprit.Services.ApplicationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[76,55] cannot find symbol
+[ERROR]   symbol:   method getEvaluationDecisionCounts()
+[ERROR]   location: variable evaluationService of type tn.esprit.Services.EvaluationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionController.java:[179,54] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SessionController.java:[181,57] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[110,68] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[117,85] cannot find symbol
+[ERROR]   symbol:   method listMentors()
+[ERROR]   location: variable userSvc of type tn.esprit.Services.UserService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[192,64] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="24" style="-fx-padding:24;" styleClass="main"
+      stylesheets="@../css/mentorship.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.GUI.HomeViewController">
+
+    <Label styleClass="section-title" text="🏠  Overview Dashboard"/>
+
+    <!-- Stat Cards -->
+    <HBox spacing="20">
+        <VBox styleClass="glass-card" spacing="8" prefWidth="240" alignment="CENTER">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+            <Label text="Total Sessions" styleClass="section-sub"/>
+            <Label fx:id="totalSessionsLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: #7357ff;"/>
+        </VBox>
+
+        <VBox styleClass="glass-card" spacing="8" prefWidth="240" alignment="CENTER">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+            <Label text="Pending Bookings" styleClass="section-sub"/>
+            <Label fx:id="pendingBookingsLabel" text="0" style="-fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: #ff8b57;"/>
+        </VBox>
+
+        <VBox styleClass="glass-card" spacing="8" prefWidth="240" alignment="CENTER">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+            <Label fx:id="extraStatTitle" text="Completion Rate" styleClass="section-sub"/>
+            <Label fx:id="extraStatLabel" text="0%" style="-fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: #12a059;"/>
+        </VBox>
+    </HBox>
+
+    <!-- Charts & Advanced Modules Area -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <!-- Left Column: Activity Chart -->
+        <VBox styleClass="glass-card" HBox.hgrow="ALWAYS" spacing="10">
+            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+            <Label fx:id="chartTitle" styleClass="section-sub" text="Activity Breakdown"/>
+            
+            <StackPane fx:id="chartContainer" VBox.vgrow="ALWAYS">
+                <!-- Chart injected here by controller -->
+            </StackPane>
+        </VBox>
+        
+        <!-- Right Column: AI Insights & Favorites -->
+        <VBox spacing="20" prefWidth="380" HBox.hgrow="NEVER">
+            <!-- Gemini AI Box -->
+            <VBox styleClass="glass-card" spacing="12" VBox.vgrow="ALWAYS">
+                <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                <Label text="✨ Gemini AI Insights" style="-fx-font-size: 16px; -fx-font-weight: 700; -fx-text-fill: #9b8acc;"/>
+                <Label fx:id="aiInsightsText" text="Loading insights..." wrapText="true" style="-fx-font-size: 13px; -fx-text-fill: #333; -fx-line-spacing: 4px;"/>
+            </VBox>
+            
+            <!-- Secondary Module (Favorites / Rating Badges) -->
+            <VBox fx:id="secondaryModuleContainer" styleClass="glass-card" spacing="12" VBox.vgrow="ALWAYS">
+                <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                <Label fx:id="secondaryModuleTitle" text="My Favorites" style="-fx-font-size: 16px; -fx-font-weight: 700; -fx-text-fill: #5a4bd6;"/>
+                <VBox fx:id="secondaryModuleContent" spacing="8">
+                    <!-- Dynamic content injected here -->
+                </VBox>
+            </VBox>
+        </VBox>
+    </HBox>
+
+</VBox>

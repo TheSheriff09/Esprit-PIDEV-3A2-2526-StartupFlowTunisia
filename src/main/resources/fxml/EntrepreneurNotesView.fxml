@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16" style="-fx-padding:24;" styleClass="main"
+      stylesheets="@../css/mentorship.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.GUI.EntrepreneurNotesController">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="14">
+        <Label styleClass="section-title" text="📝  My Session Notes"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField" styleClass="search-field"
+                   promptText="🔍  Search notes…"
+                   onKeyReleased="#onSearch"/>
+    </HBox>
+
+    <!-- Form Card -->
+    <VBox styleClass="glass-card" spacing="10">
+        <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
+        <Label styleClass="section-sub" text="WRITE A NOTE — Reflect on your session experience"/>
+
+        <GridPane hgap="16" vgap="8">
+            <!-- Session Selector -->
+            <Label text="Session *" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="3">
+                <ComboBox fx:id="sessionCombo" prefWidth="280" promptText="Select one of your sessions…"/>
+                <Label fx:id="errSession" text="" style="-fx-text-fill:#e0134a;-fx-font-size:11;"/>
+            </VBox>
+
+            <!-- Satisfaction Score -->
+            <Label text="Satisfaction" styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                <Slider fx:id="scoreSlider" min="1" max="10" value="5" prefWidth="160"
+                        style="-fx-accent:#7357ff;" showTickMarks="true" majorTickUnit="1"
+                        snapToTicks="true"/>
+                <Label fx:id="scoreLabel" text="5 / 10"
+                       style="-fx-font-weight:700;-fx-font-size:14px;-fx-text-fill:#7357ff;"/>
+            </HBox>
+
+            <!-- Notes Text Area -->
+            <Label text="Notes *" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" spacing="3">
+                <TextArea fx:id="notesArea" prefHeight="110" prefWidth="580"
+                          promptText="Describe what you learned, how the session went, what to improve…"
+                          wrapText="true"/>
+                <HBox alignment="CENTER_RIGHT">
+                    <Label fx:id="charCountLabel" text="0 / 2000 characters"
+                           style="-fx-font-size:11;-fx-text-fill:#9b8acc;"/>
+                </HBox>
+                <Label fx:id="errNotes" text="" style="-fx-text-fill:#e0134a;-fx-font-size:11;"/>
+            </VBox>
+        </GridPane>
+
+        <Label fx:id="msgLabel" text=""/>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button text="💾 Save Note"    onAction="#onSave"    styleClass="btn-primary"/>
+            <Button text="🔄 Update"       onAction="#onUpdate"  styleClass="btn-secondary"/>
+            <Button text="🗑 Delete"       onAction="#onDelete"  styleClass="btn-danger"/>
+            <Button text="✖ Clear"        onAction="#onClear"   styleClass="btn-secondary"/>
+            <ToggleButton fx:id="btnDictation" text="🎤 Dictate" onAction="#onToggleDictation" styleClass="btn-secondary"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="✅ Check Grammar"  onAction="#onCheckGrammar" styleClass="btn-secondary"/>
+            <Button text="📥 Export CSV"    onAction="#onExportCSV"   styleClass="btn-secondary"/>
+        </HBox>
+    </VBox>
+
+    <!-- Table -->
+    <TableView fx:id="notesTable" VBox.vgrow="ALWAYS"
+               onMouseClicked="#onRowSelected" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colID"          text="ID"           prefWidth="50"/>
+            <TableColumn fx:id="colSession"     text="Session"      prefWidth="80"/>
+            <TableColumn fx:id="colScore"       text="Score"        prefWidth="70"/>
+            <TableColumn fx:id="colDate"        text="Date"         prefWidth="120"/>
+            <TableColumn fx:id="colNotes"       text="Notes"        prefWidth="500"/>
+        </columns>
+        <placeholder><Label text="No notes yet. Start reflecting on your sessions!" style="-fx-text-fill:#9b8acc;"/></placeholder>
+    </TableView>
+
+</VBox>

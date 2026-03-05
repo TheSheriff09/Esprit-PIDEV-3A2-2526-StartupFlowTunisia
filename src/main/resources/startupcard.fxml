@@ -56,6 +56,12 @@
         </HBox>
 
         <Region VBox.vgrow="ALWAYS"/>
+
+        <!-- Action Buttons -->
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <VBox.margin><Insets top="10" /></VBox.margin>
+            <Button text="Funding" styleClass="btn-primary" style="-fx-background-color: #8b5cf6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6;" onAction="#handleFunding"/>
+        </HBox>
     </VBox>
 
 </VBox>

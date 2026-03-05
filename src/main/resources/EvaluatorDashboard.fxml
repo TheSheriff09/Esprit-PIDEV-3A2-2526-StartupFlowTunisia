@@ -23,9 +23,8 @@
 
         <HBox spacing="28" styleClass="nav">
             <Label onMouseClicked="#onDashboard" styleClass="navLink navActive" text="DashBoard" />
-            <Label onMouseClicked="#onFunding" styleClass="navLink" text="Funding &amp; Evaluation" />
+            <Label onMouseClicked="#onFunding" styleClass="navLink" text="Evaluation" />
             <Label onMouseClicked="#onForum" styleClass="navLink" text="Forum" />
-            <Label onMouseClicked="#onFunding" styleClass="navLink" text="Funding" />
         </HBox>
 
         <Region HBox.hgrow="ALWAYS" />

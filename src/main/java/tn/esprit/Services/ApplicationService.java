@@ -153,4 +153,19 @@ public class ApplicationService implements ICRUD<Application> {
 
         return apps;
     }
+    public double getTotalFundingRequested() {
+        double total = 0;
+        for (Application app : list()) {
+            total += app.getAmount();
+        }
+        return total;
+    }
+    public java.util.Map<String, Integer> getApplicationStatusCounts() {
+        java.util.Map<String, Integer> counts = new java.util.HashMap<>();
+        for (Application app : list()) {
+            counts.put(app.getStatus(), counts.getOrDefault(app.getStatus(), 0) + 1);
+        }
+        return counts;
+    }
 }
+

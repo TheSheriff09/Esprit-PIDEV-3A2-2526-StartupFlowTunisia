@@ -1,0 +1,373 @@
+/* ================================================================
+   StartupFlow Tunisia — Dark Theme (Full Coverage)
+   Activated by ThemeManager when dark.mode=true in config.properties
+   ================================================================ */
+
+/* ── Root / Background ── */
+.root {
+    -fx-font-family: "Segoe UI", Arial;
+    -fx-background-color: #0f0e1a;
+    -fx-text-fill: #e8e5ff;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+    -fx-background-color: #16152a;
+    -fx-border-color: rgba(155, 116, 255, 0.22);
+    -fx-border-width: 0 1 0 0;
+}
+
+.brand-title {
+    -fx-text-fill: #b08bff;
+}
+
+.brand-sub {
+    -fx-text-fill: #7a5dcc;
+}
+
+/* ── Nav buttons (dark) ── */
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #c4bbff;
+}
+
+.nav-btn:hover {
+    -fx-background-color: rgba(155, 116, 255, 0.15);
+}
+
+.nav-btn.active {
+    -fx-background-color: rgba(155, 116, 255, 0.25);
+    -fx-text-fill: #e0d6ff;
+}
+
+/* ── Top bar ── */
+.topbar {
+    -fx-background-color: #1a1930;
+    -fx-border-color: rgba(155, 116, 255, 0.20);
+    -fx-border-width: 0 0 1 0;
+}
+
+.top-title {
+    -fx-text-fill: #b08bff;
+}
+
+.user-pill {
+    -fx-background-color: linear-gradient(to right, #5a3dcc, #9b6bff);
+    -fx-text-fill: #ffffff;
+}
+
+/* ── Main area ── */
+.main {
+    -fx-background-color: #11101e;
+}
+
+/* ── Glass card (dark) ── */
+.glass-card {
+    -fx-background-color: linear-gradient(to bottom right, #1a1930, #221f3d);
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 22, 0.2, 0, 5);
+    -fx-border-color: rgba(155, 116, 255, 0.18);
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+}
+
+/* ── Labels ── */
+.section-title {
+    -fx-text-fill: #b08bff;
+}
+
+.section-sub {
+    -fx-text-fill: #7a6faa;
+}
+
+.field-label {
+    -fx-text-fill: #9983e8;
+}
+
+Label {
+    -fx-text-fill: #d0cbff;
+}
+
+/* ── Inputs ── */
+.text-field,
+.text-area,
+.date-picker {
+    -fx-background-color: #1e1d36;
+    -fx-border-color: rgba(155, 116, 255, 0.28);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: #ddd8ff;
+    -fx-prompt-text-fill: #6b6294;
+    -fx-font-size: 13px;
+    -fx-padding: 7 11;
+}
+
+.text-field:focused,
+.text-area:focused,
+.date-picker:focused {
+    -fx-border-color: #9b74ff;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(155, 116, 255, 0.25), 8, 0.1, 0, 0);
+}
+
+/* ── ComboBox (dark) ── */
+.combo-box {
+    -fx-background-color: #1e1d36;
+    -fx-border-color: rgba(155, 116, 255, 0.28);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: #ddd8ff;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #1e1d36;
+    -fx-text-fill: #ddd8ff;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #1e1d36;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgba(155, 116, 255, 0.20);
+}
+
+.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: rgba(155, 116, 255, 0.35);
+}
+
+/* ── Buttons ── */
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #5a3dcc, #9b6bff);
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 200, 0.45), 10, 0.2, 0, 3);
+}
+
+.btn-primary:hover {
+    -fx-opacity: 0.88;
+}
+
+.btn-secondary {
+    -fx-background-color: #201e3a;
+    -fx-text-fill: #9b74ff;
+    -fx-border-color: rgba(155, 116, 255, 0.30);
+    -fx-border-radius: 999;
+    -fx-border-width: 1;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #2b2848;
+}
+
+.btn-danger {
+    -fx-background-color: #2a1520;
+    -fx-text-fill: #ff6b8a;
+    -fx-border-color: rgba(224, 19, 74, 0.30);
+    -fx-border-radius: 999;
+    -fx-border-width: 1;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #3a1a28;
+}
+
+.btn-approve {
+    -fx-background-color: #0e2420;
+    -fx-text-fill: #3dcc8a;
+    -fx-border-color: rgba(18, 160, 89, 0.30);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.btn-approve:hover {
+    -fx-background-color: #122e28;
+}
+
+.btn-reject {
+    -fx-background-color: #2a1520;
+    -fx-text-fill: #ff6b8a;
+    -fx-border-color: rgba(224, 19, 74, 0.30);
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.btn-reject:hover {
+    -fx-background-color: #3a1a28;
+}
+
+.btn-logout {
+    -fx-background-color: rgba(224, 19, 74, 0.14);
+    -fx-text-fill: #ff6b8a;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.btn-logout:hover {
+    -fx-background-color: rgba(224, 19, 74, 0.28);
+}
+
+/* ── Search field ── */
+.search-field {
+    -fx-background-color: #1e1d36;
+    -fx-border-color: rgba(155, 116, 255, 0.28);
+    -fx-border-radius: 999;
+    -fx-background-radius: 999;
+    -fx-text-fill: #ddd8ff;
+    -fx-prompt-text-fill: #6b6294;
+}
+
+.search-field:focused {
+    -fx-border-color: #9b74ff;
+}
+
+/* ── Separator ── */
+.separator .line {
+    -fx-border-color: rgba(155, 116, 255, 0.20);
+}
+
+/* ── Table (dark) ── */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(155, 116, 255, 0.18);
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to right, #1e1c38, #251f42);
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #9983e8;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: #14121e;
+    -fx-text-fill: #d0cbff;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #17152a;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(155, 116, 255, 0.22);
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: rgba(155, 116, 255, 0.12);
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #d0cbff;
+}
+
+/* ── Slider (dark) ── */
+.slider .track {
+    -fx-background-color: #2a2744;
+}
+
+.slider .thumb {
+    -fx-background-color: #9b74ff;
+}
+
+/* ── Role badge (dark mode override) ── */
+.role-badge-mentor {
+    -fx-background-color: #0d2a1a;
+    -fx-text-fill: #3dcc8a;
+}
+
+.role-badge-entrepreneur {
+    -fx-background-color: #1a1240;
+    -fx-text-fill: #9b74ff;
+}
+
+/* ── Charts (dark) ── */
+.chart {
+    -fx-background-color: transparent;
+}
+
+.chart-plot-background {
+    -fx-background-color: #14121e;
+}
+
+.chart-vertical-grid-lines,
+.chart-horizontal-grid-lines {
+    -fx-stroke: rgba(155, 116, 255, 0.10);
+}
+
+.chart-title,
+.axis-label {
+    -fx-text-fill: #9983e8;
+}
+
+.axis {
+    -fx-tick-label-fill: #7a6faa;
+}
+
+/* ── ScrollPane ── */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: #1a1930;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #3a3660;
+}
+
+/* ── Tab pane (dark) ── */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #1a1930;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #1e1d36;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #9983e8;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #2a2650;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #ddd8ff;
+}
+
+/* ── Messages ── */
+.error-label {
+    -fx-text-fill: #ff6b8a;
+}
+
+.success-label {
+    -fx-text-fill: #3dcc8a;
+}
+
+/* ── DatePicker popup (dark) ── */
+.date-picker-popup {
+    -fx-background-color: #1e1d36;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #2a2650;
+}
+
+.date-picker-popup .calendar-grid .day-cell {
+    -fx-text-fill: #d0cbff;
+    -fx-background-color: transparent;
+}
+
+.date-picker-popup .calendar-grid .day-cell:hover {
+    -fx-background-color: rgba(155, 116, 255, 0.25);
+}
+
+.date-picker-popup .calendar-grid .today {
+    -fx-background-color: rgba(155, 116, 255, 0.40);
+}

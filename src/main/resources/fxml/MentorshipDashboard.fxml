@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0"
+            styleClass="root"
+            stylesheets="@../css/mentorship.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.GUI.MentorshipDashboardController">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox prefWidth="260" spacing="14" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="22" left="18" right="18" top="22"/></padding>
+
+            <VBox spacing="2">
+                <Label styleClass="brand-title" text="StartupFlow"/>
+                <Label styleClass="brand-sub"   text="Tunisia"/>
+            </VBox>
+
+            <Separator styleClass="sep"/>
+
+            <Label text="MENTORSHIP MODULE"
+                   style="-fx-font-size:11px;-fx-font-weight:800;-fx-text-fill:#9b8acc;-fx-padding:4 0 0 2;"/>
+
+            <VBox spacing="8">
+                <Button fx:id="btnHome"    onAction="#showHome"
+                        styleClass="nav-btn,active" text="🏠  Overview" accessibleText="Overview Dashboard">
+                    <tooltip><Tooltip text="Dashboard overview with charts and statistics"/></tooltip>
+                </Button>
+                <Button fx:id="btnSchedule" onAction="#showSchedule"
+                        styleClass="nav-btn" text="📅  Schedule" accessibleText="Manage Schedule">
+                    <tooltip><Tooltip text="Manage your availability slots (Mentors only)"/></tooltip>
+                </Button>
+                <Button fx:id="btnBookings" onAction="#showBookings"
+                        styleClass="nav-btn" text="📋  Bookings" accessibleText="Booking Requests">
+                    <tooltip><Tooltip text="View and manage session booking requests"/></tooltip>
+                </Button>
+                <Button fx:id="btnSessions" onAction="#showSessions"
+                        styleClass="nav-btn" text="🤝  Sessions" accessibleText="Active Sessions">
+                    <tooltip><Tooltip text="View and update mentorship sessions"/></tooltip>
+                </Button>
+                <Button fx:id="btnFeedback" onAction="#showFeedback"
+                        styleClass="nav-btn" text="💬  Feedback" accessibleText="Session Feedback">
+                    <tooltip><Tooltip text="Submit and review session feedback"/></tooltip>
+                </Button>
+                <Button fx:id="btnAI" onAction="#showAI"
+                        styleClass="nav-btn" text="🤖  AI Insights" accessibleText="Grok AI Insights">
+                    <tooltip><Tooltip text="AI-powered mentor rankings, advice, and feedback summaries (Grok API)"/></tooltip>
+                </Button>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Dashboard -->
+            <Button text="⬅  Dashboard" onAction="#onBackToDashboard" styleClass="btn-logout" prefWidth="224" style="-fx-margin-bottom: 10px; -fx-background-color: #5a4bd6;">
+                <tooltip><Tooltip text="Return to your main dashboard"/></tooltip>
+            </Button>
+
+            <!-- Logout -->
+            <Button text="⬅  Logout" onAction="#onLogout" styleClass="btn-logout" prefWidth="224">
+                <tooltip><Tooltip text="Sign out and return to login screen"/></tooltip>
+            </Button>
+        </VBox>
+    </left>
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="14" left="22" right="22" top="14"/></padding>
+            <Label fx:id="topTitle" styleClass="top-title" text="Mentorship — Overview"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <!-- Dark mode toggle -->
+            <Button fx:id="btnDarkMode" text="🌙" onAction="#onToggleDarkMode"
+                    style="-fx-background-color:transparent;-fx-font-size:18px;-fx-cursor:hand;-fx-padding:4 8;"
+                    accessibleText="Toggle Dark Mode">
+                <tooltip><Tooltip text="Toggle between Light and Dark mode"/></tooltip>
+            </Button>
+            <Label fx:id="roleBadge" text=""
+                   style="-fx-font-size:12px;-fx-font-weight:700;-fx-background-radius:999;-fx-padding:4 14;"/>
+            <Label fx:id="userPill" styleClass="user-pill" text="—">
+                <tooltip><Tooltip text="Logged in user"/></tooltip>
+            </Label>
+        </HBox>
+    </top>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <StackPane fx:id="mainContent" styleClass="main" BorderPane.alignment="CENTER"/>
+    </center>
+
+</BorderPane>

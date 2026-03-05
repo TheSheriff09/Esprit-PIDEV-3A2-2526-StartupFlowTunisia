@@ -6,16 +6,17 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="tn.esprit.GUI.EvaluatorApplicationsController"
-            prefWidth="1200" prefHeight="800">
+            prefWidth="1200" prefHeight="800"
+            stylesheets="@/light.css, @/styles.css">
 
     <top>
         <HBox spacing="10" alignment="CENTER_LEFT">
             <padding>
                 <Insets top="12" right="12" bottom="12" left="12"/>
             </padding>
-            <Label text="Funding Applications" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Label text="Funding Applications" styleClass="page-title"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button text="Back to Dashboard" onAction="#backToDashboard"/>
+            <Button text="Back to Dashboard" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 16;" onAction="#backToDashboard"/>
         </HBox>
     </top>
 
@@ -25,9 +26,9 @@
                 <Insets top="10" right="12" bottom="12" left="12"/>
             </padding>
 
-            <TextField fx:id="searchField" promptText="Search applications..." />
+            <TextField fx:id="searchField" promptText="Search applications..." styleClass="modern-input" />
 
-            <TableView fx:id="tableApps" prefHeight="600">
+            <TableView fx:id="tableApps" prefHeight="600" styleClass="modern-table">
                 <columns>
                     <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
                     <TableColumn fx:id="colEntrepreneurId" text="Entrepreneur" prefWidth="120"/>
@@ -41,7 +42,7 @@
             </TableView>
 
             <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Button text="Evaluate Selected" onAction="#evaluateSelected"/>
+                <Button text="Evaluate Selected" styleClass="primary-button" onAction="#evaluateSelected"/>
             </HBox>
 
         </VBox>

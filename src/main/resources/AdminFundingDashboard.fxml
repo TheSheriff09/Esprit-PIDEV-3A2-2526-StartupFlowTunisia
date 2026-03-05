@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@css/usermanagement.css, @css/dashboardAdmin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.GUI.AdminFundingDashboardController">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="260.0" spacing="14.0" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="22" left="18" right="18" top="22" />
+            </padding>
+
+            <!-- Brand -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
+                    <image>
+                        <Image url="@/assest/Startup_Flow__1_-removebg-preview.png"/>
+                    </image>
+                </ImageView>
+                <VBox spacing="2">
+                    <Label text="StartupFlow" styleClass="brand-title"/>
+                    <Label text="Tunisia" styleClass="brand-sub"/>
+                </VBox>
+            </HBox>
+
+            <Separator styleClass="sep" />
+
+            <!-- Navigation -->
+            <VBox spacing="10" styleClass="nav-box">
+                <Button fx:id="btnDashboard" onAction="#goDashboard" styleClass="nav-btn" text="Dashboard" />
+                <Button fx:id="btnUsers" onAction="#goUsers" styleClass="nav-btn" text="User Management" />
+                <VBox spacing="5" style="-fx-padding: 0 0 0 15;">
+                    <Button fx:id="btnProjects" onAction="#goProjects" styleClass="nav-btn" text="Startup Projects" />
+                    <Button onAction="#goProjects" styleClass="nav-btn" text="↳ Sub-Dashboard" style="-fx-font-size: 13.5px;" />
+                    <Button onAction="#goProjects" styleClass="nav-btn" text="↳ Startups List" style="-fx-font-size: 13.5px;" />
+                    <Button onAction="#goProjects" styleClass="nav-btn" text="↳ Business Plans" style="-fx-font-size: 13.5px;" />
+                </VBox>
+                <Button fx:id="btnMentorship" onAction="#goMentorship" styleClass="nav-btn" text="Mentorship" />
+                <Button fx:id="btnFunding" onAction="#goFunding" styleClass="nav-btn active" text="Funding &amp; Evaluation" />
+                <Button fx:id="btnForum" onAction="#goDashboardForum" styleClass="nav-btn" text="Dashboard Forum" />
+                <Button fx:id="btnForumFeed" onAction="#goForumBackOffice" styleClass="nav-btn" text="Forum" />
+                <Button fx:id="btnSettings" onAction="#goSettings" styleClass="nav-btn" text="Settings" />
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <!-- Logout at bottom -->
+            <Button fx:id="btnLogout" onAction="#logout" styleClass="nav-btn logout" text="Logout" />
+        </VBox>
+    </left>
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="14" left="18" right="18" top="14" />
+            </padding>
+
+            <Label styleClass="top-title" text="Funding &amp; Evaluation Analytics" />
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
+    </top>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <AnchorPane styleClass="main" BorderPane.alignment="CENTER">
+
+            <!-- Main glass card -->
+            <StackPane layoutX="26" layoutY="26" prefHeight="610" prefWidth="950" styleClass="glass-card">
+                <VBox alignment="TOP_CENTER" spacing="18" styleClass="card-content">
+                    <padding>
+                        <Insets bottom="24" left="28" right="28" top="24" />
+                    </padding>
+
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label styleClass="hello" text="Funding Lifecycle" />
+                        <Region prefHeight="6" />
+                        <Separator styleClass="title-line" />
+                    </VBox>
+
+                    <!-- Data Cards (Counts) -->
+                    <HBox alignment="CENTER" spacing="20">
+                        <!-- Stat 1: Total Apps -->
+                        <StackPane styleClass="chip" prefWidth="250" prefHeight="80">
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="Total Funding Apps" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-opacity: 0.8;"/>
+                                <Label fx:id="lblTotalApplications" text="0" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                            </VBox>
+                        </StackPane>
+                        
+                        <!-- Stat 2: Total Funding (NEW) -->
+                        <StackPane styleClass="chip" prefWidth="250" prefHeight="80" style="-fx-background-color: linear-gradient(to right, #f97316, #fb923c);">
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="Total Funding Requested" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-opacity: 0.8;"/>
+                                <Label fx:id="lblTotalFunding" text="0" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                            </VBox>
+                        </StackPane>
+
+                        <!-- Stat 3: Total Evals -->
+                        <StackPane styleClass="chip" prefWidth="250" prefHeight="80" style="-fx-background-color: linear-gradient(to right, #10b981, #34d399);">
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="Total Evaluations" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-opacity: 0.8;"/>
+                                <Label fx:id="lblTotalEvaluations" text="0" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                            </VBox>
+                        </StackPane>
+
+                        <!-- Stat 4: Avg Score (NEW) -->
+                        <StackPane styleClass="chip" prefWidth="250" prefHeight="80" style="-fx-background-color: linear-gradient(to right, #3b82f6, #60a5fa);">
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="Average Score" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-opacity: 0.8;"/>
+                                <Label fx:id="lblAvgScore" text="0.0" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                            </VBox>
+                        </StackPane>
+                    </HBox>
+
+                    <!-- Charts Area -->
+                    <HBox alignment="CENTER" spacing="30" prefWidth="850">
+                        
+                        <!-- Application Statuses -->
+                        <VBox alignment="TOP_CENTER" spacing="10" prefWidth="400">
+                            <Label text="Application Statuses" styleClass="section-title" />
+                            <PieChart fx:id="piechartApplications" prefHeight="300" prefWidth="400" />
+                        </VBox>
+
+                        <!-- Evaluation Decisions -->
+                        <VBox alignment="TOP_CENTER" spacing="10" prefWidth="400">
+                            <Label text="Evaluation Decisions" styleClass="section-title" />
+                            <PieChart fx:id="piechartEvaluations" prefHeight="300" prefWidth="400" />
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+            </StackPane>
+        </AnchorPane>
+    </center>
+
+</BorderPane>

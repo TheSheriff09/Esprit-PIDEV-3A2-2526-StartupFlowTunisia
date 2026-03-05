@@ -61,10 +61,7 @@ public class EntrepreneurDashboardController {
             Parent root = loader.load();
 
             User u = SessionManager.getUser();
-            if (u != null) {
-                ApplicationController controller = loader.getController();
-                controller.setEntrepreneurId(u.getId());
-            } else {
+            if (u == null) {
                 System.out.println("❌ No logged-in user in session.");
             }
 
@@ -89,7 +86,7 @@ public class EntrepreneurDashboardController {
 
     @FXML
     private void onMentorship() {
-        // TODO
+        NavigationManager.navigateTo(userMenuBtn, "/fxml/MentorshipDashboard.fxml");
     }
 
     @FXML

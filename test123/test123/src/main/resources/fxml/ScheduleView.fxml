@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16" style="-fx-padding:24;" styleClass="main"
+      stylesheets="@../css/mentorship.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.gui.ScheduleController">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="14">
+        <Label styleClass="section-title" text="📅  Mentor Availability — Schedule"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField" styleClass="search-field"
+                   promptText="🔍  Search by mentor ID or date…"
+                   onKeyReleased="#onSearch"/>
+    </HBox>
+
+    <!-- ═══════════════════════════════════════════════════
+         MENTOR MODE: Add / Edit slots
+         (hidden for evaluator via ScheduleController)
+         ═══════════════════════════════════════════════════ -->
+    <VBox fx:id="mentorFormBox" styleClass="glass-card" spacing="12">
+        <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
+        <Label styleClass="section-sub" text="ADD / EDIT AVAILABILITY SLOT  (Mentor only)"/>
+
+        <GridPane hgap="16" vgap="10">
+            <Label text="Mentor ID *" styleClass="field-label"
+                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="mentorIDField" promptText="auto-filled"
+                       prefWidth="160"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Date *" styleClass="field-label"
+                   GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <DatePicker fx:id="datePicker" prefWidth="180"
+                        GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+            <Label text="Start Time *" styleClass="field-label"
+                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="startTimeField" promptText="HH:mm  e.g. 09:00"
+                       prefWidth="160"
+                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="End Time *" styleClass="field-label"
+                   GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <TextField fx:id="endTimeField" promptText="HH:mm  e.g. 10:30"
+                       prefWidth="180"
+                       GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+        </GridPane>
+
+        <Label fx:id="msgLabel" text=""/>
+
+        <HBox spacing="10">
+            <Button text="➕ Add"    onAction="#onAdd"    styleClass="btn-primary"/>
+            <Button text="✏️ Update" onAction="#onUpdate" styleClass="btn-secondary"/>
+            <Button text="🗑 Delete" onAction="#onDelete" styleClass="btn-danger"/>
+            <Button text="✖ Clear"  onAction="#onClear"  styleClass="btn-secondary"/>
+        </HBox>
+    </VBox>
+
+    <!-- ═══════════════════════════════════════════════════
+         EVALUATOR MODE: Pick a mentor → see their free slots
+         (hidden for mentor via ScheduleController)
+         ═══════════════════════════════════════════════════ -->
+    <VBox fx:id="evaluatorPickerBox" styleClass="glass-card" spacing="12">
+        <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
+        <Label styleClass="section-sub" text="PICK A MENTOR TO SEE AVAILABLE SLOTS"/>
+
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <Label styleClass="field-label" text="Mentor *"/>
+            <ComboBox fx:id="mentorPickerCombo" prefWidth="280" promptText="Choose a mentor…"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnBookSlot" text="📅 Book Selected Slot"
+                    onAction="#onBookSlot" styleClass="btn-approve"/>
+        </HBox>
+
+        <Label fx:id="msgLabel" text=""/>
+    </VBox>
+
+    <!-- Table (shared) -->
+    <TableView fx:id="scheduleTable" VBox.vgrow="ALWAYS"
+               onMouseClicked="#onRowSelected" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colID"     text="ID"        prefWidth="60"/>
+            <TableColumn fx:id="colMentor" text="Mentor ID" prefWidth="100"/>
+            <TableColumn fx:id="colDate"   text="Date"      prefWidth="140"/>
+            <TableColumn fx:id="colStart"  text="Start"     prefWidth="110"/>
+            <TableColumn fx:id="colEnd"    text="End"       prefWidth="110"/>
+            <TableColumn fx:id="colBooked" text="Booked?"   prefWidth="100"/>
+        </columns>
+        <placeholder><Label text="No slots found." style="-fx-text-fill:#9b8acc;"/></placeholder>
+    </TableView>
+
+</VBox>

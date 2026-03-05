@@ -85,7 +85,7 @@
                         <Button fx:id="btnBusinessPlans" text="↳ Business Plans" styleClass="nav-btn" onAction="#showBusinessPlans" style="-fx-font-size: 13.5px;"/>
                     </VBox>
                     
-                    <Button text="Mentorship" styleClass="nav-btn" onAction="#goMentorship"/>
+                    <Button fx:id="btnMentorship" text="Mentorship" styleClass="nav-btn" onAction="#goMentorship"/>
                     <Button text="Funding &amp; Evaluation" styleClass="nav-btn" onAction="#goFunding"/>
                     <Button text="Dashboard Forum" styleClass="nav-btn" onAction="#goDashboardForum"/>
                     <Button text="Forum" styleClass="nav-btn" onAction="#goForumBackOffice"/>

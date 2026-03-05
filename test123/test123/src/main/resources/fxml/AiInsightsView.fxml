@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="680.0" prefWidth="1020.0"
+            stylesheets="@../css/mentorship.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.gui.AiInsightsController">
+
+    <top>
+        <VBox styleClass="glass-card" spacing="2">
+            <padding><Insets bottom="16" left="22" right="22" top="16"/></padding>
+            <Label styleClass="section-title" text="🤖  AI Insights — Powered by Grok"/>
+            <Label styleClass="section-sub"
+                   text="Intelligent mentor recommendations, feedback summaries, and personalized mentorship advice"/>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox spacing="16">
+            <padding><Insets bottom="16" left="16" right="16" top="16"/></padding>
+
+            <!-- LEFT: Mentor Ranking Panel -->
+            <VBox spacing="12" prefWidth="380" styleClass="glass-card">
+                <padding><Insets bottom="16" left="16" right="16" top="16"/></padding>
+
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label styleClass="section-title" text="🏆  Mentor Rankings"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="mentorSortCombo" prefWidth="160"
+                              onAction="#onMentorSortChanged"
+                              promptText="Sort by…"/>
+                </HBox>
+
+                <TableView fx:id="mentorTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colMentorRank"   text="#"           prefWidth="36"/>
+                        <TableColumn fx:id="colMentorName"   text="Mentor"      prefWidth="130"/>
+                        <TableColumn fx:id="colMentorMPI"    text="MPI"         prefWidth="60"/>
+                        <TableColumn fx:id="colMentorRating" text="Avg Rating"  prefWidth="80"/>
+                        <TableColumn fx:id="colMentorSessions" text="Sessions"  prefWidth="70"/>
+                    </columns>
+                </TableView>
+
+                <!-- Refresh button -->
+                <Button text="🔄  Refresh Rankings" styleClass="btn-secondary"
+                        prefWidth="348" onAction="#onRefreshRankings"
+                        accessibleText="Refresh mentor ranking data">
+                    <tooltip><Tooltip text="Recalculate all Mentor Performance Indices"/></tooltip>
+                </Button>
+            </VBox>
+
+            <!-- RIGHT: AI Text Panel -->
+            <VBox spacing="12" HBox.hgrow="ALWAYS" styleClass="glass-card">
+                <padding><Insets bottom="16" left="16" right="16" top="16"/></padding>
+
+                <Label styleClass="section-title" text="✨  AI Analysis"/>
+
+                <!-- Tabs for different AI features -->
+                <TabPane fx:id="aiTabPane" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+
+                    <!-- Tab 1: Recommendation Explanation -->
+                    <Tab text="💡 Explain Recommendation">
+                        <VBox spacing="10">
+                            <padding><Insets bottom="12" left="12" right="12" top="12"/></padding>
+                            <Label styleClass="field-label"
+                                   text="Select a mentor from the table, then click Explain:"/>
+                            <Button fx:id="btnExplain" text="🤖  Explain This Mentor"
+                                    styleClass="btn-primary" onAction="#onExplainMentor"
+                                    accessibleText="Ask Grok AI to explain the selected mentor recommendation">
+                                <tooltip><Tooltip text="Ask Grok AI why this mentor is recommended (async)"/></tooltip>
+                            </Button>
+                            <Label fx:id="explainStatusLabel" styleClass="section-sub" text=""/>
+                            <TextArea fx:id="explainArea" prefHeight="160" editable="false"
+                                      wrapText="true" promptText="AI explanation will appear here…"/>
+                        </VBox>
+                    </Tab>
+
+                    <!-- Tab 2: Mentorship Advice -->
+                    <Tab text="🎯 Mentorship Advice">
+                        <VBox spacing="10">
+                            <padding><Insets bottom="12" left="12" right="12" top="12"/></padding>
+                            <Label styleClass="field-label" text="Describe your current business context:"/>
+                            <TextArea fx:id="contextArea" prefHeight="80" wrapText="true"
+                                      promptText="e.g., I am a tech startup founder in FinTech, 6 months in, seeking marketing guidance…"/>
+                            <Button text="⚡  Generate Advice" styleClass="btn-primary"
+                                    onAction="#onGenerateAdvice"
+                                    accessibleText="Generate AI mentorship advice">
+                                <tooltip><Tooltip text="Get Grok AI-generated personalized mentorship advice (async)"/></tooltip>
+                            </Button>
+                            <Label fx:id="adviceStatusLabel" styleClass="section-sub" text=""/>
+                            <TextArea fx:id="adviceArea" prefHeight="150" editable="false"
+                                      wrapText="true" promptText="AI advice will appear here…"/>
+                        </VBox>
+                    </Tab>
+
+                    <!-- Tab 3: Feedback Summarization -->
+                    <Tab text="📊 Feedback Summary">
+                        <VBox spacing="10">
+                            <padding><Insets bottom="12" left="12" right="12" top="12"/></padding>
+                            <Label styleClass="field-label" text="Paste feedback text to summarize:"/>
+                            <TextArea fx:id="feedbackInputArea" prefHeight="100" wrapText="true"
+                                      promptText="Paste raw feedback text here…"/>
+                            <Button text="📝  Summarize with AI" styleClass="btn-primary"
+                                    onAction="#onSummarizeFeedback"
+                                    accessibleText="Summarize feedback with Grok AI">
+                                <tooltip><Tooltip text="Ask Grok AI to produce a concise professional feedback summary"/></tooltip>
+                            </Button>
+                            <Label fx:id="summaryStatusLabel" styleClass="section-sub" text=""/>
+                            <TextArea fx:id="summaryArea" prefHeight="130" editable="false"
+                                      wrapText="true" promptText="AI summary will appear here…"/>
+                        </VBox>
+                    </Tab>
+
+                </TabPane>
+
+                <!-- Export mentor performance -->
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="📥  Export Rankings CSV" styleClass="btn-secondary"
+                            onAction="#onExportMentorCSV"
+                            accessibleText="Export mentor performance to CSV">
+                        <tooltip><Tooltip text="Save mentor performance table as CSV file"/></tooltip>
+                    </Button>
+                </HBox>
+
+                <!-- Status / error message -->
+                <Label fx:id="statusLabel" styleClass="section-sub" text="" wrapText="true"/>
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>

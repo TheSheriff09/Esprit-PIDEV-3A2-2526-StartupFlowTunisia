@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16" style="-fx-padding:24;" styleClass="main"
+      stylesheets="@../css/mentorship.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.GUI.SessionFeedbackController">
+
+    <!-- Header row: title + search + sort + export -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label styleClass="section-title" text="💬  Session Feedback"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField" styleClass="search-field" prefWidth="240"
+                   promptText="🔍  Search strengths, weaknesses, date…">
+            <tooltip><Tooltip text="Type to instantly filter feedback — searches all text fields and score"/></tooltip>
+        </TextField>
+        <ComboBox fx:id="sortCombo" prefWidth="150" promptText="Sort by…">
+            <tooltip><Tooltip text="Sort feedback by Date, Score or Sentiment"/></tooltip>
+        </ComboBox>
+        <Button text="📥 Export CSV" styleClass="btn-secondary" onAction="#onExportCSV"
+                accessibleText="Export visible feedback to CSV">
+            <tooltip><Tooltip text="Export currently visible feedback to a CSV file"/></tooltip>
+        </Button>
+    </HBox>
+
+    <!-- Form & Evaluation Area -->
+    <HBox spacing="20" VBox.vgrow="NEVER">
+        
+        <!-- Left: Form card (Mentor Feedback) -->
+        <VBox styleClass="glass-card" spacing="12" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
+            <Label styleClass="section-sub" text="SUBMIT / EDIT FEEDBACK  (Mentor)"/>
+
+            <GridPane hgap="16" vgap="10">
+                <Label text="Session *"   styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <ComboBox fx:id="sessionCombo" prefWidth="260" promptText="Pick your session…"
+                          GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <tooltip><Tooltip text="Choose a completed session to provide feedback for"/></tooltip>
+                </ComboBox>
+
+                <Label text="Mentor ID *" styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="mentorIDField" promptText="auto-filled" prefWidth="120"
+                           GridPane.columnIndex="3" GridPane.rowIndex="0">
+                    <tooltip><Tooltip text="Your mentor ID — filled automatically"/></tooltip>
+                </TextField>
+
+                <Label fx:id="dateLabel" text="Date: Today" styleClass="field-label" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+                <DatePicker fx:id="feedbackDatePicker" visible="false" managed="false"
+                            GridPane.columnIndex="5" GridPane.rowIndex="0"/>
+
+                <Label text="Score"       styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <HBox spacing="10" alignment="CENTER_LEFT"
+                      GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="5">
+                    <Slider fx:id="scoreSlider" min="0" max="100" value="50" prefWidth="280"
+                            style="-fx-accent:#7357ff;">
+                        <tooltip><Tooltip text="Progress score: 0 = No progress, 100 = Exceptional progress"/></tooltip>
+                    </Slider>
+                    <Label fx:id="scoreLabel" text="50" style="-fx-font-weight:700;-fx-font-size:15px;-fx-text-fill:#7357ff;"/>
+                </HBox>
+
+                <Label text="Strengths *" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextArea fx:id="strengthsArea" prefWidth="220" prefHeight="68"
+                          GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <tooltip><Tooltip text="Required. What went well in this session?"/></tooltip>
+                </TextArea>
+
+                <Label text="Weaknesses"  styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <TextArea fx:id="weaknessesArea" prefWidth="220" prefHeight="68"
+                          GridPane.columnIndex="3" GridPane.rowIndex="2">
+                    <tooltip><Tooltip text="What areas need improvement?"/></tooltip>
+                </TextArea>
+
+                <Label text="Recommendations" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextArea fx:id="recommendationsArea" prefWidth="220" prefHeight="68"
+                          GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <tooltip><Tooltip text="Specific recommendations for the entrepreneur"/></tooltip>
+                </TextArea>
+
+                <Label text="Next Actions"    styleClass="field-label" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                <TextArea fx:id="nextActionsArea" prefWidth="220" prefHeight="68"
+                          GridPane.columnIndex="3" GridPane.rowIndex="3">
+                    <tooltip><Tooltip text="Concrete action items for the next session"/></tooltip>
+                </TextArea>
+            </GridPane>
+
+            <Label fx:id="msgLabel" text=""/>
+
+            <!-- AI Summary button + action buttons -->
+            <HBox fx:id="actionBox" spacing="10" alignment="CENTER_LEFT">
+                <Button text="✏️ Submit"  onAction="#onSubmit" styleClass="btn-primary">
+                    <tooltip><Tooltip text="Submit this feedback for the selected session"/></tooltip>
+                </Button>
+                <Button text="🔄 Update" onAction="#onUpdate" styleClass="btn-secondary">
+                    <tooltip><Tooltip text="Update selected feedback entry"/></tooltip>
+                </Button>
+                <Button text="🗑 Delete" onAction="#onDelete" styleClass="btn-danger">
+                    <tooltip><Tooltip text="Delete selected feedback entry"/></tooltip>
+                </Button>
+                <Button text="✖ Clear"  onAction="#onClear"  styleClass="btn-secondary">
+                    <tooltip><Tooltip text="Clear all form fields"/></tooltip>
+                </Button>
+                <ToggleButton fx:id="btnDictation" text="🎤 Dictate" onAction="#onToggleDictation" styleClass="btn-secondary">
+                    <tooltip><Tooltip text="Toggle speech-to-text dictation mode"/></tooltip>
+                </ToggleButton>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="🤖 AI Summary" onAction="#onAiSummarize" styleClass="btn-secondary"
+                        accessibleText="Summarize selected feedback with Grok AI">
+                    <tooltip><Tooltip text="Generate an AI summary of the selected feedback using Grok API (async)"/></tooltip>
+                </Button>
+            </HBox>
+
+            <!-- AI Summary output (hidden until triggered) -->
+            <VBox fx:id="aiSummaryBox" spacing="6" visible="false" managed="false">
+                <Label text="🤖 AI Summary:" styleClass="field-label"/>
+                <TextArea fx:id="aiSummaryArea" prefHeight="80" editable="false" wrapText="true"
+                          style="-fx-background-color:rgba(115,87,255,0.06);"/>
+            </VBox>
+        </VBox>
+
+        <!-- Right: Mentor Evaluation (Entrepreneur Only) -->
+        <VBox fx:id="evaluationBox" styleClass="glass-card" spacing="12" prefWidth="300" HBox.hgrow="NEVER" visible="false" managed="false">
+            <padding><Insets bottom="20" left="22" right="22" top="18"/></padding>
+            <Label styleClass="section-sub" text="RATE PREVIOUS MENTOR"/>
+            <Label text="Selected Mentor:" styleClass="field-label"/>
+            <Label fx:id="evalMentorNameLabel" text="Pending Selection..." style="-fx-font-weight: bold; -fx-text-fill: #5a4bd6;"/>
+            
+            <Label text="Rating (1-5 Stars) *" styleClass="field-label" style="-fx-padding: 10 0 0 0;"/>
+            <ComboBox fx:id="ratingCombo" prefWidth="250" promptText="Select Rating"/>
+            
+            <Label text="Review Comments *" styleClass="field-label"/>
+            <TextArea fx:id="evalCommentArea" prefWidth="250" prefHeight="100" promptText="How was your experience?" wrapText="true"/>
+            
+            <Label fx:id="evalMsgLabel" text=""/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="⭐ Submit Review" onAction="#onSubmitEvaluation" styleClass="btn-approve" prefWidth="250"/>
+        </VBox>
+        
+    </HBox>
+
+    <!-- Table -->
+    <TableView fx:id="feedbackTable" VBox.vgrow="ALWAYS"
+               onMouseClicked="#onRowSelected" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colID"       text="ID"        prefWidth="50"/>
+            <TableColumn fx:id="colSession"  text="Session"   prefWidth="75"/>
+            <TableColumn fx:id="colMentor"   text="Mentor"    prefWidth="75"/>
+            <TableColumn fx:id="colScore"    text="Score"     prefWidth="70"/>
+            <TableColumn fx:id="colDate"     text="Date"      prefWidth="115"/>
+            <TableColumn fx:id="colSentiment" text="Sentiment" prefWidth="90"/>
+            <TableColumn fx:id="colStrengths" text="Strengths" prefWidth="280"/>
+        </columns>
+        <placeholder><Label text="No feedback yet." style="-fx-text-fill:#9b8acc;"/></placeholder>
+    </TableView>
+
+</VBox>

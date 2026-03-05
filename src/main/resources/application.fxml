@@ -6,19 +6,20 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="tn.esprit.GUI.ApplicationController"
-            prefWidth="1300" prefHeight="850">
+            prefWidth="1300" prefHeight="850"
+            stylesheets="@/light.css, @/styles.css">
 
     <top>
-        <VBox spacing="10" BorderPane.alignment="CENTER">
+        <VBox spacing="10" BorderPane.alignment="CENTER" styleClass="header-background">
             <padding>
                 <Insets top="15" right="15" bottom="10" left="15"/>
             </padding>
 
-            <Label text="Funding Applications" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+            <Label text="Funding Applications" styleClass="page-title"/>
 
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Label text="Search:"/>
-                <TextField fx:id="searchField" promptText="Search..." prefWidth="400"/>
+                <TextField fx:id="searchField" promptText="Search..." prefWidth="400" styleClass="modern-input"/>
             </HBox>
         </VBox>
     </top>
@@ -26,9 +27,9 @@
     <center>
         <SplitPane dividerPositions="0.42">
             <!-- Left: Form -->
-            <ScrollPane fitToWidth="true">
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
                 <content>
-                    <VBox spacing="10">
+                    <VBox spacing="10" styleClass="content-area">
                         <padding>
                             <Insets top="15" right="15" bottom="15" left="15"/>
                         </padding>
@@ -41,36 +42,36 @@
 
                             <Label text="Entrepreneur ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                             <TextField fx:id="txtEntrepreneurId" promptText="Must exist in users.id"
-                                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                       GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="modern-input"/>
 
                             <Label text="Amount:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                             <TextField fx:id="txtAmount" promptText="e.g. 1200.50"
-                                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                                       GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="modern-input"/>
 
                             <Label text="Status:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                             <TextField fx:id="txtStatus" promptText="Pending / Approved / Rejected"
-                                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                                       GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="modern-input"/>
 
                             <Label text="Submission Date:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                             <TextField fx:id="txtSubmissionDate" promptText="YYYY-MM-DD"
-                                       GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                       GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="modern-input"/>
 
                             <Label text="Reason:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                             <TextField fx:id="txtApplicationReason" promptText="Why you need funding"
-                                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                                       GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="modern-input"/>
 
                             <Label text="Project ID:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
                             <TextField fx:id="txtProjectId" promptText="Project ID"
-                                       GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                                       GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="modern-input"/>
 
                             <Label text="Payment Schedule:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
                             <TextField fx:id="txtPaymentSchedule" promptText="e.g. Monthly"
-                                       GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                                       GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="modern-input"/>
 
                             <Label text="Attachment:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
                             <HBox spacing="8" GridPane.rowIndex="7" GridPane.columnIndex="1">
-                                <TextField fx:id="txtAttachment" promptText="Path..." HBox.hgrow="ALWAYS"/>
-                                <Button text="Browse" onAction="#browseAttachment"/>
+                                <TextField fx:id="txtAttachment" promptText="Path..." HBox.hgrow="ALWAYS" styleClass="modern-input"/>
+                                <Button text="Browse" styleClass="primary-button" onAction="#browseAttachment"/>
                             </HBox>
                         </GridPane>
 
@@ -78,36 +79,36 @@
 
                         <!-- Improve text -->
                         <HBox spacing="10">
-                            <Button text="Improve Reason" onAction="#improveApplicationReason"/>
+                            <Button text="Improve Reason" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" onAction="#improveApplicationReason"/>
                         </HBox>
 
                         <Separator/>
 
                         <!-- Currency conversion -->
-                        <Label text="Currency Converter" style="-fx-font-weight: bold;"/>
+                        <Label text="Currency Converter" styleClass="section-title"/>
                         <HBox spacing="10" alignment="CENTER_LEFT">
                             <ComboBox fx:id="cmbFromCurrency" prefWidth="110"/>
                             <ComboBox fx:id="cmbToCurrency" prefWidth="110"/>
-                            <Button text="Convert" onAction="#convertAmount"/>
+                            <Button text="Convert" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" onAction="#convertAmount"/>
                             <TextField fx:id="txtConvertedAmount" promptText="Converted"
-                                       prefWidth="180" editable="false"/>
+                                       prefWidth="180" editable="false" styleClass="modern-input"/>
                         </HBox>
 
                         <Separator/>
 
                         <!-- CRUD Buttons -->
                         <HBox spacing="10">
-                            <Button text="Add" onAction="#addApplication"/>
-                            <Button text="Update" onAction="#updateApplication"/>
-                            <Button text="Delete" onAction="#deleteApplication"/>
-                            <Button text="Clear" onAction="#clearForm"/>
+                            <Button text="Add" styleClass="primary-button" onAction="#addApplication"/>
+                            <Button text="Update" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" onAction="#updateApplication"/>
+                            <Button text="Delete" styleClass="danger-button" onAction="#deleteApplication"/>
+                            <Button text="Clear" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" onAction="#clearForm"/>
                         </HBox>
 
                         <Separator/>
 
                         <!-- NEW: Back to dashboard -->
                         <HBox spacing="10">
-                            <Button text="Back to Dashboard" onAction="#backToDashboard"/>
+                            <Button text="Back to Startup View" style="-fx-background-color: #f1f5f9; -fx-text-fill: #475569; -fx-font-weight: bold; -fx-background-radius: 6;" onAction="#backToDashboard"/>
                         </HBox>
 
                         <Label text="Tip: entrepreneurId must exist in users.id (foreign key)."
@@ -117,13 +118,13 @@
             </ScrollPane>
 
             <!-- Right: Table -->
-            <VBox spacing="10">
+            <VBox spacing="10" styleClass="content-area">
                 <padding>
                     <Insets top="15" right="15" bottom="15" left="15"/>
                 </padding>
 
-                <Label text="Applications" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-                <TableView fx:id="tableApplications" VBox.vgrow="ALWAYS">
+                <Label text="Applications" styleClass="section-title"/>
+                <TableView fx:id="tableApplications" VBox.vgrow="ALWAYS" styleClass="modern-table">
                     <columns>
                         <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
                         <TableColumn fx:id="colEntrepreneurId" text="Entrepreneur" prefWidth="110"/>

@@ -1,4 +1,5 @@
 package tn.esprit.GUI;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,57 +16,91 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import tn.esprit.entities.Application;
 import tn.esprit.Services.ApplicationService;
-import tn.esprit.Services.ICRUD;
 import tn.esprit.utils.CurrencyConverterService;
 import tn.esprit.utils.LanguageToolService;
+import tn.esprit.utils.SessionManager;
 
 import java.io.File;
 
 public class ApplicationController {
-    private int entrepreneurId;
-    @FXML private TextField txtEntrepreneurId;
-    @FXML private TextField txtAmount;
-    @FXML private TextField txtStatus;
-    @FXML private TextField txtSubmissionDate;
-    @FXML private TextField txtApplicationReason;
-    @FXML private TextField txtProjectId;
-    @FXML private TextField txtPaymentSchedule;
-    @FXML private TextField txtAttachment;
+    @FXML
+    private TextField txtEntrepreneurId;
+    @FXML
+    private TextField txtAmount;
+    @FXML
+    private TextField txtStatus;
+    @FXML
+    private TextField txtSubmissionDate;
+    @FXML
+    private TextField txtApplicationReason;
+    @FXML
+    private TextField txtProjectId;
+    @FXML
+    private TextField txtPaymentSchedule;
+    @FXML
+    private TextField txtAttachment;
 
     // Currency conversion UI
-    @FXML private ComboBox<String> cmbFromCurrency;
-    @FXML private ComboBox<String> cmbToCurrency;
-    @FXML private TextField txtConvertedAmount;
+    @FXML
+    private ComboBox<String> cmbFromCurrency;
+    @FXML
+    private ComboBox<String> cmbToCurrency;
+    @FXML
+    private TextField txtConvertedAmount;
 
-    @FXML private TextField searchField;
+    @FXML
+    private TextField searchField;
 
-    @FXML private TableView<Application> tableApplications;
-    @FXML private TableColumn<Application, Integer> colId;
-    @FXML private TableColumn<Application, Integer> colEntrepreneurId;
-    @FXML private TableColumn<Application, Float> colAmount;
-    @FXML private TableColumn<Application, String> colStatus;
-    @FXML private TableColumn<Application, String> colSubmissionDate;
-    @FXML private TableColumn<Application, String> colApplicationReason;
-    @FXML private TableColumn<Application, Integer> colProjectId;
-    @FXML private TableColumn<Application, String> colPaymentSchedule;
-    @FXML private TableColumn<Application, String> colAttachment;
+    @FXML
+    private TableView<Application> tableApplications;
+    @FXML
+    private TableColumn<Application, Integer> colId;
+    @FXML
+    private TableColumn<Application, Integer> colEntrepreneurId;
+    @FXML
+    private TableColumn<Application, Float> colAmount;
+    @FXML
+    private TableColumn<Application, String> colStatus;
+    @FXML
+    private TableColumn<Application, String> colSubmissionDate;
+    @FXML
+    private TableColumn<Application, String> colApplicationReason;
+    @FXML
+    private TableColumn<Application, Integer> colProjectId;
+    @FXML
+    private TableColumn<Application, String> colPaymentSchedule;
+    @FXML
+    private TableColumn<Application, String> colAttachment;
 
-    private final ICRUD<Application> service = new ApplicationService();
+    private final ApplicationService service = new ApplicationService();
     private ObservableList<Application> masterData;
     private FilteredList<Application> filteredData;
 
     private Application selectedApplication;
 
+    // Default project ID for when opened from a Startup card
+    // selectedApplication;
+
     // Services
     private final CurrencyConverterService currencyService = new CurrencyConverterService();
     private final LanguageToolService languageToolService = new LanguageToolService();
-    public void setEntrepreneurId(int entrepreneurId) {
-        this.entrepreneurId = entrepreneurId;
+
+    private int currentProjectId = -1;
+
+    public void setInitialData(int entrepreneurId, int projectId) {
+        this.currentProjectId = projectId;
+
         if (txtEntrepreneurId != null) {
             txtEntrepreneurId.setText(String.valueOf(entrepreneurId));
             txtEntrepreneurId.setDisable(true);
         }
+        if (txtProjectId != null) {
+            txtProjectId.setText(String.valueOf(projectId));
+            txtProjectId.setDisable(true);
+        }
+        updateFilterPredicate();
     }
+
     @FXML
     private void backToDashboard(javafx.event.ActionEvent event) {
         try {
@@ -77,6 +112,7 @@ public class ApplicationController {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void initialize() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -90,6 +126,11 @@ public class ApplicationController {
         colAttachment.setCellValueFactory(new PropertyValueFactory<>("attachment"));
 
         setupCurrencyUi();
+
+        if (SessionManager.getUser() != null && txtEntrepreneurId != null && txtEntrepreneurId.getText().isEmpty()) {
+            txtEntrepreneurId.setText(String.valueOf(SessionManager.getUser().getId()));
+            txtEntrepreneurId.setDisable(true);
+        }
 
         loadApplications();
         setupSearch();
@@ -119,17 +160,20 @@ public class ApplicationController {
     }
 
     private void safeAutoConvert() {
-        if (txtAmount == null) return;
+        if (txtAmount == null)
+            return;
         String a = txtAmount.getText();
         if (a == null || a.isBlank()) {
-            if (txtConvertedAmount != null) txtConvertedAmount.clear();
+            if (txtConvertedAmount != null)
+                txtConvertedAmount.clear();
             return;
         }
         try {
             Double.parseDouble(a.trim().replace(",", "."));
             convertAmount();
         } catch (Exception ignored) {
-            if (txtConvertedAmount != null) txtConvertedAmount.clear();
+            if (txtConvertedAmount != null)
+                txtConvertedAmount.clear();
         }
     }
 
@@ -223,23 +267,37 @@ public class ApplicationController {
     }
 
     private void setupSearch() {
-        if (searchField == null) return;
+        if (searchField == null)
+            return;
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(app -> {
-                if (newValue == null || newValue.isEmpty()) return true;
-                String keyword = newValue.toLowerCase();
+            updateFilterPredicate();
+        });
+    }
 
-                return String.valueOf(app.getId()).contains(keyword)
-                        || String.valueOf(app.getEntrepreneurId()).contains(keyword)
-                        || String.valueOf(app.getAmount()).contains(keyword)
-                        || safeLower(app.getStatus()).contains(keyword)
-                        || safeLower(app.getSubmissionDate()).contains(keyword)
-                        || safeLower(app.getApplicationReason()).contains(keyword)
-                        || String.valueOf(app.getProjectId()).contains(keyword)
-                        || safeLower(app.getPaymentSchedule()).contains(keyword)
-                        || safeLower(app.getAttachment()).contains(keyword);
-            });
+    private void updateFilterPredicate() {
+        if (filteredData == null)
+            return;
+
+        filteredData.setPredicate(app -> {
+            boolean matchesProject = (currentProjectId == -1) || (app.getProjectId() == currentProjectId);
+            if (!matchesProject)
+                return false;
+
+            String searchVal = searchField != null ? searchField.getText() : "";
+            if (searchVal == null || searchVal.isEmpty())
+                return true;
+
+            String keyword = searchVal.toLowerCase();
+            return String.valueOf(app.getId()).contains(keyword)
+                    || String.valueOf(app.getEntrepreneurId()).contains(keyword)
+                    || String.valueOf(app.getAmount()).contains(keyword)
+                    || safeLower(app.getStatus()).contains(keyword)
+                    || safeLower(app.getSubmissionDate()).contains(keyword)
+                    || safeLower(app.getApplicationReason()).contains(keyword)
+                    || String.valueOf(app.getProjectId()).contains(keyword)
+                    || safeLower(app.getPaymentSchedule()).contains(keyword)
+                    || safeLower(app.getAttachment()).contains(keyword);
         });
     }
 
@@ -259,25 +317,24 @@ public class ApplicationController {
                         txtAttachment.setText(newSelection.getAttachment());
                         safeAutoConvert();
                     }
-                }
-        );
+                });
     }
 
     @FXML
     private void addApplication() {
         try {
+            int projId = (currentProjectId != -1) ? currentProjectId : Integer.parseInt(txtProjectId.getText().trim());
+            int entId = Integer.parseInt(txtEntrepreneurId.getText().trim());
             Application app = new Application(
                     0,
-                    entrepreneurId,
+                    entId,
                     Float.parseFloat(txtAmount.getText().trim().replace(",", ".")),
                     txtStatus.getText(),
                     txtSubmissionDate.getText(),
                     txtApplicationReason.getText(),
-                    Integer.parseInt(txtProjectId.getText().trim()),
+                    projId,
                     txtPaymentSchedule.getText(),
-                    txtAttachment.getText()
-            );
-
+                    txtAttachment.getText());
             Application inserted = service.add(app);
             if (inserted == null) {
                 showAlert("Error", "Insert failed. Check DB constraints (entrepreneurId must exist in users).");
@@ -300,12 +357,14 @@ public class ApplicationController {
         }
 
         try {
-            selectedApplication.setEntrepreneurId(entrepreneurId);
+            int projId = (currentProjectId != -1) ? currentProjectId : Integer.parseInt(txtProjectId.getText().trim());
+            int entId = Integer.parseInt(txtEntrepreneurId.getText().trim());
+            selectedApplication.setEntrepreneurId(entId);
             selectedApplication.setAmount(Float.parseFloat(txtAmount.getText().trim().replace(",", ".")));
             selectedApplication.setStatus(txtStatus.getText());
             selectedApplication.setSubmissionDate(txtSubmissionDate.getText());
             selectedApplication.setApplicationReason(txtApplicationReason.getText());
-            selectedApplication.setProjectId(Integer.parseInt(txtProjectId.getText().trim()));
+            selectedApplication.setProjectId(projId);
             selectedApplication.setPaymentSchedule(txtPaymentSchedule.getText());
             selectedApplication.setAttachment(txtAttachment.getText());
 
@@ -337,15 +396,18 @@ public class ApplicationController {
     }
 
     private void clearFields() {
-        txtEntrepreneurId.clear();
+        if (txtEntrepreneurId != null && !txtEntrepreneurId.isDisabled())
+            txtEntrepreneurId.clear();
         txtAmount.clear();
         txtStatus.clear();
         txtSubmissionDate.clear();
         txtApplicationReason.clear();
-        txtProjectId.clear();
+        if (txtProjectId != null && !txtProjectId.isDisabled())
+            txtProjectId.clear();
         txtPaymentSchedule.clear();
         txtAttachment.clear();
-        if (txtConvertedAmount != null) txtConvertedAmount.clear();
+        if (txtConvertedAmount != null)
+            txtConvertedAmount.clear();
         selectedApplication = null;
         tableApplications.getSelectionModel().clearSelection();
     }
@@ -397,8 +459,7 @@ public class ApplicationController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
 
         File selectedFile = fileChooser.showOpenDialog(txtAttachment.getScene().getWindow());
         if (selectedFile != null) {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<StackPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #f0f2f5;"
+           stylesheets="@../css/mentorship.css"
+           xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="tn.esprit.GUI.LoginController">
+
+    <VBox alignment="CENTER" maxWidth="450.0" spacing="30.0" styleClass="glass-card">
+        <padding>
+            <Insets bottom="50.0" left="40.0" right="40.0" top="50.0" />
+        </padding>
+
+        <VBox alignment="CENTER" spacing="8.0">
+            <Label styleClass="brand-title" text="StartupFlow Tunisia" />
+            <Label styleClass="brand-sub" text="Mentorship Module" />
+        </VBox>
+
+        <Separator prefWidth="200.0" styleClass="sep" />
+
+        <VBox alignment="CENTER" spacing="20.0">
+            <Label style="-fx-font-size: 18px; -fx-font-weight: 700; -fx-text-fill: #5a4bd6;" text="Choose Your Role to Enter" />
+            
+            <Button maxWidth="Infinity" onAction="#onMentorLogin" prefHeight="60.0" styleClass="btn-primary" 
+                    text="👨‍🏫 Enter as Mentor" style="-fx-font-size: 16px; -fx-padding: 0 30;" />
+            
+            <Button maxWidth="Infinity" onAction="#onEvaluatorLogin" prefHeight="60.0" styleClass="btn-secondary" 
+                    text="🚀 Enter as Entrepreneur" style="-fx-font-size: 16px; -fx-padding: 0 30;" />
+        </VBox>
+
+        <Label fx:id="msgLabel" style="-fx-text-fill: #e0134a; -fx-font-weight: 600;" />
+        
+        <Text fill="#9b8acc" strokeType="OUTSIDE" strokeWidth="0.0" text="Simplified simulation mode enabled" textAlignment="CENTER">
+            <style>
+                -fx-font-size: 12px;
+                -fx-font-style: italic;
+            </style>
+        </Text>
+    </VBox>
+
+</StackPane>

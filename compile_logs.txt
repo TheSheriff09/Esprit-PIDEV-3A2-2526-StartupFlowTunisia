@@ -1,0 +1,452 @@
+﻿[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.example:MyProject:jar:1.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.systemPath' for net.java.dev.jna:jna:jar should not point at files within the project directory, ${project.basedir}/lib/jna-5.10.0.jar will be unresolvable by dependent projects @ line 60, column 25
+[WARNING] 'dependencies.dependency.systemPath' for net.java.dev.jna:jna-platform:jar should not point at files within the project directory, ${project.basedir}/lib/jna-platform-5.10.0.jar will be unresolvable by dependent projects @ line 67, column 25
+[WARNING] 'dependencies.dependency.systemPath' for com.alphacephei:vosk:jar should not point at files within the project directory, ${project.basedir}/lib/vosk-0.3.32.jar will be unresolvable by dependent projects @ line 74, column 25
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] 
+[INFO] -----------------------< org.example:MyProject >------------------------
+[INFO] Building MyProject 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ MyProject ---
+[INFO] Deleting C:\Users\zaiem yousssef\IdeaProjects\WORKSHOP\WORKSHOP\target
+[INFO] 
+[INFO] --- resources:3.3.0:resources (default-resources) @ MyProject ---
+[INFO] Copying 364 resources
+[INFO] 
+[INFO] --- compiler:3.10.1:compile (default-compile) @ MyProject ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 145 source files to C:\Users\zaiem yousssef\IdeaProjects\WORKSHOP\WORKSHOP\target\classes
+[INFO] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/CurrencyConverterService.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/CurrencyConverterService.java: Recompile with -Xlint:deprecation for details.
+[INFO] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/PdfExporter.java: C:\Users\zaiem yousssef\IdeaProjects\WORKSHOP\WORKSHOP\src\main\java\tn\esprit\utils\PdfExporter.java uses unchecked or unsafe operations.
+[INFO] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/PdfExporter.java: Recompile with -Xlint:unchecked for details.
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/SessionContext.java:[9,8] class SessionManager is public, should be declared in a file named SessionManager.java
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/SessionManager.java:[17,8] duplicate class: tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[10,44] cannot find symbol
+  symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[10,48] cannot find symbol
+  symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[10,40] cannot find symbol
+  symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/AnalyticsService.java:[36,19] cannot find symbol
+  symbol:   class UserService
+  location: class tn.esprit.services.AnalyticsService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/RecommendationService.java:[10,19] cannot find symbol
+  symbol:   class UserService
+  location: class tn.esprit.services.RecommendationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[17,26] cannot find symbol
+  symbol:   class UserService
+  location: package tn.esprit.services
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[12,40] cannot find symbol
+  symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[71,19] cannot find symbol
+  symbol:   class UserService
+  location: class tn.esprit.GUI.BookingController
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[11,41] cannot find symbol
+  symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[18,26] cannot find symbol
+  symbol:   class UserService
+  location: package tn.esprit.services
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[72,19] cannot find symbol
+  symbol:   class UserService
+  location: class tn.esprit.GUI.ScheduleController
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/StartupService.java:[131,43] cannot find symbol
+  symbol:   method isLoggedIn()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/StartupService.java:[132,57] cannot find symbol
+  symbol:   method getRole()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ReclamationAdminController.java:[229,28] cannot find symbol
+  symbol:   method isLoggedIn()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ForumAdminController.java:[70,28] cannot find symbol
+  symbol:   method requireRole(javafx.scene.control.TableView<tn.esprit.entities.ForumPost>,java.lang.String)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ForumFeedController.java:[56,28] cannot find symbol
+  symbol:   method requireLogin(javafx.scene.layout.VBox)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ForumFeedController.java:[71,41] cannot find symbol
+  symbol:   method isAdmin()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ManageProfileController.java:[42,28] cannot find symbol
+  symbol:   method requireLogin(javafx.scene.control.TextField)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ManageProfileController.java:[55,23] cannot find symbol
+  symbol:   method login(tn.esprit.entities.User)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ManageProfileController.java:[110,27] cannot find symbol
+  symbol:   method login(tn.esprit.entities.User)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[18,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[39,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[52,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[67,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/TopBarHelper.java:[28,44] cannot find symbol
+  symbol:   method getDisplayName()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/TopBarHelper.java:[53,31] cannot find symbol
+  symbol:   method isAdmin()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/startup/StartupViewController.java:[95,28] cannot find symbol
+  symbol:   method requireLogin(javafx.scene.layout.FlowPane)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/startup/StartupViewController.java:[108,47] cannot find symbol
+  symbol:   method isAdmin()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/startup/StartupViewController.java:[109,47] cannot find symbol
+  symbol:   method isAdmin()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SignupController.java:[102,35] cannot find symbol
+  symbol:   method login(tn.esprit.entities.User)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SwotController.java:[54,44] cannot find symbol
+  symbol:   method requireLogin(javafx.scene.control.ComboBox<tn.esprit.entities.Startup>)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BusinessPlanService.java:[103,43] cannot find symbol
+  symbol:   method isLoggedIn()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BusinessPlanService.java:[104,82] cannot find symbol
+  symbol:   method getRole()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BusinessPlanService.java:[115,43] cannot find symbol
+  symbol:   method isLoggedIn()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BusinessPlanService.java:[116,82] cannot find symbol
+  symbol:   method getRole()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/AnalyticsService.java:[41,32] cannot find symbol
+  symbol:   class UserService
+  location: class tn.esprit.services.AnalyticsService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[18,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[62,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[75,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[99,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[18,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[57,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[70,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[105,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/RecommendationService.java:[14,32] cannot find symbol
+  symbol:   class UserService
+  location: class tn.esprit.services.RecommendationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[138,11] cannot find symbol
+  symbol:   method toggleTheme()
+  location: variable tm of type tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[143,15] cannot find symbol
+  symbol:   method applyTheme(javafx.scene.Scene)
+  location: variable tm of type tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[151,50] cannot find symbol
+  symbol:   method isDarkMode()
+  location: class tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[160,23] cannot find symbol
+  symbol:   method logout(<nulltype>)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[166,39] cannot find symbol
+  symbol:   method applyTheme(javafx.scene.Scene)
+  location: class tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[181,39] cannot find symbol
+  symbol:   method applyTheme(javafx.scene.Scene)
+  location: class tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/EntrepreneurDashboardController.java:[28,28] cannot find symbol
+  symbol:   method requireLogin(javafx.scene.control.MenuButton)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/admin/AdminDashboardController.java:[67,28] cannot find symbol
+  symbol:   method requireRole(javafx.scene.control.Button,java.lang.String)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[71,49] cannot find symbol
+  symbol:   class UserService
+  location: class tn.esprit.GUI.BookingController
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[20,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[55,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[68,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[93,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[19,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[51,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[64,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[84,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[45,51] cannot find symbol
+  symbol:   method getTotalFundingRequested()
+  location: variable applicationService of type tn.esprit.Services.ApplicationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[50,44] cannot find symbol
+  symbol:   method getAverageEvaluationScore()
+  location: variable evaluationService of type tn.esprit.Services.EvaluationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[57,56] cannot find symbol
+  symbol:   method getApplicationStatusCounts()
+  location: variable applicationService of type tn.esprit.Services.ApplicationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[76,55] cannot find symbol
+  symbol:   method getEvaluationDecisionCounts()
+  location: variable evaluationService of type tn.esprit.Services.EvaluationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/RoleChoiceController.java:[41,27] cannot find symbol
+  symbol:   method login(tn.esprit.entities.User)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/NavigationManager.java:[57,28] cannot find symbol
+  symbol:   method isLoggedIn()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/NavigationManager.java:[61,37] cannot find symbol
+  symbol:   method getRole()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/NavigationManager.java:[76,23] cannot find symbol
+  symbol:   method logout()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorDashboardController.java:[22,28] cannot find symbol
+  symbol:   method requireLogin(javafx.scene.control.MenuButton)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/LoginController.java:[48,23] cannot find symbol
+  symbol:   method login(tn.esprit.entities.User)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/LoginController.java:[88,35] cannot find symbol
+  symbol:   method login(tn.esprit.entities.User)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/DashboardAdminController.java:[43,28] cannot find symbol
+  symbol:   method requireRole(javafx.scene.control.Button,java.lang.String)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/DashboardAdminController.java:[65,48] cannot find symbol
+  symbol:   method getDisplayName()
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[72,45] cannot find symbol
+  symbol:   class UserService
+  location: class tn.esprit.GUI.ScheduleController
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/EvaluatorDashboardController.java:[24,28] cannot find symbol
+  symbol:   method requireLogin(javafx.scene.control.MenuButton)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/EvaluatorExtraController.java:[37,39] cannot find symbol
+  symbol:   method login(tn.esprit.entities.User)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/UserManagementController.java:[81,28] cannot find symbol
+  symbol:   method requireRole(javafx.scene.control.TableView<tn.esprit.entities.User>,java.lang.String)
+  location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorExtraController.java:[41,39] cannot find symbol
+  symbol:   method login(tn.esprit.entities.User)
+  location: class tn.esprit.utils.SessionManager
+[INFO] 82 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.680 s
+[INFO] Finished at: 2026-03-05T04:18:09+01:00
+[INFO] ------------------------------------------------------------------------
+[WARNING] 
+[WARNING] Plugin validation issues were detected in 2 plugin(s)
+[WARNING] 
+[WARNING]  * org.apache.maven.plugins:maven-compiler-plugin:3.10.1
+[WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0
+[WARNING] 
+[WARNING] For more or less details, use 'maven.plugin.validation' property with one of the values (case insensitive): [BRIEF, DEFAULT, VERBOSE]
+[WARNING] 
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.10.1:compile (default-compile) on project MyProject: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/SessionContext.java:[9,8] class SessionManager is public, should be declared in a file named SessionManager.java
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/SessionManager.java:[17,8] duplicate class: tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[10,44] cannot find symbol
+[ERROR]   symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[10,48] cannot find symbol
+[ERROR]   symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[10,40] cannot find symbol
+[ERROR]   symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/AnalyticsService.java:[36,19] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: class tn.esprit.services.AnalyticsService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/RecommendationService.java:[10,19] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: class tn.esprit.services.RecommendationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[17,26] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: package tn.esprit.services
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[12,40] cannot find symbol
+[ERROR]   symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[71,19] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: class tn.esprit.GUI.BookingController
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[11,41] cannot find symbol
+[ERROR]   symbol: class ICRUD
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[18,26] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: package tn.esprit.services
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[72,19] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: class tn.esprit.GUI.ScheduleController
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/StartupService.java:[131,43] cannot find symbol
+[ERROR]   symbol:   method isLoggedIn()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/StartupService.java:[132,57] cannot find symbol
+[ERROR]   symbol:   method getRole()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ReclamationAdminController.java:[229,28] cannot find symbol
+[ERROR]   symbol:   method isLoggedIn()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ForumAdminController.java:[70,28] cannot find symbol
+[ERROR]   symbol:   method requireRole(javafx.scene.control.TableView<tn.esprit.entities.ForumPost>,java.lang.String)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ForumFeedController.java:[56,28] cannot find symbol
+[ERROR]   symbol:   method requireLogin(javafx.scene.layout.VBox)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ForumFeedController.java:[71,41] cannot find symbol
+[ERROR]   symbol:   method isAdmin()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ManageProfileController.java:[42,28] cannot find symbol
+[ERROR]   symbol:   method requireLogin(javafx.scene.control.TextField)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ManageProfileController.java:[55,23] cannot find symbol
+[ERROR]   symbol:   method login(tn.esprit.entities.User)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ManageProfileController.java:[110,27] cannot find symbol
+[ERROR]   symbol:   method login(tn.esprit.entities.User)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[18,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[39,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[52,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionNoteService.java:[67,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/TopBarHelper.java:[28,44] cannot find symbol
+[ERROR]   symbol:   method getDisplayName()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/TopBarHelper.java:[53,31] cannot find symbol
+[ERROR]   symbol:   method isAdmin()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/startup/StartupViewController.java:[95,28] cannot find symbol
+[ERROR]   symbol:   method requireLogin(javafx.scene.layout.FlowPane)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/startup/StartupViewController.java:[108,47] cannot find symbol
+[ERROR]   symbol:   method isAdmin()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/startup/StartupViewController.java:[109,47] cannot find symbol
+[ERROR]   symbol:   method isAdmin()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SignupController.java:[102,35] cannot find symbol
+[ERROR]   symbol:   method login(tn.esprit.entities.User)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/SwotController.java:[54,44] cannot find symbol
+[ERROR]   symbol:   method requireLogin(javafx.scene.control.ComboBox<tn.esprit.entities.Startup>)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BusinessPlanService.java:[103,43] cannot find symbol
+[ERROR]   symbol:   method isLoggedIn()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BusinessPlanService.java:[104,82] cannot find symbol
+[ERROR]   symbol:   method getRole()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BusinessPlanService.java:[115,43] cannot find symbol
+[ERROR]   symbol:   method isLoggedIn()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BusinessPlanService.java:[116,82] cannot find symbol
+[ERROR]   symbol:   method getRole()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/AnalyticsService.java:[41,32] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: class tn.esprit.services.AnalyticsService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[18,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[62,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[75,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionFeedbackService.java:[99,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[18,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[57,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[70,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/SessionService.java:[105,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/RecommendationService.java:[14,32] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: class tn.esprit.services.RecommendationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[138,11] cannot find symbol
+[ERROR]   symbol:   method toggleTheme()
+[ERROR]   location: variable tm of type tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[143,15] cannot find symbol
+[ERROR]   symbol:   method applyTheme(javafx.scene.Scene)
+[ERROR]   location: variable tm of type tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[151,50] cannot find symbol
+[ERROR]   symbol:   method isDarkMode()
+[ERROR]   location: class tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[160,23] cannot find symbol
+[ERROR]   symbol:   method logout(<nulltype>)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[166,39] cannot find symbol
+[ERROR]   symbol:   method applyTheme(javafx.scene.Scene)
+[ERROR]   location: class tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorshipDashboardController.java:[181,39] cannot find symbol
+[ERROR]   symbol:   method applyTheme(javafx.scene.Scene)
+[ERROR]   location: class tn.esprit.utils.ThemeManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/EntrepreneurDashboardController.java:[28,28] cannot find symbol
+[ERROR]   symbol:   method requireLogin(javafx.scene.control.MenuButton)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/admin/AdminDashboardController.java:[67,28] cannot find symbol
+[ERROR]   symbol:   method requireRole(javafx.scene.control.Button,java.lang.String)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/BookingController.java:[71,49] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: class tn.esprit.GUI.BookingController
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[20,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[55,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[68,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/BookingService.java:[93,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[19,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[51,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[64,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/Services/ScheduleService.java:[84,5] method does not override or implement a method from a supertype
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[45,51] cannot find symbol
+[ERROR]   symbol:   method getTotalFundingRequested()
+[ERROR]   location: variable applicationService of type tn.esprit.Services.ApplicationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[50,44] cannot find symbol
+[ERROR]   symbol:   method getAverageEvaluationScore()
+[ERROR]   location: variable evaluationService of type tn.esprit.Services.EvaluationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[57,56] cannot find symbol
+[ERROR]   symbol:   method getApplicationStatusCounts()
+[ERROR]   location: variable applicationService of type tn.esprit.Services.ApplicationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/AdminFundingDashboardController.java:[76,55] cannot find symbol
+[ERROR]   symbol:   method getEvaluationDecisionCounts()
+[ERROR]   location: variable evaluationService of type tn.esprit.Services.EvaluationService
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/RoleChoiceController.java:[41,27] cannot find symbol
+[ERROR]   symbol:   method login(tn.esprit.entities.User)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/NavigationManager.java:[57,28] cannot find symbol
+[ERROR]   symbol:   method isLoggedIn()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/NavigationManager.java:[61,37] cannot find symbol
+[ERROR]   symbol:   method getRole()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/utils/NavigationManager.java:[76,23] cannot find symbol
+[ERROR]   symbol:   method logout()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorDashboardController.java:[22,28] cannot find symbol
+[ERROR]   symbol:   method requireLogin(javafx.scene.control.MenuButton)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/LoginController.java:[48,23] cannot find symbol
+[ERROR]   symbol:   method login(tn.esprit.entities.User)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/LoginController.java:[88,35] cannot find symbol
+[ERROR]   symbol:   method login(tn.esprit.entities.User)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/DashboardAdminController.java:[43,28] cannot find symbol
+[ERROR]   symbol:   method requireRole(javafx.scene.control.Button,java.lang.String)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/DashboardAdminController.java:[65,48] cannot find symbol
+[ERROR]   symbol:   method getDisplayName()
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/ScheduleController.java:[72,45] cannot find symbol
+[ERROR]   symbol:   class UserService
+[ERROR]   location: class tn.esprit.GUI.ScheduleController
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/EvaluatorDashboardController.java:[24,28] cannot find symbol
+[ERROR]   symbol:   method requireLogin(javafx.scene.control.MenuButton)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/EvaluatorExtraController.java:[37,39] cannot find symbol
+[ERROR]   symbol:   method login(tn.esprit.entities.User)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/UserManagementController.java:[81,28] cannot find symbol
+[ERROR]   symbol:   method requireRole(javafx.scene.control.TableView<tn.esprit.entities.User>,java.lang.String)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] /C:/Users/zaiem yousssef/IdeaProjects/WORKSHOP/WORKSHOP/src/main/java/tn/esprit/GUI/MentorExtraController.java:[41,39] cannot find symbol
+[ERROR]   symbol:   method login(tn.esprit.entities.User)
+[ERROR]   location: class tn.esprit.utils.SessionManager
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
